@@ -1,6 +1,7 @@
 import React from "react";
-import DropboxEntry from "./DropboxEntry";
+
 import {} from "./styles";
+import DropboxEntry from "./DropboxEntry";
 
 interface Dropbox {
   id: string;

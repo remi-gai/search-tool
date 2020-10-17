@@ -55,6 +55,14 @@ interface Twitter {
   matching_terms: string[];
 }
 
+enum Category {
+  ALL = "ALL",
+  CONTACTS = "CONTACTS",
+  DROPBOX = "DROPBOX",
+  SLACK = "SLACK",
+  TWITTER = "TWITTER",
+}
+
 function App() {
   const [calendarData, setCalendar] = useState(
     calendarDummy.calendar as Calendar[]
@@ -65,14 +73,18 @@ function App() {
   const [dropboxData, setDropbox] = useState(dropboxDummy.dropbox as Dropbox[]);
   const [slackData, setSlack] = useState(slackDummy.slack as Slack[]);
   const [twitterData, setTwitter] = useState(twitterDummy.twitter as Twitter[]);
-  const [category, setCategory] = useState("All" as string);
+  const [category, setCategory] = useState("ALL" as string);
+
+  const filterCategory = (category: Category) => {
+    setCategory(category);
+  };
 
   return (
     <WindowWrapper>
       <SearchBox />
 
       <ResultsOuterWrapper>
-        <FilterMenu />
+        <FilterMenu filterCategory={filterCategory} />
         <SearchResult
           calendarData={calendarData}
           contactsData={contactsData}

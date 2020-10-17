@@ -68,7 +68,7 @@ function SearchResult({
   category,
 }: Props) {
   let categories;
-  if (category === "All") {
+  if (category === "ALL") {
     categories = (
       <div>
         <ContactsList contactsData={contactsData} />
@@ -78,31 +78,31 @@ function SearchResult({
         <TwitterList twitterData={twitterData} />
       </div>
     );
-  } else if (category === "Contacts") {
+  } else if (category === "CONTACTS") {
     categories = (
       <div>
         <ContactsList contactsData={contactsData} />
       </div>
     );
-  } else if (category === "Calendar") {
+  } else if (category === "CALENDAR") {
     categories = (
       <div>
         <CalendarList calendarData={calendarData} />
       </div>
     );
-  } else if (category === "Dropbox") {
+  } else if (category === "DROPBOX") {
     categories = (
       <div>
         <DropboxList dropboxData={dropboxData} />
       </div>
     );
-  } else if (category === "Slack") {
+  } else if (category === "SLACK") {
     categories = (
       <div>
         <SlackList slackData={slackData} />
       </div>
     );
-  } else if (category === "Tweet") {
+  } else if (category === "TWITTER") {
     categories = (
       <div>
         <TwitterList twitterData={twitterData} />
