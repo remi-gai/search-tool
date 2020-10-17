@@ -7,48 +7,13 @@ import DropboxList from "../Dropbox/DropboxList";
 import SlackList from "../Slack/SlackList";
 import TwitterList from "../Twitter/TwitterList";
 
-interface Calendar {
-  date: string;
-  id: string;
-  invitees: string;
-  title: string;
-  matching_terms: string[];
-}
-
-interface Contacts {
-  id: string;
-  name: string;
-  company: string;
-  emails: string[];
-  phones: string[];
-  matching_terms: string[];
-  last_contact: string;
-}
-
-interface Dropbox {
-  id: string;
-  path: string;
-  title: string;
-  shared_with: string[];
-  matching_terms: string[];
-  created: string;
-}
-
-interface Slack {
-  id: string;
-  channel: string;
-  author: string;
-  message: string;
-  timestamp: string;
-  matching_terms: string[];
-}
-
-interface Twitter {
-  user: string;
-  message: string;
-  timestamp: string;
-  matching_terms: string[];
-}
+import {
+  Calendar,
+  Contacts,
+  Dropbox,
+  Slack,
+  Twitter,
+} from "../../interfaces/interfaces";
 
 interface Props {
   calendarData: Calendar[];

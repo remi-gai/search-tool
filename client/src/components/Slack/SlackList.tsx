@@ -2,14 +2,7 @@ import React from "react";
 import SlackEntry from "./SlackEntry";
 import {} from "./styles";
 
-interface Slack {
-  id: string;
-  channel: string;
-  author: string;
-  message: string;
-  timestamp: string;
-  matching_terms: string[];
-}
+import { Slack } from "../../interfaces/interfaces";
 
 interface Props {
   slackData: Slack[];

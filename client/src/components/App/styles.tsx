@@ -22,7 +22,6 @@ const ResultsOuterWrapper = styled.div`
   flex-direction: row;
   justify-content: space-around;
   padding-top: 50px;
-  height: 1000px;
   border: solid 1px black;
 `;
 

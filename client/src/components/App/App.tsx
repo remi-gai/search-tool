@@ -11,57 +11,14 @@ import FilterMenu from "../FilterMenu/FilterMenu";
 import SearchResult from "../SearchResult/SearchResult";
 
 import { WindowWrapper, ResultsOuterWrapper } from "./styles";
-
-interface Calendar {
-  date: string;
-  id: string;
-  invitees: string;
-  title: string;
-  matching_terms: string[];
-}
-
-interface Contacts {
-  id: string;
-  name: string;
-  company: string;
-  emails: string[];
-  phones: string[];
-  matching_terms: string[];
-  last_contact: string;
-}
-
-interface Dropbox {
-  id: string;
-  path: string;
-  title: string;
-  shared_with: string[];
-  matching_terms: string[];
-  created: string;
-}
-
-interface Slack {
-  id: string;
-  channel: string;
-  author: string;
-  message: string;
-  timestamp: string;
-  matching_terms: string[];
-}
-
-interface Twitter {
-  user: string;
-  message: string;
-  timestamp: string;
-  matching_terms: string[];
-}
-
-enum Category {
-  ALL = "ALL",
-  CONTACTS = "CONTACTS",
-  DROPBOX = "DROPBOX",
-  SLACK = "SLACK",
-  TWITTER = "TWITTER",
-}
+import {
+  Calendar,
+  Contacts,
+  Dropbox,
+  Slack,
+  Twitter,
+  Category,
+} from "../../interfaces/interfaces";
 
 function App() {
   const [calendarData, setCalendar] = useState(
@@ -74,6 +31,8 @@ function App() {
   const [slackData, setSlack] = useState(slackDummy.slack as Slack[]);
   const [twitterData, setTwitter] = useState(twitterDummy.twitter as Twitter[]);
   const [category, setCategory] = useState("ALL" as string);
+
+  //useEffectToQuery Data
 
   const filterCategory = (category: Category) => {
     setCategory(category);

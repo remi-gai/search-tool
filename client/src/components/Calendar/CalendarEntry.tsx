@@ -11,14 +11,7 @@ import {
   CalendarTitle,
   CalendarInvitees,
 } from "./styles";
-
-interface Calendar {
-  date: string;
-  id: string;
-  invitees: string;
-  title: string;
-  matching_terms: string[];
-}
+import { Calendar } from "../../interfaces/interfaces";
 
 interface Props {
   calendar: Calendar;

@@ -12,14 +12,8 @@ import {
   SlackMessage,
 } from "./styles";
 
-interface Slack {
-  id: string;
-  channel: string;
-  author: string;
-  message: string;
-  timestamp: string;
-  matching_terms: string[];
-}
+import { Slack } from "../../interfaces/interfaces";
+
 interface Props {
   slackMessage: Slack;
 }

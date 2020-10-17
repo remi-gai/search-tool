@@ -3,14 +3,7 @@ import React from "react";
 import {} from "./styles";
 import DropboxEntry from "./DropboxEntry";
 
-interface Dropbox {
-  id: string;
-  path: string;
-  title: string;
-  shared_with: string[];
-  matching_terms: string[];
-  created: string;
-}
+import { Dropbox } from "../../interfaces/interfaces";
 
 interface Props {
   dropboxData: Dropbox[];

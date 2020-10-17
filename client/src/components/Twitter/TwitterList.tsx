@@ -2,12 +2,7 @@ import React from "react";
 import TwitterEntry from "./TwitterEntry";
 import {} from "./styles";
 
-interface Twitter {
-  user: string;
-  message: string;
-  timestamp: string;
-  matching_terms: string[];
-}
+import { Twitter } from "../../interfaces/interfaces";
 
 interface Props {
   twitterData: Twitter[];

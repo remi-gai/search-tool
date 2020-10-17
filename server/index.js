@@ -5,5 +5,7 @@ const app = express();
 
 const PORT = 3000;
 
+// write convert JSON to hashmap
+
 app.use(express.static(path.join(__dirname, "../client/dist")));
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));

@@ -12,12 +12,7 @@ import {
   TwitterMessage,
 } from "./styles";
 
-interface Twitter {
-  user: string;
-  message: string;
-  timestamp: string;
-  matching_terms: string[];
-}
+import { Twitter } from "../../interfaces/interfaces";
 
 interface Props {
   twitterMessage: Twitter;

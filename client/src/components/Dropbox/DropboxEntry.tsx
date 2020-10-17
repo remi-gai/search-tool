@@ -12,14 +12,7 @@ import {
   DropboxPath,
 } from "./styles";
 
-interface Dropbox {
-  id: string;
-  path: string;
-  title: string;
-  shared_with: string[];
-  matching_terms: string[];
-  created: string;
-}
+import { Dropbox } from "../../interfaces/interfaces";
 
 interface Props {
   dropboxFile: Dropbox;

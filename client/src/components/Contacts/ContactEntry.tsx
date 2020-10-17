@@ -12,15 +12,7 @@ import {
   ContactDate,
 } from "./styles";
 
-interface Contacts {
-  id: string;
-  name: string;
-  company: string;
-  emails: string[];
-  phones: string[];
-  matching_terms: string[];
-  last_contact: string;
-}
+import { Contacts } from "../../interfaces/interfaces";
 
 interface Props {
   contact: Contacts;
