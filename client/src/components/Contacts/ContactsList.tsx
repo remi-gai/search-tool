@@ -1,4 +1,5 @@
 import React from "react";
+import ContactEntry from "./ContactEntry";
 
 import {} from "./styles";
 
@@ -17,7 +18,13 @@ interface Props {
 }
 
 function ContactsList({ contactsData }: Props) {
-  return <div></div>;
+  return (
+    <div>
+      {contactsData.map((contact) => {
+        return <ContactEntry contact={contact} />;
+      })}
+    </div>
+  );
 }
 
 export default ContactsList;
