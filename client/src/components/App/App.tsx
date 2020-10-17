@@ -1,4 +1,5 @@
 import React, { useState, useEffect, memo } from "react";
+import axios from "axios";
 
 import calendarDummy from "../../data/calendar";
 import contactsDummy from "../../data/contacts.js";
@@ -21,21 +22,22 @@ import {
 } from "../../interfaces/interfaces";
 
 function App() {
-  const [calendarData, setCalendar] = useState(
-    calendarDummy.calendar as Calendar[]
-  );
-  const [contactsData, setContacts] = useState(
-    contactsDummy.contacts as Contacts[]
-  );
-  const [dropboxData, setDropbox] = useState(dropboxDummy.dropbox as Dropbox[]);
-  const [slackData, setSlack] = useState(slackDummy.slack as Slack[]);
-  const [twitterData, setTwitter] = useState(twitterDummy.twitter as Twitter[]);
+  const [calendarData, setCalendar] = useState([] as Calendar[]);
+  const [contactsData, setContacts] = useState([] as Contacts[]);
+  const [dropboxData, setDropbox] = useState([] as Dropbox[]);
+  const [slackData, setSlack] = useState([] as Slack[]);
+  const [twitterData, setTwitter] = useState([] as Twitter[]);
   const [category, setCategory] = useState("ALL" as string);
-
-  //useEffectToQuery Data
 
   const filterCategory = (category: Category) => {
     setCategory(category);
+  };
+
+  const getSearchResults = (searchWord: string) => {
+    axios
+      .get("/api/results/" + searchWord)
+      .then((result) => {})
+      .catch((err) => {});
   };
 
   return (
