@@ -13,7 +13,7 @@ import SearchResult from "../SearchResult/SearchResult";
 import { WindowWrapper, ResultsOuterWrapper } from "./styles";
 
 interface Calendar {
-  dates: string;
+  date: string;
   id: string;
   invitees: string;
   title: string;

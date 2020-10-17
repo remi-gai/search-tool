@@ -1,5 +1,5 @@
 import React from "react";
-
+import DropboxEntry from "./DropboxEntry";
 import {} from "./styles";
 
 interface Dropbox {
@@ -16,7 +16,13 @@ interface Props {
 }
 
 function DropboxList({ dropboxData }: Props) {
-  return <div></div>;
+  return (
+    <div>
+      {dropboxData.map((dropboxFile) => {
+        return <DropboxEntry dropboxFile={dropboxFile} />;
+      })}
+    </div>
+  );
 }
 
 export default DropboxList;

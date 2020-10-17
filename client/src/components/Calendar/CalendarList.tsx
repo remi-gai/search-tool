@@ -1,9 +1,9 @@
 import React from "react";
-
+import CalendarEntry from "./CalendarEntry";
 import {} from "./styles";
 
 interface Calendar {
-  dates: string;
+  date: string;
   id: string;
   invitees: string;
   title: string;
@@ -18,7 +18,7 @@ function CalendarList({ calendarData }: Props) {
   return (
     <div>
       {calendarData.map((calendar) => {
-        return <div>calendar.title</div>;
+        return <CalendarEntry calendar={calendar} />;
       })}
     </div>
   );

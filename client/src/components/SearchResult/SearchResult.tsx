@@ -8,7 +8,7 @@ import SlackList from "../Slack/SlackList";
 import TwitterList from "../Twitter/TwitterList";
 
 interface Calendar {
-  dates: string;
+  date: string;
   id: string;
   invitees: string;
   title: string;
