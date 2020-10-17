@@ -11,4 +11,8 @@ const SearchInput = styled.input`
   height: 80px;
 `;
 
-export { SearchBoxWrapper, SearchInput };
+const SubmitButton = styled.button`
+  border: 1px solid black;
+`;
+
+export { SearchBoxWrapper, SearchInput, SubmitButton };

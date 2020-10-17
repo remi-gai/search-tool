@@ -1,11 +1,17 @@
 import React from "react";
 
-import { SearchBoxWrapper, SearchInput } from "./styles";
+import { SearchBoxWrapper, SearchInput, SubmitButton } from "./styles";
 
-function SearchBox() {
+interface Props {
+  onSearchWordChange: Function;
+  onSearchWordSubmit: Function;
+}
+
+function SearchBox({ onSearchWordChange, onSearchWordSubmit }: Props) {
   return (
     <SearchBoxWrapper>
-      <SearchInput></SearchInput>
+      <SearchInput onChange={(e) => onSearchWordChange(e)}></SearchInput>
+      <SubmitButton onClick={onSearchWordSubmit}>Submit</SubmitButton>
     </SearchBoxWrapper>
   );
 }

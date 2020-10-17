@@ -22,27 +22,48 @@ import {
 } from "../../interfaces/interfaces";
 
 function App() {
-  const [calendarData, setCalendar] = useState([] as Calendar[]);
   const [contactsData, setContacts] = useState([] as Contacts[]);
+  const [calendarData, setCalendar] = useState([] as Calendar[]);
   const [dropboxData, setDropbox] = useState([] as Dropbox[]);
   const [slackData, setSlack] = useState([] as Slack[]);
   const [twitterData, setTwitter] = useState([] as Twitter[]);
   const [category, setCategory] = useState("ALL" as string);
+  const [searchWord, setSearchWord] = useState("" as string);
 
   const filterCategory = (category: Category) => {
     setCategory(category);
   };
 
+  const onSearchWordChange = (e: any) => {
+    const word = e.target.value;
+    setSearchWord(word);
+  };
+
+  const onSearchWordSubmit = () => {
+    getSearchResults(searchWord);
+  };
+
   const getSearchResults = (searchWord: string) => {
     axios
       .get("/api/results/" + searchWord)
-      .then((result) => {})
-      .catch((err) => {});
+      .then((results) => {
+        setCalendar(results.data.calendar);
+        setContacts(results.data.contacts);
+        setDropbox(results.data.dropbox);
+        setSlack(results.data.slack);
+        setTwitter(results.data.tweet);
+      })
+      .catch((err) => {
+        setCategory("NO RESULTS");
+      });
   };
 
   return (
     <WindowWrapper>
-      <SearchBox />
+      <SearchBox
+        onSearchWordChange={onSearchWordChange}
+        onSearchWordSubmit={onSearchWordSubmit}
+      />
 
       <ResultsOuterWrapper>
         <FilterMenu filterCategory={filterCategory} />

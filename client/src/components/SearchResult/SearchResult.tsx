@@ -33,6 +33,11 @@ function SearchResult({
   category,
 }: Props) {
   let categories;
+  let errorMessage = (
+    <div>
+      No results were found in this category based on your keyword search.
+    </div>
+  );
   if (category === "ALL") {
     categories = (
       <div>
@@ -44,35 +49,47 @@ function SearchResult({
       </div>
     );
   } else if (category === "CONTACTS") {
-    categories = (
+    categories = contactsData.length ? (
       <div>
         <ContactsList contactsData={contactsData} />
       </div>
+    ) : (
+      errorMessage
     );
   } else if (category === "CALENDAR") {
-    categories = (
+    categories = calendarData.length ? (
       <div>
         <CalendarList calendarData={calendarData} />
       </div>
+    ) : (
+      errorMessage
     );
   } else if (category === "DROPBOX") {
-    categories = (
+    categories = dropboxData.length ? (
       <div>
         <DropboxList dropboxData={dropboxData} />
       </div>
+    ) : (
+      errorMessage
     );
   } else if (category === "SLACK") {
-    categories = (
+    categories = slackData.length ? (
       <div>
         <SlackList slackData={slackData} />
       </div>
+    ) : (
+      errorMessage
     );
   } else if (category === "TWITTER") {
-    categories = (
+    categories = twitterData.length ? (
       <div>
         <TwitterList twitterData={twitterData} />
       </div>
+    ) : (
+      errorMessage
     );
+  } else if (category === "NO RESULTS") {
+    categories = errorMessage;
   }
 
   return <SearchResultWrapper>{categories}</SearchResultWrapper>;

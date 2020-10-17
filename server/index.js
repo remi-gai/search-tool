@@ -27,7 +27,22 @@ app.get("/api/results/:search", (req, res) => {
   result.slack = getCategoryData("slack", searchTerm);
   result.tweet = getCategoryData("tweet", searchTerm);
 
-  res.send(result);
+  // if no results
+  if (
+    !result.contacts.length &&
+    !result.calendar.length &&
+    !result.dropbox.length &&
+    !result.slack.length &&
+    !result.tweet.length
+  ) {
+    res.status(404);
+    res.send("No results found");
+    res.end();
+  } else {
+    res.status(200);
+    res.send(result);
+    res.end();
+  }
 });
 
 const getCategoryData = (category, searchWord) => {

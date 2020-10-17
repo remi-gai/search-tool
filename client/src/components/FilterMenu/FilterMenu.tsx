@@ -7,7 +7,14 @@ interface Props {
 }
 
 function FilterMenu({ filterCategory }: Props) {
-  const categories = ["All", "Contacts", "Dropbox", "Slack", "Twitter"];
+  const categories = [
+    "All",
+    "Contacts",
+    "Calendar",
+    "Dropbox",
+    "Slack",
+    "Twitter",
+  ];
 
   return (
     <FilterMenuWrapper>
