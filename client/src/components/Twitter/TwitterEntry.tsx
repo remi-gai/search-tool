@@ -27,7 +27,7 @@ function TwitterEntry({ twitterMessage }: Props) {
           <TwitterIcon></TwitterIcon>
         </TwitterIconWrapper>
         <TwitterDetailsWrapper>
-          <TwitterUser>{"@" + twitterMessage.user}</TwitterUser>
+          <TwitterUser>{twitterMessage.user}</TwitterUser>
           <TwitterMessage>{twitterMessage.message}</TwitterMessage>
         </TwitterDetailsWrapper>
       </TwitterLeftWrapper>

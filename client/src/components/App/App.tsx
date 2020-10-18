@@ -32,8 +32,6 @@ function App() {
   const [searchWord, setSearchWord] = useState("" as string);
   const [searchedWord, setSearchedWord] = useState("" as string);
 
-  console.log(moment("2020-10-17 18:11:01", "YYYY-MM-DD hh:mm:ss").fromNow());
-
   useEffect(() => {
     document.addEventListener("keydown", listener);
     return () => {
@@ -64,16 +62,61 @@ function App() {
     axios
       .get("/api/results/" + searchWord)
       .then((results) => {
-        setCalendar(results.data.calendar);
-        setContacts(results.data.contacts);
-        setDropbox(results.data.dropbox);
-        setSlack(results.data.slack);
-        setTwitter(results.data.tweet);
+        // sort array based on descending time to improve search relevance
+        const sortedContacts = sortArrayByTimeDescendingOrder(
+          results.data.contacts,
+          "contacts"
+        );
+        const sortedCalendar = sortArrayByTimeDescendingOrder(
+          results.data.calendar,
+          "calendar"
+        );
+        const sortedDropbox = sortArrayByTimeDescendingOrder(
+          results.data.dropbox,
+          "dropbox"
+        );
+        const sortedSlack = sortArrayByTimeDescendingOrder(
+          results.data.slack,
+          "slack"
+        );
+        const sortedTwitter = sortArrayByTimeDescendingOrder(
+          results.data.tweet,
+          "tweet"
+        );
+
+        setContacts(sortedContacts);
+        setCalendar(sortedCalendar);
+        setDropbox(sortedDropbox);
+        setSlack(sortedSlack);
+        setTwitter(sortedTwitter);
         setSearchedWord(searchWord);
       })
       .catch((err) => {
         setSearchedWord(searchWord);
       });
+  };
+
+  const sortArrayByTimeDescendingOrder = (array: [], category: string) => {
+    let timeKey: string;
+    if (category === "contacts") {
+      timeKey = "last_contact";
+    } else if (category === "calendar") {
+      timeKey = "date";
+    } else if (category === "dropbox") {
+      timeKey = "created";
+    } else if (category === "slack" || category === "tweet") {
+      timeKey = "timestamp";
+    }
+
+    return array.sort((a, b) => {
+      const bTime = moment(b[timeKey], "YYYY-MM-DD hh:mm:ss").format(
+        "YYYYMMDDhhmmss"
+      );
+      const aTime = moment(a[timeKey], "YYYY-MM-DD hh:mm:ss").format(
+        "YYYYMMDDhhmmss"
+      );
+      return Number(bTime) - Number(aTime);
+    });
   };
 
   return (

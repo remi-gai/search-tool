@@ -16,7 +16,7 @@ module.exports = {
       emails: ["bob@acme.co"],
       phones: ["+44 171 6666 5555"],
       matching_terms: ["acme", "robert", "roe", "bob"],
-      last_contact: "2019-02-29",
+      last_contact: "2019-02-27",
     },
     {
       id: "787661",
@@ -25,7 +25,7 @@ module.exports = {
       emails: ["alice@other.co"],
       phones: ["+1 415 555 6666"],
       matching_terms: ["alice", "other", "alice smith"],
-      last_contact: "2019-02-29",
+      last_contact: "2019-02-28",
     },
   ],
 };
