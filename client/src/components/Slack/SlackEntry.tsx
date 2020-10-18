@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 
 import {
   SlackOuterWrapper,
@@ -33,7 +34,10 @@ function SlackEntry({ slackMessage }: Props) {
         </SlackDetailsWrapper>
       </SlackLeftWrapper>
       <SlackRightWrappper>
-        <SlackDate>{"Posted On: " + slackMessage.timestamp}</SlackDate>
+        <SlackDate>
+          {"Posted on: " +
+            moment(slackMessage.timestamp, "YYYY-MM-DD hh:mm:ss").fromNow()}
+        </SlackDate>
       </SlackRightWrappper>
     </SlackOuterWrapper>
   );

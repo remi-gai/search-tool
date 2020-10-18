@@ -1,5 +1,6 @@
 import React, { useState, useEffect, memo } from "react";
 import axios from "axios";
+import moment from "moment";
 
 import calendarDummy from "../../data/calendar";
 import contactsDummy from "../../data/contacts.js";
@@ -30,6 +31,8 @@ function App() {
   const [category, setCategory] = useState("ALL" as string);
   const [searchWord, setSearchWord] = useState("" as string);
   const [searchedWord, setSearchedWord] = useState("" as string);
+
+  console.log(moment("2020-10-17 18:11:01", "YYYY-MM-DD hh:mm:ss").fromNow());
 
   useEffect(() => {
     document.addEventListener("keydown", listener);

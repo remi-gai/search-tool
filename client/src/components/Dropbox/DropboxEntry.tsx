@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 
 import {
   DropboxOuterWrapper,
@@ -31,7 +32,9 @@ function DropboxEntry({ dropboxFile }: Props) {
         </DropboxDetailsWrapper>
       </DropboxLeftWrapper>
       <DropboxRightWrappper>
-        <DropboxDate>{"Creation Date: " + dropboxFile.created}</DropboxDate>
+        <DropboxDate>
+          {"Created: " + moment(dropboxFile.created, "YYYY-MM-DD").fromNow()}
+        </DropboxDate>
       </DropboxRightWrappper>
     </DropboxOuterWrapper>
   );

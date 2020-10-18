@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 
 import {
   ContactOuterWrapper,
@@ -31,7 +32,10 @@ function ContactEntry({ contact }: Props) {
         </ContactDetailsWrapper>
       </ContactLeftWrapper>
       <ContactRightWrappper>
-        <ContactDate>{"Last Contacted: " + contact.last_contact}</ContactDate>
+        <ContactDate>
+          {"Last contacted: " +
+            moment(contact.last_contact, "YYYY-MM-DD").fromNow()}
+        </ContactDate>
       </ContactRightWrappper>
     </ContactOuterWrapper>
   );

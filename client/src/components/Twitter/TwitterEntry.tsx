@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 
 import {
   TwitterOuterWrapper,
@@ -31,7 +32,10 @@ function TwitterEntry({ twitterMessage }: Props) {
         </TwitterDetailsWrapper>
       </TwitterLeftWrapper>
       <TwitterRightWrappper>
-        <TwitterDate>{"Posted On: " + twitterMessage.timestamp}</TwitterDate>
+        <TwitterDate>
+          {"Posted on: " +
+            moment(twitterMessage.timestamp, "YYYY-MM-DD").fromNow()}
+        </TwitterDate>
       </TwitterRightWrappper>
     </TwitterOuterWrapper>
   );

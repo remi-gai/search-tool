@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 
 import {
   CalendarOuterWrapper,
@@ -32,7 +33,10 @@ function CalendarEntry({ calendar }: Props) {
         </CalendarDetailsWrapper>
       </CalendarLeftWrapper>
       <CalendarRightWrappper>
-        <CalendarDate>{"Event Date: " + calendar.date}</CalendarDate>
+        <CalendarDate>
+          {"Event date: " +
+            moment(calendar.date, "YYYY-MM-DD hh:mm:ss").fromNow()}
+        </CalendarDate>
       </CalendarRightWrappper>
     </CalendarOuterWrapper>
   );
