@@ -22,6 +22,7 @@ interface Props {
   slackData: Slack[];
   twitterData: Twitter[];
   category: string;
+  searchedWord: string;
 }
 
 function SearchResult({
@@ -31,15 +32,24 @@ function SearchResult({
   slackData,
   twitterData,
   category,
+  searchedWord,
 }: Props) {
   let categories;
   let errorMessage = (
     <div>
-      No results were found in this category based on your keyword search.
+      {`Oops! We couldn't find any result for ${searchedWord}. Please try again with a different
+      query or category.`}
     </div>
   );
   if (category === "ALL") {
-    categories = (
+    const hasResults =
+      contactsData.length ||
+      calendarData.length ||
+      dropboxData.length ||
+      slackData.length ||
+      twitterData.length;
+
+    categories = hasResults ? (
       <div>
         <ContactsList contactsData={contactsData} />
         <CalendarList calendarData={calendarData} />
@@ -47,6 +57,8 @@ function SearchResult({
         <SlackList slackData={slackData} />
         <TwitterList twitterData={twitterData} />
       </div>
+    ) : (
+      errorMessage
     );
   } else if (category === "CONTACTS") {
     categories = contactsData.length ? (
@@ -88,8 +100,6 @@ function SearchResult({
     ) : (
       errorMessage
     );
-  } else if (category === "NO RESULTS") {
-    categories = errorMessage;
   }
 
   return <SearchResultWrapper>{categories}</SearchResultWrapper>;

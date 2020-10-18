@@ -29,13 +29,27 @@ function App() {
   const [twitterData, setTwitter] = useState([] as Twitter[]);
   const [category, setCategory] = useState("ALL" as string);
   const [searchWord, setSearchWord] = useState("" as string);
+  const [searchedWord, setSearchedWord] = useState("" as string);
+
+  useEffect(() => {
+    document.addEventListener("keydown", listener);
+    return () => {
+      document.removeEventListener("keydown", listener);
+    };
+  }, [searchWord]);
+
+  const listener = (event: KeyboardEvent) => {
+    if (event.code === "Enter" || event.code === "NumpadEnter") {
+      onSearchWordSubmit();
+    }
+  };
 
   const filterCategory = (category: Category) => {
     setCategory(category);
   };
 
-  const onSearchWordChange = (e: any) => {
-    const word = e.target.value;
+  const onSearchWordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const word = event.target.value;
     setSearchWord(word);
   };
 
@@ -52,9 +66,10 @@ function App() {
         setDropbox(results.data.dropbox);
         setSlack(results.data.slack);
         setTwitter(results.data.tweet);
+        setSearchedWord(searchWord);
       })
       .catch((err) => {
-        setCategory("NO RESULTS");
+        setSearchedWord(searchWord);
       });
   };
 
@@ -67,14 +82,23 @@ function App() {
 
       <ResultsOuterWrapper>
         <FilterMenu filterCategory={filterCategory} />
-        <SearchResult
-          calendarData={calendarData}
-          contactsData={contactsData}
-          dropboxData={dropboxData}
-          slackData={slackData}
-          twitterData={twitterData}
-          category={category}
-        />
+        {searchedWord.length ? (
+          <SearchResult
+            calendarData={calendarData}
+            contactsData={contactsData}
+            dropboxData={dropboxData}
+            slackData={slackData}
+            twitterData={twitterData}
+            category={category}
+            searchedWord={searchedWord}
+          />
+        ) : (
+          <div>
+            Search across contacts, calendar, dropbox, slack and twitter. Enter
+            a query in the search input above, and results will displayed after
+            you click on submit or enter on your keyboard
+          </div>
+        )}
       </ResultsOuterWrapper>
     </WindowWrapper>
   );

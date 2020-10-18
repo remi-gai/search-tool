@@ -47,7 +47,6 @@ enum Category {
   DROPBOX = "DROPBOX",
   SLACK = "SLACK",
   TWITTER = "TWITTER",
-  NORESULTS = "NO RESULTS",
 }
 
 export { Calendar, Contacts, Slack, Twitter, Dropbox, Category };
