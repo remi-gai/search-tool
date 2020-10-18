@@ -1,6 +1,6 @@
 import React from "react";
 
-import { SearchResultWrapper } from "./styles";
+import { SearchResultOuterWrapper, SearchResultInnerWrapper } from "./styles";
 import ContactsList from "../Contacts/ContactsList";
 import CalendarList from "../Calendar/CalendarList";
 import DropboxList from "../Dropbox/DropboxList";
@@ -13,6 +13,7 @@ import {
   Dropbox,
   Slack,
   Twitter,
+  Id,
 } from "../../interfaces/interfaces";
 
 interface Props {
@@ -23,6 +24,8 @@ interface Props {
   twitterData: Twitter[];
   category: string;
   searchedWord: string;
+  pinSearchResult: Function;
+  pinnedIds: Id;
 }
 
 function SearchResult({
@@ -33,13 +36,15 @@ function SearchResult({
   twitterData,
   category,
   searchedWord,
+  pinSearchResult,
+  pinnedIds,
 }: Props) {
   let categories;
   let errorMessage = (
-    <div>
+    <SearchResultInnerWrapper>
       {`Oops! We couldn't find any result for ${searchedWord}. Please try again with a different
       query or category.`}
-    </div>
+    </SearchResultInnerWrapper>
   );
   if (category === "ALL") {
     const hasResults =
@@ -50,59 +55,99 @@ function SearchResult({
       twitterData.length;
 
     categories = hasResults ? (
-      <div>
-        <ContactsList contactsData={contactsData} />
-        <CalendarList calendarData={calendarData} />
-        <DropboxList dropboxData={dropboxData} />
-        <SlackList slackData={slackData} />
-        <TwitterList twitterData={twitterData} />
-      </div>
+      <SearchResultInnerWrapper>
+        <ContactsList
+          contactsData={contactsData}
+          pinSearchResult={pinSearchResult}
+          pinnedIds={pinnedIds}
+        />
+        <CalendarList
+          calendarData={calendarData}
+          pinSearchResult={pinSearchResult}
+          pinnedIds={pinnedIds}
+        />
+        <DropboxList
+          dropboxData={dropboxData}
+          pinSearchResult={pinSearchResult}
+          pinnedIds={pinnedIds}
+        />
+        <SlackList
+          slackData={slackData}
+          pinSearchResult={pinSearchResult}
+          pinnedIds={pinnedIds}
+        />
+        <TwitterList
+          twitterData={twitterData}
+          pinSearchResult={pinSearchResult}
+          pinnedIds={pinnedIds}
+        />
+      </SearchResultInnerWrapper>
     ) : (
       errorMessage
     );
   } else if (category === "CONTACTS") {
     categories = contactsData.length ? (
-      <div>
-        <ContactsList contactsData={contactsData} />
-      </div>
+      <SearchResultInnerWrapper>
+        <ContactsList
+          contactsData={contactsData}
+          pinSearchResult={pinSearchResult}
+          pinnedIds={pinnedIds}
+        />
+      </SearchResultInnerWrapper>
     ) : (
       errorMessage
     );
   } else if (category === "CALENDAR") {
     categories = calendarData.length ? (
-      <div>
-        <CalendarList calendarData={calendarData} />
-      </div>
+      <SearchResultInnerWrapper>
+        <CalendarList
+          calendarData={calendarData}
+          pinSearchResult={pinSearchResult}
+          pinnedIds={pinnedIds}
+        />
+      </SearchResultInnerWrapper>
     ) : (
       errorMessage
     );
   } else if (category === "DROPBOX") {
     categories = dropboxData.length ? (
-      <div>
-        <DropboxList dropboxData={dropboxData} />
-      </div>
+      <SearchResultInnerWrapper>
+        <DropboxList
+          dropboxData={dropboxData}
+          pinSearchResult={pinSearchResult}
+          pinnedIds={pinnedIds}
+        />
+      </SearchResultInnerWrapper>
     ) : (
       errorMessage
     );
   } else if (category === "SLACK") {
     categories = slackData.length ? (
-      <div>
-        <SlackList slackData={slackData} />
-      </div>
+      <SearchResultInnerWrapper>
+        <SlackList
+          slackData={slackData}
+          pinSearchResult={pinSearchResult}
+          pinnedIds={pinnedIds}
+        />
+      </SearchResultInnerWrapper>
     ) : (
       errorMessage
     );
   } else if (category === "TWITTER") {
     categories = twitterData.length ? (
-      <div>
-        <TwitterList twitterData={twitterData} />
-      </div>
+      <SearchResultInnerWrapper>
+        <TwitterList
+          twitterData={twitterData}
+          pinSearchResult={pinSearchResult}
+          pinnedIds={pinnedIds}
+        />
+      </SearchResultInnerWrapper>
     ) : (
       errorMessage
     );
   }
 
-  return <SearchResultWrapper>{categories}</SearchResultWrapper>;
+  return <SearchResultOuterWrapper>{categories}</SearchResultOuterWrapper>;
 }
 
 export default SearchResult;

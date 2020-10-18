@@ -12,13 +12,18 @@ import {
   CalendarTitle,
   CalendarInvitees,
 } from "./styles";
-import { Calendar } from "../../interfaces/interfaces";
+import { PinWrapper, PinnedIcon, UnpinnedIcon } from "../Pin/styles";
+
+import { Calendar, Id } from "../../interfaces/interfaces";
 
 interface Props {
   calendar: Calendar;
+  id: string;
+  pinSearchResult: Function;
+  pinnedIds: Id;
 }
 
-function CalendarEntry({ calendar }: Props) {
+function CalendarEntry({ calendar, id, pinnedIds, pinSearchResult }: Props) {
   return (
     <CalendarOuterWrapper>
       <CalendarLeftWrapper>
@@ -37,6 +42,17 @@ function CalendarEntry({ calendar }: Props) {
           {"Event date: " +
             moment(calendar.date, "YYYY-MM-DD hh:mm:ss").fromNow()}
         </CalendarDate>
+        <PinWrapper>
+          {pinnedIds[id] ? (
+            <PinnedIcon
+              onClick={() => pinSearchResult("calendar", id)}
+            ></PinnedIcon>
+          ) : (
+            <UnpinnedIcon
+              onClick={() => pinSearchResult("calendar", id)}
+            ></UnpinnedIcon>
+          )}
+        </PinWrapper>
       </CalendarRightWrappper>
     </CalendarOuterWrapper>
   );

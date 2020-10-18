@@ -12,14 +12,23 @@ import {
   TwitterUser,
   TwitterMessage,
 } from "./styles";
+import { PinWrapper, PinnedIcon, UnpinnedIcon } from "../Pin/styles";
 
-import { Twitter } from "../../interfaces/interfaces";
+import { Twitter, Id } from "../../interfaces/interfaces";
 
 interface Props {
   twitterMessage: Twitter;
+  id: string;
+  pinSearchResult: Function;
+  pinnedIds: Id;
 }
 
-function TwitterEntry({ twitterMessage }: Props) {
+function TwitterEntry({
+  twitterMessage,
+  id,
+  pinnedIds,
+  pinSearchResult,
+}: Props) {
   return (
     <TwitterOuterWrapper>
       <TwitterLeftWrapper>
@@ -33,9 +42,20 @@ function TwitterEntry({ twitterMessage }: Props) {
       </TwitterLeftWrapper>
       <TwitterRightWrappper>
         <TwitterDate>
-          {"Posted on: " +
+          {"Posted: " +
             moment(twitterMessage.timestamp, "YYYY-MM-DD").fromNow()}
         </TwitterDate>
+        <PinWrapper>
+          {pinnedIds[id] ? (
+            <PinnedIcon
+              onClick={() => pinSearchResult("twitter", id)}
+            ></PinnedIcon>
+          ) : (
+            <UnpinnedIcon
+              onClick={() => pinSearchResult("twitter", id)}
+            ></UnpinnedIcon>
+          )}
+        </PinWrapper>
       </TwitterRightWrappper>
     </TwitterOuterWrapper>
   );

@@ -12,14 +12,18 @@ import {
   DropboxTitle,
   DropboxPath,
 } from "./styles";
+import { PinWrapper, PinnedIcon, UnpinnedIcon } from "../Pin/styles";
 
-import { Dropbox } from "../../interfaces/interfaces";
+import { Dropbox, Id } from "../../interfaces/interfaces";
 
 interface Props {
   dropboxFile: Dropbox;
+  id: string;
+  pinSearchResult: Function;
+  pinnedIds: Id;
 }
 
-function DropboxEntry({ dropboxFile }: Props) {
+function DropboxEntry({ dropboxFile, id, pinnedIds, pinSearchResult }: Props) {
   return (
     <DropboxOuterWrapper>
       <DropboxLeftWrapper>
@@ -35,6 +39,17 @@ function DropboxEntry({ dropboxFile }: Props) {
         <DropboxDate>
           {"Created: " + moment(dropboxFile.created, "YYYY-MM-DD").fromNow()}
         </DropboxDate>
+        <PinWrapper>
+          {pinnedIds[id] ? (
+            <PinnedIcon
+              onClick={() => pinSearchResult("dropbox", id)}
+            ></PinnedIcon>
+          ) : (
+            <UnpinnedIcon
+              onClick={() => pinSearchResult("dropbox", id)}
+            ></UnpinnedIcon>
+          )}
+        </PinWrapper>
       </DropboxRightWrappper>
     </DropboxOuterWrapper>
   );

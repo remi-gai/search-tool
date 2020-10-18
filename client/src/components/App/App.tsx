@@ -2,17 +2,17 @@ import React, { useState, useEffect, memo } from "react";
 import axios from "axios";
 import moment from "moment";
 
-import calendarDummy from "../../data/calendar";
-import contactsDummy from "../../data/contacts.js";
-import dropboxDummy from "../../data/dropbox.js";
-import slackDummy from "../../data/slack.js";
-import twitterDummy from "../../data/twitter.js";
-
 import SearchBox from "../SearchBox/SearchBox";
 import FilterMenu from "../FilterMenu/FilterMenu";
+import PinnedSearches from "../PinnedSearches/PinnedSearches";
 import SearchResult from "../SearchResult/SearchResult";
 
-import { WindowWrapper, ResultsOuterWrapper } from "./styles";
+import {
+  WindowWrapper,
+  ResultsOuterWrapper,
+  PinnedAndResultsWrapper,
+  InitialMessageWrapper,
+} from "./styles";
 import {
   Calendar,
   Contacts,
@@ -20,6 +20,8 @@ import {
   Slack,
   Twitter,
   Category,
+  Pinned,
+  Id,
 } from "../../interfaces/interfaces";
 
 function App() {
@@ -32,14 +34,24 @@ function App() {
   const [searchWord, setSearchWord] = useState("" as string);
   const [searchedWord, setSearchedWord] = useState("" as string);
 
+  const [pinnedSearches, setPinnedSearches] = useState({
+    contacts: [],
+    calendar: [],
+    dropbox: [],
+    slack: [],
+    twitter: [],
+  } as Pinned);
+
+  const [pinnedIds, setPinnedIds] = useState({} as Id);
+
   useEffect(() => {
-    document.addEventListener("keydown", listener);
+    document.addEventListener("keydown", keyDownListener);
     return () => {
-      document.removeEventListener("keydown", listener);
+      document.removeEventListener("keydown", keyDownListener);
     };
   }, [searchWord]);
 
-  const listener = (event: KeyboardEvent) => {
+  const keyDownListener = (event: KeyboardEvent) => {
     if (event.code === "Enter" || event.code === "NumpadEnter") {
       onSearchWordSubmit();
     }
@@ -92,7 +104,7 @@ function App() {
         setSearchedWord(searchWord);
       })
       .catch((err) => {
-        setSearchedWord(searchWord);
+        console.log(err);
       });
   };
 
@@ -119,6 +131,42 @@ function App() {
     });
   };
 
+  const pinSearchResult = (category: string, id: string) => {
+    let categoryData;
+    if (category === "contacts") {
+      categoryData = contactsData;
+    } else if (category === "calendar") {
+      categoryData = calendarData;
+    } else if (category === "dropbox") {
+      categoryData = dropboxData;
+    } else if (category === "slack") {
+      categoryData = slackData;
+    } else if (category === "twitter") {
+      categoryData = twitterData;
+    }
+
+    const copyOfPinnedSearches = JSON.parse(JSON.stringify(pinnedSearches));
+    const copyOfPinnedIds = JSON.parse(JSON.stringify(pinnedIds));
+
+    if (!pinnedIds[id]) {
+      const targetResult = categoryData.filter((element) => element.id === id);
+      copyOfPinnedSearches[category].push(targetResult[0]);
+      copyOfPinnedIds[id] = true;
+    } else {
+      copyOfPinnedSearches[category];
+      for (let i = 0; i < copyOfPinnedSearches[category].length; i++) {
+        const currentElement = copyOfPinnedSearches[category][i];
+        if (currentElement.id === id) {
+          copyOfPinnedSearches[category].splice(i, 1);
+          break;
+        }
+      }
+      delete copyOfPinnedIds[id];
+    }
+    setPinnedSearches(copyOfPinnedSearches);
+    setPinnedIds(copyOfPinnedIds);
+  };
+
   return (
     <WindowWrapper>
       <SearchBox
@@ -129,21 +177,30 @@ function App() {
       <ResultsOuterWrapper>
         <FilterMenu filterCategory={filterCategory} />
         {searchedWord.length ? (
-          <SearchResult
-            calendarData={calendarData}
-            contactsData={contactsData}
-            dropboxData={dropboxData}
-            slackData={slackData}
-            twitterData={twitterData}
-            category={category}
-            searchedWord={searchedWord}
-          />
+          <PinnedAndResultsWrapper>
+            <PinnedSearches
+              pinnedSearches={pinnedSearches}
+              pinSearchResult={pinSearchResult}
+              pinnedIds={pinnedIds}
+            />
+            <SearchResult
+              calendarData={calendarData}
+              contactsData={contactsData}
+              dropboxData={dropboxData}
+              slackData={slackData}
+              twitterData={twitterData}
+              category={category}
+              searchedWord={searchedWord}
+              pinSearchResult={pinSearchResult}
+              pinnedIds={pinnedIds}
+            />
+          </PinnedAndResultsWrapper>
         ) : (
-          <div>
+          <InitialMessageWrapper>
             Search across contacts, calendar, dropbox, slack and twitter. Enter
             a query in the search input above, and results will displayed after
             you click on submit or enter on your keyboard
-          </div>
+          </InitialMessageWrapper>
         )}
       </ResultsOuterWrapper>
     </WindowWrapper>

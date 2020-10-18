@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
-const SearchResultWrapper = styled.div`
-  margin: auto;
-  width: 50%;
-  max-width: 800px;
+const SearchResultOuterWrapper = styled.div`
   border: solid 1px black;
 `;
 
-export { SearchResultWrapper };
+const SearchResultInnerWrapper = styled.div`
+  border: solid 1px black;
+`;
+
+export { SearchResultOuterWrapper, SearchResultInnerWrapper };

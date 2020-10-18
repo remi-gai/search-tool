@@ -17,6 +17,15 @@ const WindowWrapper = styled.div`
   border: solid 1px black;
 `;
 
+const PinnedAndResultsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  border: solid 1px black;
+  margin: auto;
+  width: 100%;
+  max-width: 800px;
+`;
+
 const ResultsOuterWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -25,4 +34,11 @@ const ResultsOuterWrapper = styled.div`
   border: solid 1px black;
 `;
 
-export { WindowWrapper, ResultsOuterWrapper };
+const InitialMessageWrapper = styled.div``;
+
+export {
+  WindowWrapper,
+  ResultsOuterWrapper,
+  PinnedAndResultsWrapper,
+  InitialMessageWrapper,
+};

@@ -13,13 +13,18 @@ import {
   ContactDate,
 } from "./styles";
 
-import { Contacts } from "../../interfaces/interfaces";
+import { PinWrapper, PinnedIcon, UnpinnedIcon } from "../Pin/styles";
+
+import { Contacts, Id } from "../../interfaces/interfaces";
 
 interface Props {
   contact: Contacts;
+  id: string;
+  pinSearchResult: Function;
+  pinnedIds: Id;
 }
 
-function ContactEntry({ contact }: Props) {
+function ContactEntry({ contact, id, pinnedIds, pinSearchResult }: Props) {
   return (
     <ContactOuterWrapper>
       <ContactLeftWrapper>
@@ -36,6 +41,17 @@ function ContactEntry({ contact }: Props) {
           {"Last contacted: " +
             moment(contact.last_contact, "YYYY-MM-DD").fromNow()}
         </ContactDate>
+        <PinWrapper>
+          {pinnedIds[id] ? (
+            <PinnedIcon
+              onClick={() => pinSearchResult("contacts", id)}
+            ></PinnedIcon>
+          ) : (
+            <UnpinnedIcon
+              onClick={() => pinSearchResult("contacts", id)}
+            ></UnpinnedIcon>
+          )}
+        </PinWrapper>
       </ContactRightWrappper>
     </ContactOuterWrapper>
   );

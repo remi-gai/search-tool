@@ -13,13 +13,18 @@ import {
   SlackMessage,
 } from "./styles";
 
-import { Slack } from "../../interfaces/interfaces";
+import { PinWrapper, PinnedIcon, UnpinnedIcon } from "../Pin/styles";
+
+import { Slack, Id } from "../../interfaces/interfaces";
 
 interface Props {
   slackMessage: Slack;
+  id: string;
+  pinSearchResult: Function;
+  pinnedIds: Id;
 }
 
-function SlackEntry({ slackMessage }: Props) {
+function SlackEntry({ slackMessage, id, pinnedIds, pinSearchResult }: Props) {
   return (
     <SlackOuterWrapper>
       <SlackLeftWrapper>
@@ -35,9 +40,20 @@ function SlackEntry({ slackMessage }: Props) {
       </SlackLeftWrapper>
       <SlackRightWrappper>
         <SlackDate>
-          {"Posted on: " +
+          {"Posted: " +
             moment(slackMessage.timestamp, "YYYY-MM-DD hh:mm:ss").fromNow()}
         </SlackDate>
+        <PinWrapper>
+          {pinnedIds[id] ? (
+            <PinnedIcon
+              onClick={() => pinSearchResult("slack", id)}
+            ></PinnedIcon>
+          ) : (
+            <UnpinnedIcon
+              onClick={() => pinSearchResult("slack", id)}
+            ></UnpinnedIcon>
+          )}
+        </PinWrapper>
       </SlackRightWrappper>
     </SlackOuterWrapper>
   );

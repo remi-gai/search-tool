@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const shortid = require("shortid");
 
 const contactsData = require("./data/contacts");
 const calendarData = require("./data/calendar");
@@ -10,6 +11,16 @@ const tweetData = require("./data/tweet");
 const app = express();
 
 const PORT = 3000;
+
+const insertUniqueIDs = (list) => {
+  list.forEach((element) => (element.id = shortid.generate()));
+};
+
+insertUniqueIDs(contactsData.contacts);
+insertUniqueIDs(calendarData.calendar);
+insertUniqueIDs(dropboxData.dropbox);
+insertUniqueIDs(slackData.slack);
+insertUniqueIDs(tweetData.tweet);
 
 app.get("/api/results/:search", (req, res) => {
   const searchTerm = req.params.search;
@@ -27,22 +38,9 @@ app.get("/api/results/:search", (req, res) => {
   result.slack = getCategoryData("slack", searchTerm);
   result.tweet = getCategoryData("tweet", searchTerm);
 
-  // if no results
-  // if (
-  //   !result.contacts.length &&
-  //   !result.calendar.length &&
-  //   !result.dropbox.length &&
-  //   !result.slack.length &&
-  //   !result.tweet.length
-  // ) {
-  //   res.status(404);
-  //   res.send("No results found");
-  //   res.end();
-  // } else {
   res.status(200);
   res.send(result);
   res.end();
-  // }
 });
 
 const getCategoryData = (category, searchWord) => {

@@ -1,8 +1,8 @@
 interface Calendar {
-  date: string;
   id: string;
-  invitees: string;
   title: string;
+  date: string;
+  invitees: string;
   matching_terms: string[];
 }
 
@@ -35,6 +35,7 @@ interface Slack {
 }
 
 interface Twitter {
+  id: string;
   user: string;
   message: string;
   timestamp: string;
@@ -49,4 +50,16 @@ enum Category {
   TWITTER = "TWITTER",
 }
 
-export { Calendar, Contacts, Slack, Twitter, Dropbox, Category };
+interface Pinned {
+  contacts: Contacts[];
+  calendar: Calendar[];
+  dropbox: Dropbox[];
+  slack: Slack[];
+  twitter: Twitter[];
+}
+
+interface Id {
+  id: string;
+}
+
+export { Calendar, Contacts, Slack, Twitter, Dropbox, Category, Pinned, Id };
