@@ -6,6 +6,8 @@ import SearchBox from "../SearchBox/SearchBox";
 import FilterMenu from "../FilterMenu/FilterMenu";
 import PinnedSearches from "../PinnedSearches/PinnedSearches";
 import SearchResult from "../SearchResult/SearchResult";
+import TagModal from "../TagModal/TagModal";
+import TagModalMessage from "../TagModal/TagModalMessage";
 
 import {
   WindowWrapper,
@@ -22,6 +24,10 @@ import {
   Category,
   Pinned,
   Id,
+  Tag,
+  TaggedSearches,
+  TaggedId,
+  TagElement,
 } from "../../interfaces/interfaces";
 
 function App() {
@@ -41,8 +47,29 @@ function App() {
     slack: [],
     twitter: [],
   } as Pinned);
-
   const [pinnedIds, setPinnedIds] = useState({} as Id);
+  const [showModal, setModal] = useState(false as boolean);
+
+  const [taggedSearches, setTaggedSearches] = useState({
+    test: {
+      contacts: [],
+      calendar: [],
+      dropbox: [],
+      slack: [],
+      twitter: [],
+    },
+    bob: {
+      contacts: [],
+      calendar: [],
+      dropbox: [],
+      slack: [],
+      twitter: [],
+    },
+  } as TaggedSearches);
+  const [taggedIds, setTaggedIds] = useState({} as TaggedId);
+  const [tagWord, setTagWord] = useState("" as string);
+  const [tagCategory, setTagCategory] = useState("" as string);
+  const [tagElement, setTagElement] = useState({} as TagElement);
 
   useEffect(() => {
     document.addEventListener("keydown", keyDownListener);
@@ -51,8 +78,20 @@ function App() {
     };
   }, [searchWord]);
 
+  const toggleModal = (category, element) => {
+    setModal(!showModal);
+    setTagCategoryAndElement(category, element);
+  };
+
+  const setTagCategoryAndElement = (category, element) => {
+    console.log(category, element);
+    setTagCategory(category);
+    setTagElement(element);
+  };
+
   const keyDownListener = (event: KeyboardEvent) => {
     if (event.code === "Enter" || event.code === "NumpadEnter") {
+      // showModal ? onSaveTag() : onSearchWordSubmit();
       onSearchWordSubmit();
     }
   };
@@ -64,6 +103,34 @@ function App() {
   const onSearchWordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const word = event.target.value;
     setSearchWord(word);
+  };
+
+  const onTagWordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const word = event.target.value;
+    setTagWord(word);
+  };
+
+  const onSaveTag = () => {
+    const copyOfTaggedSearches = JSON.parse(JSON.stringify(taggedSearches));
+    const copyOfTaggedIds = JSON.parse(JSON.stringify(taggedIds));
+    if (!taggedSearches[tagWord]) {
+      const template = {
+        contacts: [],
+        calendar: [],
+        dropbox: [],
+        slack: [],
+        twitter: [],
+      };
+      copyOfTaggedSearches[tagWord] = template;
+    }
+    if (!taggedIds[tagElement.id]) {
+      copyOfTaggedIds[tagElement.id] = [];
+    }
+
+    copyOfTaggedSearches[tagWord][tagCategory].push(tagElement);
+    copyOfTaggedIds[tagElement.id].push(tagWord);
+    setTaggedSearches(copyOfTaggedSearches);
+    setTaggedIds(copyOfTaggedIds);
   };
 
   const onSearchWordSubmit = () => {
@@ -182,6 +249,8 @@ function App() {
               pinnedSearches={pinnedSearches}
               pinSearchResult={pinSearchResult}
               pinnedIds={pinnedIds}
+              toggleModal={toggleModal}
+              taggedIds={taggedIds}
             />
             <SearchResult
               calendarData={calendarData}
@@ -193,6 +262,8 @@ function App() {
               searchedWord={searchedWord}
               pinSearchResult={pinSearchResult}
               pinnedIds={pinnedIds}
+              toggleModal={toggleModal}
+              taggedIds={taggedIds}
             />
           </PinnedAndResultsWrapper>
         ) : (
@@ -202,7 +273,19 @@ function App() {
             you click on submit or enter on your keyboard
           </InitialMessageWrapper>
         )}
+        <button onClick={() => toggleModal("", {})}>click</button>
       </ResultsOuterWrapper>
+      {showModal ? (
+        <TagModal>
+          <TagModalMessage
+            taggedIds={taggedIds}
+            taggedSearches={taggedSearches}
+            toggleModal={toggleModal}
+            onTagWordChange={onTagWordChange}
+            onSaveTag={onSaveTag}
+          ></TagModalMessage>
+        </TagModal>
+      ) : null}
     </WindowWrapper>
   );
 }

@@ -14,13 +14,17 @@ import {
 } from "./styles";
 import { PinWrapper, PinnedIcon, UnpinnedIcon } from "../Pin/styles";
 
-import { Twitter, Id } from "../../interfaces/interfaces";
+import { TagWrapper, TaggedIcon, UntaggedIcon } from "../Tag/styles";
+
+import { Twitter, Id, TaggedId } from "../../interfaces/interfaces";
 
 interface Props {
   twitterMessage: Twitter;
   id: string;
   pinSearchResult: Function;
   pinnedIds: Id;
+  toggleModal: Function;
+  taggedIds: TaggedId;
 }
 
 function TwitterEntry({
@@ -28,6 +32,8 @@ function TwitterEntry({
   id,
   pinnedIds,
   pinSearchResult,
+  toggleModal,
+  taggedIds,
 }: Props) {
   return (
     <TwitterOuterWrapper>
@@ -56,6 +62,17 @@ function TwitterEntry({
             ></UnpinnedIcon>
           )}
         </PinWrapper>
+        <TagWrapper>
+          {taggedIds[id] ? (
+            <TaggedIcon
+              onClick={() => toggleModal("twitter", twitterMessage)}
+            ></TaggedIcon>
+          ) : (
+            <UntaggedIcon
+              onClick={() => toggleModal("twitter", twitterMessage)}
+            ></UntaggedIcon>
+          )}
+        </TagWrapper>
       </TwitterRightWrappper>
     </TwitterOuterWrapper>
   );

@@ -4,15 +4,23 @@ import shortid from "shortid";
 import SlackEntry from "./SlackEntry";
 import {} from "./styles";
 
-import { Slack, Id } from "../../interfaces/interfaces";
+import { Slack, Id, TaggedId } from "../../interfaces/interfaces";
 
 interface Props {
   slackData: Slack[];
   pinSearchResult: Function;
   pinnedIds: Id;
+  toggleModal: Function;
+  taggedIds: TaggedId;
 }
 
-function SlackList({ slackData, pinSearchResult, pinnedIds }: Props) {
+function SlackList({
+  slackData,
+  pinSearchResult,
+  pinnedIds,
+  toggleModal,
+  taggedIds,
+}: Props) {
   return (
     <div>
       {slackData.map((slackMessage) => {
@@ -23,6 +31,8 @@ function SlackList({ slackData, pinSearchResult, pinnedIds }: Props) {
             id={slackMessage.id}
             pinnedIds={pinnedIds}
             pinSearchResult={pinSearchResult}
+            toggleModal={toggleModal}
+            taggedIds={taggedIds}
           />
         );
       })}

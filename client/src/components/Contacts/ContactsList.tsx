@@ -4,15 +4,23 @@ import ContactEntry from "./ContactEntry";
 
 import {} from "./styles";
 
-import { Contacts, Id } from "../../interfaces/interfaces";
+import { Contacts, Id, TaggedId } from "../../interfaces/interfaces";
 
 interface Props {
   contactsData: Contacts[];
   pinSearchResult: Function;
   pinnedIds: Id;
+  toggleModal: Function;
+  taggedIds: TaggedId;
 }
 
-function ContactsList({ contactsData, pinSearchResult, pinnedIds }: Props) {
+function ContactsList({
+  contactsData,
+  pinSearchResult,
+  pinnedIds,
+  toggleModal,
+  taggedIds,
+}: Props) {
   return (
     <div>
       {contactsData.map((contact) => {
@@ -23,6 +31,8 @@ function ContactsList({ contactsData, pinSearchResult, pinnedIds }: Props) {
             id={contact.id}
             pinnedIds={pinnedIds}
             pinSearchResult={pinSearchResult}
+            toggleModal={toggleModal}
+            taggedIds={taggedIds}
           />
         );
       })}

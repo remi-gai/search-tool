@@ -62,4 +62,49 @@ interface Id {
   id: string;
 }
 
-export { Calendar, Contacts, Slack, Twitter, Dropbox, Category, Pinned, Id };
+interface Tag {
+  contacts: Contacts[];
+  calendar: Calendar[];
+  dropbox: Dropbox[];
+  slack: Slack[];
+  twitter: Twitter[];
+}
+
+interface TaggedSearches {
+  [tagName: string]: Tag;
+}
+
+interface TaggedId {
+  [tagId: string]: string[];
+}
+
+interface TagElement {
+  id: string;
+  user: string;
+  message: string;
+  timestamp: string;
+  matching_terms: string[];
+  channel: string;
+  author: string;
+  path: string;
+  invitees: string;
+  last_contact: string;
+  company: string;
+  emails: string[];
+  phones: string[];
+}
+
+export {
+  Calendar,
+  Contacts,
+  Slack,
+  Twitter,
+  Dropbox,
+  Category,
+  Pinned,
+  Id,
+  Tag,
+  TaggedSearches,
+  TaggedId,
+  TagElement,
+};

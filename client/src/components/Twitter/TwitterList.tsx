@@ -3,15 +3,23 @@ import shortid from "shortid";
 import TwitterEntry from "./TwitterEntry";
 import {} from "./styles";
 
-import { Twitter, Id } from "../../interfaces/interfaces";
+import { Twitter, Id, TaggedId } from "../../interfaces/interfaces";
 
 interface Props {
   twitterData: Twitter[];
   pinSearchResult: Function;
   pinnedIds: Id;
+  toggleModal: Function;
+  taggedIds: TaggedId;
 }
 
-function TwitterList({ twitterData, pinSearchResult, pinnedIds }: Props) {
+function TwitterList({
+  twitterData,
+  pinSearchResult,
+  pinnedIds,
+  toggleModal,
+  taggedIds,
+}: Props) {
   return (
     <div>
       {twitterData.map((twitterMessage) => {
@@ -22,6 +30,8 @@ function TwitterList({ twitterData, pinSearchResult, pinnedIds }: Props) {
             id={twitterMessage.id}
             pinnedIds={pinnedIds}
             pinSearchResult={pinSearchResult}
+            toggleModal={toggleModal}
+            taggedIds={taggedIds}
           />
         );
       })}

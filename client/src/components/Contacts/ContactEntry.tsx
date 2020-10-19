@@ -15,16 +15,27 @@ import {
 
 import { PinWrapper, PinnedIcon, UnpinnedIcon } from "../Pin/styles";
 
-import { Contacts, Id } from "../../interfaces/interfaces";
+import { TagWrapper, TaggedIcon, UntaggedIcon } from "../Tag/styles";
+
+import { Contacts, Id, TaggedId } from "../../interfaces/interfaces";
 
 interface Props {
   contact: Contacts;
   id: string;
   pinSearchResult: Function;
   pinnedIds: Id;
+  toggleModal: Function;
+  taggedIds: TaggedId;
 }
 
-function ContactEntry({ contact, id, pinnedIds, pinSearchResult }: Props) {
+function ContactEntry({
+  contact,
+  id,
+  pinnedIds,
+  pinSearchResult,
+  toggleModal,
+  taggedIds,
+}: Props) {
   return (
     <ContactOuterWrapper>
       <ContactLeftWrapper>
@@ -52,6 +63,17 @@ function ContactEntry({ contact, id, pinnedIds, pinSearchResult }: Props) {
             ></UnpinnedIcon>
           )}
         </PinWrapper>
+        <TagWrapper>
+          {taggedIds[id] ? (
+            <TaggedIcon
+              onClick={() => toggleModal("contacts", contact)}
+            ></TaggedIcon>
+          ) : (
+            <UntaggedIcon
+              onClick={() => toggleModal("contacts", contact)}
+            ></UntaggedIcon>
+          )}
+        </TagWrapper>
       </ContactRightWrappper>
     </ContactOuterWrapper>
   );

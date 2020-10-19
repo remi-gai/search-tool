@@ -14,6 +14,7 @@ import {
   Slack,
   Twitter,
   Id,
+  TaggedId,
 } from "../../interfaces/interfaces";
 
 interface Props {
@@ -26,6 +27,8 @@ interface Props {
   searchedWord: string;
   pinSearchResult: Function;
   pinnedIds: Id;
+  toggleModal: Function;
+  taggedIds: TaggedId;
 }
 
 function SearchResult({
@@ -38,6 +41,8 @@ function SearchResult({
   searchedWord,
   pinSearchResult,
   pinnedIds,
+  toggleModal,
+  taggedIds,
 }: Props) {
   let categories;
   let errorMessage = (
@@ -60,26 +65,36 @@ function SearchResult({
           contactsData={contactsData}
           pinSearchResult={pinSearchResult}
           pinnedIds={pinnedIds}
+          toggleModal={toggleModal}
+          taggedIds={taggedIds}
         />
         <CalendarList
           calendarData={calendarData}
           pinSearchResult={pinSearchResult}
           pinnedIds={pinnedIds}
+          toggleModal={toggleModal}
+          taggedIds={taggedIds}
         />
         <DropboxList
           dropboxData={dropboxData}
           pinSearchResult={pinSearchResult}
           pinnedIds={pinnedIds}
+          toggleModal={toggleModal}
+          taggedIds={taggedIds}
         />
         <SlackList
           slackData={slackData}
           pinSearchResult={pinSearchResult}
           pinnedIds={pinnedIds}
+          toggleModal={toggleModal}
+          taggedIds={taggedIds}
         />
         <TwitterList
           twitterData={twitterData}
           pinSearchResult={pinSearchResult}
           pinnedIds={pinnedIds}
+          toggleModal={toggleModal}
+          taggedIds={taggedIds}
         />
       </SearchResultInnerWrapper>
     ) : (
@@ -92,6 +107,8 @@ function SearchResult({
           contactsData={contactsData}
           pinSearchResult={pinSearchResult}
           pinnedIds={pinnedIds}
+          toggleModal={toggleModal}
+          taggedIds={taggedIds}
         />
       </SearchResultInnerWrapper>
     ) : (
@@ -104,6 +121,8 @@ function SearchResult({
           calendarData={calendarData}
           pinSearchResult={pinSearchResult}
           pinnedIds={pinnedIds}
+          toggleModal={toggleModal}
+          taggedIds={taggedIds}
         />
       </SearchResultInnerWrapper>
     ) : (
@@ -116,6 +135,8 @@ function SearchResult({
           dropboxData={dropboxData}
           pinSearchResult={pinSearchResult}
           pinnedIds={pinnedIds}
+          toggleModal={toggleModal}
+          taggedIds={taggedIds}
         />
       </SearchResultInnerWrapper>
     ) : (
@@ -128,6 +149,8 @@ function SearchResult({
           slackData={slackData}
           pinSearchResult={pinSearchResult}
           pinnedIds={pinnedIds}
+          toggleModal={toggleModal}
+          taggedIds={taggedIds}
         />
       </SearchResultInnerWrapper>
     ) : (
@@ -140,6 +163,8 @@ function SearchResult({
           twitterData={twitterData}
           pinSearchResult={pinSearchResult}
           pinnedIds={pinnedIds}
+          toggleModal={toggleModal}
+          taggedIds={taggedIds}
         />
       </SearchResultInnerWrapper>
     ) : (

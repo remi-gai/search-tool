@@ -14,16 +14,27 @@ import {
 } from "./styles";
 import { PinWrapper, PinnedIcon, UnpinnedIcon } from "../Pin/styles";
 
-import { Calendar, Id } from "../../interfaces/interfaces";
+import { TagWrapper, TaggedIcon, UntaggedIcon } from "../Tag/styles";
+
+import { Calendar, Id, TaggedId } from "../../interfaces/interfaces";
 
 interface Props {
   calendar: Calendar;
   id: string;
   pinSearchResult: Function;
   pinnedIds: Id;
+  toggleModal: Function;
+  taggedIds: TaggedId;
 }
 
-function CalendarEntry({ calendar, id, pinnedIds, pinSearchResult }: Props) {
+function CalendarEntry({
+  calendar,
+  id,
+  pinnedIds,
+  pinSearchResult,
+  toggleModal,
+  taggedIds,
+}: Props) {
   return (
     <CalendarOuterWrapper>
       <CalendarLeftWrapper>
@@ -53,6 +64,17 @@ function CalendarEntry({ calendar, id, pinnedIds, pinSearchResult }: Props) {
             ></UnpinnedIcon>
           )}
         </PinWrapper>
+        <TagWrapper>
+          {taggedIds[id] ? (
+            <TaggedIcon
+              onClick={() => toggleModal("calendar", calendar)}
+            ></TaggedIcon>
+          ) : (
+            <UntaggedIcon
+              onClick={() => toggleModal("calendar", calendar)}
+            ></UntaggedIcon>
+          )}
+        </TagWrapper>
       </CalendarRightWrappper>
     </CalendarOuterWrapper>
   );

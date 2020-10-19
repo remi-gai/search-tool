@@ -6,15 +6,23 @@ import CalendarList from "../Calendar/CalendarList";
 import DropboxList from "../Dropbox/DropboxList";
 import SlackList from "../Slack/SlackList";
 import TwitterList from "../Twitter/TwitterList";
-import { Id, Pinned } from "../../interfaces/interfaces";
+import { Id, Pinned, TaggedId } from "../../interfaces/interfaces";
 
 interface Props {
   pinnedSearches: Pinned;
   pinnedIds: Id;
   pinSearchResult: Function;
+  toggleModal: Function;
+  taggedIds: TaggedId;
 }
 
-function PinnedSearches({ pinnedSearches, pinSearchResult, pinnedIds }: Props) {
+function PinnedSearches({
+  pinnedSearches,
+  pinSearchResult,
+  pinnedIds,
+  toggleModal,
+  taggedIds,
+}: Props) {
   const emptyMessage = <div>The pin board is currently empty.</div>;
   const hasPinnedSearches =
     pinnedSearches.contacts.length ||
@@ -31,26 +39,36 @@ function PinnedSearches({ pinnedSearches, pinSearchResult, pinnedIds }: Props) {
             contactsData={pinnedSearches.contacts}
             pinSearchResult={pinSearchResult}
             pinnedIds={pinnedIds}
+            toggleModal={toggleModal}
+            taggedIds={taggedIds}
           />
           <CalendarList
             calendarData={pinnedSearches.calendar}
             pinSearchResult={pinSearchResult}
             pinnedIds={pinnedIds}
+            toggleModal={toggleModal}
+            taggedIds={taggedIds}
           />
           <DropboxList
             dropboxData={pinnedSearches.dropbox}
             pinSearchResult={pinSearchResult}
             pinnedIds={pinnedIds}
+            toggleModal={toggleModal}
+            taggedIds={taggedIds}
           />
           <SlackList
             slackData={pinnedSearches.slack}
             pinSearchResult={pinSearchResult}
             pinnedIds={pinnedIds}
+            toggleModal={toggleModal}
+            taggedIds={taggedIds}
           />
           <TwitterList
             twitterData={pinnedSearches.twitter}
             pinSearchResult={pinSearchResult}
             pinnedIds={pinnedIds}
+            toggleModal={toggleModal}
+            taggedIds={taggedIds}
           />
         </div>
       ) : (

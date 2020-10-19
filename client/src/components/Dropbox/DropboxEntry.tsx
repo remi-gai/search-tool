@@ -14,16 +14,27 @@ import {
 } from "./styles";
 import { PinWrapper, PinnedIcon, UnpinnedIcon } from "../Pin/styles";
 
-import { Dropbox, Id } from "../../interfaces/interfaces";
+import { TagWrapper, TaggedIcon, UntaggedIcon } from "../Tag/styles";
+
+import { Dropbox, Id, TaggedId } from "../../interfaces/interfaces";
 
 interface Props {
   dropboxFile: Dropbox;
   id: string;
   pinSearchResult: Function;
   pinnedIds: Id;
+  toggleModal: Function;
+  taggedIds: TaggedId;
 }
 
-function DropboxEntry({ dropboxFile, id, pinnedIds, pinSearchResult }: Props) {
+function DropboxEntry({
+  dropboxFile,
+  id,
+  pinnedIds,
+  pinSearchResult,
+  toggleModal,
+  taggedIds,
+}: Props) {
   return (
     <DropboxOuterWrapper>
       <DropboxLeftWrapper>
@@ -50,6 +61,17 @@ function DropboxEntry({ dropboxFile, id, pinnedIds, pinSearchResult }: Props) {
             ></UnpinnedIcon>
           )}
         </PinWrapper>
+        <TagWrapper>
+          {taggedIds[id] ? (
+            <TaggedIcon
+              onClick={() => toggleModal("dropbox", dropboxFile)}
+            ></TaggedIcon>
+          ) : (
+            <UntaggedIcon
+              onClick={() => toggleModal("dropbox", dropboxFile)}
+            ></UntaggedIcon>
+          )}
+        </TagWrapper>
       </DropboxRightWrappper>
     </DropboxOuterWrapper>
   );

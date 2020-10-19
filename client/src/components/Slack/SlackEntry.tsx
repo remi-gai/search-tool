@@ -15,16 +15,27 @@ import {
 
 import { PinWrapper, PinnedIcon, UnpinnedIcon } from "../Pin/styles";
 
-import { Slack, Id } from "../../interfaces/interfaces";
+import { TagWrapper, TaggedIcon, UntaggedIcon } from "../Tag/styles";
+
+import { Slack, Id, TaggedId } from "../../interfaces/interfaces";
 
 interface Props {
   slackMessage: Slack;
   id: string;
-  pinSearchResult: Function;
   pinnedIds: Id;
+  pinSearchResult: Function;
+  toggleModal: Function;
+  taggedIds: TaggedId;
 }
 
-function SlackEntry({ slackMessage, id, pinnedIds, pinSearchResult }: Props) {
+function SlackEntry({
+  slackMessage,
+  id,
+  pinnedIds,
+  pinSearchResult,
+  toggleModal,
+  taggedIds,
+}: Props) {
   return (
     <SlackOuterWrapper>
       <SlackLeftWrapper>
@@ -54,6 +65,17 @@ function SlackEntry({ slackMessage, id, pinnedIds, pinSearchResult }: Props) {
             ></UnpinnedIcon>
           )}
         </PinWrapper>
+        <TagWrapper>
+          {taggedIds[id] ? (
+            <TaggedIcon
+              onClick={() => toggleModal("slack", slackMessage)}
+            ></TaggedIcon>
+          ) : (
+            <UntaggedIcon
+              onClick={() => toggleModal("slack", slackMessage)}
+            ></UntaggedIcon>
+          )}
+        </TagWrapper>
       </SlackRightWrappper>
     </SlackOuterWrapper>
   );
