@@ -1,25 +1,30 @@
 import styled from "styled-components";
+import {
+  ResultOuterWrapper,
+  ResultLeftWrapper,
+  ResultRightWrapper,
+  ResultIconWrapper,
+  ResultDetailsWrapper,
+  ResultTitle,
+  ResultContent,
+  ResultDate,
+} from "../../styles/styles";
 
 const CalendarOuterWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  border: 1px solid black;
+  ${ResultOuterWrapper}
 `;
 
 const CalendarLeftWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  border: 1px solid black;
+  ${ResultLeftWrapper}
 `;
 
 const CalendarRightWrappper = styled.div`
-  display: flex;
-  align-items: center;
-  border: 1px solid black;
+  ${ResultRightWrapper}
 `;
 
-const CalendarDate = styled.div``;
+const CalendarDate = styled.div`
+  ${ResultDate}
+`;
 
 const CalendarIcon = styled.img.attrs({
   src: "./icons/Calendar-icon.png",
@@ -29,22 +34,19 @@ const CalendarIcon = styled.img.attrs({
 `;
 
 const CalendarIconWrapper = styled.div`
-  display: flex;
-  align-items: center;
+  ${ResultIconWrapper}
 `;
 
 const CalendarDetailsWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  border: 1px solid black;
+  ${ResultDetailsWrapper}
 `;
 
 const CalendarTitle = styled.div`
-  border: 1px solid black;
+  ${ResultTitle}
 `;
 
 const CalendarInvitees = styled.div`
-  border: 1px solid black;
+  ${ResultContent}
 `;
 
 export {

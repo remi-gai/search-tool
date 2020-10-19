@@ -1,6 +1,10 @@
 import React from "react";
 
-import { PinnedWrapper, ClearPinBoardButton } from "./styles";
+import {
+  PinnedWrapper,
+  ClearPinBoardWrapper,
+  ClearPinBoardButton,
+} from "./styles";
 import ContactsList from "../Contacts/ContactsList";
 import CalendarList from "../Calendar/CalendarList";
 import DropboxList from "../Dropbox/DropboxList";
@@ -35,9 +39,11 @@ function PinnedSearches({
 
   return (
     <PinnedWrapper>
-      <ClearPinBoardButton onClick={clearPinBoard}>
-        Clear Pinned Results
-      </ClearPinBoardButton>
+      <ClearPinBoardWrapper>
+        <ClearPinBoardButton onClick={clearPinBoard}>
+          Clear Pinned Results
+        </ClearPinBoardButton>
+      </ClearPinBoardWrapper>
       {hasPinnedSearches ? (
         <div>
           <ContactsList

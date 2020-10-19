@@ -1,25 +1,30 @@
 import styled from "styled-components";
+import {
+  ResultOuterWrapper,
+  ResultLeftWrapper,
+  ResultRightWrapper,
+  ResultIconWrapper,
+  ResultDetailsWrapper,
+  ResultTitle,
+  ResultContent,
+  ResultDate,
+} from "../../styles/styles";
 
 const ContactOuterWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  border: 1px solid black;
+  ${ResultOuterWrapper}
 `;
 
 const ContactLeftWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  border: 1px solid black;
+  ${ResultLeftWrapper}
 `;
 
 const ContactRightWrappper = styled.div`
-  display: flex;
-  align-items: center;
-  border: 1px solid black;
+  ${ResultRightWrapper}
 `;
 
-const ContactDate = styled.div``;
+const ContactDate = styled.div`
+  ${ResultDate}
+`;
 
 const ContactIcon = styled.img.attrs({
   src: "./icons/contact-icon.png",
@@ -29,22 +34,19 @@ const ContactIcon = styled.img.attrs({
 `;
 
 const ContactIconWrapper = styled.div`
-  display: flex;
-  align-items: center;
+  ${ResultIconWrapper}
 `;
 
 const ContactDetailsWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  border: 1px solid black;
+  ${ResultDetailsWrapper}
 `;
 
 const ContactTitle = styled.div`
-  border: 1px solid black;
+  ${ResultTitle}
 `;
 
 const ContactEmail = styled.div`
-  border: 1px solid black;
+  ${ResultContent}
 `;
 
 export {

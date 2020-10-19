@@ -3,15 +3,13 @@ import styled, { createGlobalStyle } from "styled-components";
 const GlobalStyle = createGlobalStyle`
   body {
     font-family: 'Roboto';
-    color: #585858;
-    background-color: #fffdf5;
+    /* color: #585858; */
   }
 `;
 
 const WindowWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  border: solid 1px black;
 `;
 
 const PinnedAndResultsWrapper = styled.div`

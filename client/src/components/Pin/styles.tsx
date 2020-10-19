@@ -8,8 +8,9 @@ const PinWrapper = styled.div`
 const PinIcon = styled.img.attrs((props) => ({
   src: props.src,
 }))`
-  width: 14px;
-  height: 18px;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
 `;
 
 export { PinWrapper, PinIcon };

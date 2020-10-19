@@ -4,7 +4,6 @@ const SearchBoxWrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: row;
-  background-color: #ffffff;
   height: 80px;
 `;
 

@@ -1,25 +1,30 @@
 import styled from "styled-components";
+import {
+  ResultOuterWrapper,
+  ResultLeftWrapper,
+  ResultRightWrapper,
+  ResultIconWrapper,
+  ResultDetailsWrapper,
+  ResultTitle,
+  ResultContent,
+  ResultDate,
+} from "../../styles/styles";
 
 const DropboxOuterWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  border: 1px solid black;
+  ${ResultOuterWrapper}
 `;
 
 const DropboxLeftWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  border: 1px solid black;
+  ${ResultLeftWrapper}
 `;
 
 const DropboxRightWrappper = styled.div`
-  display: flex;
-  align-items: center;
-  border: 1px solid black;
+  ${ResultRightWrapper}
 `;
 
-const DropboxDate = styled.div``;
+const DropboxDate = styled.div`
+  ${ResultDate}
+`;
 
 const DropboxIcon = styled.img.attrs({
   src: "./icons/Dropbox-icon.png",
@@ -29,22 +34,19 @@ const DropboxIcon = styled.img.attrs({
 `;
 
 const DropboxIconWrapper = styled.div`
-  display: flex;
-  align-items: center;
+  ${ResultIconWrapper}
 `;
 
 const DropboxDetailsWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  border: 1px solid black;
+  ${ResultDetailsWrapper}
 `;
 
 const DropboxTitle = styled.div`
-  border: 1px solid black;
+  ${ResultTitle}
 `;
 
 const DropboxPath = styled.div`
-  border: 1px solid black;
+  ${ResultContent}
 `;
 
 export {

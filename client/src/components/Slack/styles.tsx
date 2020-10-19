@@ -1,50 +1,52 @@
 import styled from "styled-components";
+import {
+  ResultOuterWrapper,
+  ResultLeftWrapper,
+  ResultRightWrapper,
+  ResultIconWrapper,
+  ResultDetailsWrapper,
+  ResultTitle,
+  ResultContent,
+  ResultDate,
+} from "../../styles/styles";
 
 const SlackOuterWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  border: 1px solid black;
+  ${ResultOuterWrapper}
 `;
 
 const SlackLeftWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  border: 1px solid black;
+  ${ResultLeftWrapper}
 `;
 
 const SlackRightWrappper = styled.div`
-  display: flex;
-  align-items: center;
-  border: 1px solid black;
+  ${ResultRightWrapper}
 `;
 
-const SlackDate = styled.div``;
+const SlackDate = styled.div`
+  ${ResultDate}
+`;
 
 const SlackIcon = styled.img.attrs({
   src: "./icons/Slack-icon.png",
 })`
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
 `;
 
 const SlackIconWrapper = styled.div`
-  display: flex;
-  align-items: center;
+  ${ResultIconWrapper}
 `;
 
 const SlackDetailsWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  border: 1px solid black;
+  ${ResultDetailsWrapper}
 `;
 
 const SlackChannel = styled.div`
-  border: 1px solid black;
+  ${ResultTitle}
 `;
 
 const SlackMessage = styled.div`
-  border: 1px solid black;
+  ${ResultContent}
 `;
 
 export {

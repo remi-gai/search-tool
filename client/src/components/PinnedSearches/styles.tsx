@@ -7,6 +7,19 @@ const PinnedWrapper = styled.div`
   max-width: 800px;
 `;
 
-const ClearPinBoardButton = styled.button``;
+const ClearPinBoardWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+`;
 
-export { PinnedWrapper, ClearPinBoardButton };
+const ClearPinBoardButton = styled.button`
+  background-color: white;
+  border: white;
+  &:hover {
+    cursor: pointer;
+    color: #415aff;
+  }
+`;
+
+export { PinnedWrapper, ClearPinBoardWrapper, ClearPinBoardButton };
