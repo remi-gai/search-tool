@@ -38,9 +38,12 @@ app.get("/api/results/:search", (req, res) => {
   result.slack = getCategoryData("slack", searchTerm);
   result.tweet = getCategoryData("tweet", searchTerm);
 
-  res.status(200);
-  res.send(result);
-  res.end();
+  // setTimeout to simulate delay to show the spinner on the front end
+  setTimeout(() => {
+    res.status(200);
+    res.send(result);
+    res.end();
+  }, 1500);
 });
 
 const getCategoryData = (category, searchWord) => {
