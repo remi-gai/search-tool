@@ -86,7 +86,6 @@ function App() {
   };
 
   const setTagCategoryAndElement = (category, element) => {
-    console.log(category, element);
     setTagCategory(category);
     setTagElement(element);
   };
@@ -105,6 +104,11 @@ function App() {
   const onSearchWordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const word = event.target.value;
     setSearchWord(word);
+  };
+
+  const clearSearchBox = () => {
+    setSearchWord("");
+    setSearchedWord("");
   };
 
   const onTagWordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -135,8 +139,24 @@ function App() {
     setTaggedIds(copyOfTaggedIds);
   };
 
+  const deleteTag = (tag) => {
+    const copyOfTaggedSearches = JSON.parse(JSON.stringify(taggedSearches));
+    const copyOfTaggedIds = JSON.parse(JSON.stringify(taggedIds));
+  };
+
+  const deleteElementFromTag = (id, tag) => {};
+
   const onSearchWordSubmit = () => {
-    getSearchResults(searchWord);
+    const firstCharacter = searchWord[0];
+    const remainingCharacter = searchWord.substring(1, searchWord.length);
+    if (firstCharacter === "#" && taggedSearches[remainingCharacter]) {
+      displayTaggedResults(remainingCharacter);
+    } else if (firstCharacter === "#" && !taggedSearches[remainingCharacter]) {
+      formatAndSetResults(null);
+    } else {
+      console.log(searchWord);
+      getSearchResults(searchWord);
+    }
   };
 
   const toggleTagMenu = () => {
@@ -157,38 +177,51 @@ function App() {
     axios
       .get("/api/results/" + searchWord)
       .then((results) => {
-        // sort array based on descending time to improve search relevance
-        const sortedContacts = sortArrayByTimeDescendingOrder(
-          results.data.contacts,
-          "contacts"
-        );
-        const sortedCalendar = sortArrayByTimeDescendingOrder(
-          results.data.calendar,
-          "calendar"
-        );
-        const sortedDropbox = sortArrayByTimeDescendingOrder(
-          results.data.dropbox,
-          "dropbox"
-        );
-        const sortedSlack = sortArrayByTimeDescendingOrder(
-          results.data.slack,
-          "slack"
-        );
-        const sortedTwitter = sortArrayByTimeDescendingOrder(
-          results.data.tweet,
-          "tweet"
-        );
-
-        setContacts(sortedContacts);
-        setCalendar(sortedCalendar);
-        setDropbox(sortedDropbox);
-        setSlack(sortedSlack);
-        setTwitter(sortedTwitter);
-        setSearchedWord(searchWord);
+        formatAndSetResults(results);
       })
       .catch((err) => {
-        console.log(err);
+        console.log("error: ", err);
       });
+  };
+
+  const formatAndSetResults = (results) => {
+    if (results === null) {
+      setContacts([]);
+      setCalendar([]);
+      setDropbox([]);
+      setSlack([]);
+      setTwitter([]);
+      setSearchedWord(searchWord);
+      return;
+    }
+    // sort array based on descending time to improve search relevance
+    const sortedContacts = sortArrayByTimeDescendingOrder(
+      results.data.contacts,
+      "contacts"
+    );
+    const sortedCalendar = sortArrayByTimeDescendingOrder(
+      results.data.calendar,
+      "calendar"
+    );
+    const sortedDropbox = sortArrayByTimeDescendingOrder(
+      results.data.dropbox,
+      "dropbox"
+    );
+    const sortedSlack = sortArrayByTimeDescendingOrder(
+      results.data.slack,
+      "slack"
+    );
+    const sortedTwitter = sortArrayByTimeDescendingOrder(
+      results.data.tweet,
+      "tweet"
+    );
+
+    setContacts(sortedContacts);
+    setCalendar(sortedCalendar);
+    setDropbox(sortedDropbox);
+    setSlack(sortedSlack);
+    setTwitter(sortedTwitter);
+    setSearchedWord(searchWord);
   };
 
   const sortArrayByTimeDescendingOrder = (array: [], category: string) => {
@@ -256,6 +289,7 @@ function App() {
         onSearchWordChange={onSearchWordChange}
         onSearchWordSubmit={onSearchWordSubmit}
         searchWord={searchWord}
+        clearSearchBox={clearSearchBox}
       />
 
       <ResultsOuterWrapper>

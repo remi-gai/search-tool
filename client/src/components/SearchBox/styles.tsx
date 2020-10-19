@@ -15,4 +15,6 @@ const SubmitButton = styled.button`
   border: 1px solid black;
 `;
 
-export { SearchBoxWrapper, SearchInput, SubmitButton };
+const ClearButton = styled.button``;
+
+export { SearchBoxWrapper, SearchInput, SubmitButton, ClearButton };
