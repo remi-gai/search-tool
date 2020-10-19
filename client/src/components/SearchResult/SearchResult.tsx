@@ -48,7 +48,7 @@ function SearchResult({
   let errorMessage = (
     <SearchResultInnerWrapper>
       {`Oops! We couldn't find any result for ${searchedWord}. Please try again with a different
-      query, category or tag.`}
+      query, filter or tag.`}
     </SearchResultInnerWrapper>
   );
   if (category === "ALL") {

@@ -149,6 +149,8 @@ function App() {
     setDropbox(taggedSearches[tag].dropbox);
     setSlack(taggedSearches[tag].slack);
     setTwitter(taggedSearches[tag].twitter);
+    setSearchWord("#" + tag);
+    setSearchedWord("#" + tag);
   };
 
   const getSearchResults = (searchWord: string) => {
@@ -253,6 +255,7 @@ function App() {
       <SearchBox
         onSearchWordChange={onSearchWordChange}
         onSearchWordSubmit={onSearchWordSubmit}
+        searchWord={searchWord}
       />
 
       <ResultsOuterWrapper>
