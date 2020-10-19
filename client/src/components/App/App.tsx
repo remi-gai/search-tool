@@ -1,4 +1,5 @@
 import React, { useState, useEffect, memo } from "react";
+import { Roller } from "react-awesome-spinners";
 import axios from "axios";
 import moment from "moment";
 
@@ -72,6 +73,7 @@ function App() {
   const [tagCategory, setTagCategory] = useState("" as string);
   const [tagElement, setTagElement] = useState({} as TagElement);
   const [showTagMenu, setTagMenu] = useState(false as boolean);
+  const [isLoading, setIsLoading] = useState(false as boolean);
 
   useEffect(() => {
     document.addEventListener("keydown", keyDownListener);
@@ -224,6 +226,7 @@ function App() {
   };
 
   const getSearchResults = (searchWord: string) => {
+    setIsLoading(true);
     axios
       .get("/api/results/" + searchWord)
       .then((results) => {
@@ -231,6 +234,7 @@ function App() {
       })
       .catch((err) => {
         console.log("error: ", err);
+        setIsLoading(false);
       });
   };
 
@@ -272,6 +276,7 @@ function App() {
     setSlack(sortedSlack);
     setTwitter(sortedTwitter);
     setSearchedWord(searchWord);
+    setIsLoading(false);
   };
 
   const sortArrayByTimeDescendingOrder = (array: [], category: string) => {
@@ -366,20 +371,24 @@ function App() {
               taggedIds={taggedIds}
               clearPinBoard={clearPinBoard}
             />
-            <SearchResult
-              calendarData={calendarData}
-              contactsData={contactsData}
-              dropboxData={dropboxData}
-              slackData={slackData}
-              twitterData={twitterData}
-              category={category}
-              searchedWord={searchedWord}
-              pinSearchResult={pinSearchResult}
-              pinnedIds={pinnedIds}
-              toggleModal={toggleModal}
-              taggedIds={taggedIds}
-            />
+            {
+              <SearchResult
+                calendarData={calendarData}
+                contactsData={contactsData}
+                dropboxData={dropboxData}
+                slackData={slackData}
+                twitterData={twitterData}
+                category={category}
+                searchedWord={searchedWord}
+                pinSearchResult={pinSearchResult}
+                pinnedIds={pinnedIds}
+                toggleModal={toggleModal}
+                taggedIds={taggedIds}
+              />
+            }
           </PinnedAndResultsWrapper>
+        ) : isLoading ? (
+          <Roller />
         ) : (
           <InitialMessageWrapper>
             Search across contacts, calendar, dropbox, slack and twitter. Enter
