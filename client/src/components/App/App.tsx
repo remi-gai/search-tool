@@ -64,20 +64,6 @@ function App() {
   const [showTagMenu, setTagMenu] = useState(false as boolean);
   const [isLoading, setIsLoading] = useState(false as boolean);
 
-  // useEffect(() => {
-  //   document.addEventListener("keydown", keyDownListener);
-  //   return () => {
-  //     document.removeEventListener("keydown", keyDownListener);
-  //   };
-  // }, [searchWord]);
-
-  //Miscs
-  // const keyDownListener = (event: KeyboardEvent) => {
-  //   if (event.code === "Enter" || event.code === "NumpadEnter") {
-  //     onSearchWordSubmit();
-  //   }
-  // };
-
   // Toggles
   const toggleModal = (category, element) => {
     setModal(!showModal);
