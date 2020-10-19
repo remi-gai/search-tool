@@ -11,4 +11,16 @@ const TagMenuWrapper = styled.div`
   border: solid 1px black;
 `;
 
-export { TagMenuWrapper };
+const TagWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const Tag = styled.div``;
+
+const DeleteIcon = styled.img.attrs({ src: "./icons/delete-icon.png" })`
+  width: 14px;
+  height: 18px;
+`;
+
+export { TagMenuWrapper, TagWrapper, Tag, DeleteIcon };

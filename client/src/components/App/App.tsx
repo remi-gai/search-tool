@@ -141,10 +141,47 @@ function App() {
 
   const deleteTag = (tag) => {
     const copyOfTaggedSearches = JSON.parse(JSON.stringify(taggedSearches));
-    const copyOfTaggedIds = JSON.parse(JSON.stringify(taggedIds));
+    delete copyOfTaggedSearches[tag];
+    const keysInTaggedIds = Object.keys(taggedIds);
+    keysInTaggedIds.forEach((id) => {
+      deleteTagFromIdInTaggedIds(id, tag);
+    });
+    setTaggedSearches(copyOfTaggedSearches);
   };
 
-  const deleteElementFromTag = (id, tag) => {};
+  const deleteElementFromTag = (id, tag, category) => {
+    deleteElementFromTaggedSearches(id, tag, category);
+    deleteTagFromIdInTaggedIds(id, tag);
+  };
+
+  const deleteElementFromTaggedSearches = (id, tag, category) => {
+    const copyOfTaggedSearches = JSON.parse(JSON.stringify(taggedSearches));
+    const tagAndCategoryData = copyOfTaggedSearches[tag][category];
+    for (let i = 0; i < tagAndCategoryData.length; i++) {
+      const currentElement = tagAndCategoryData[i];
+      if (id === currentElement.id) {
+        tagAndCategoryData.splice(i, 1);
+        break;
+      }
+    }
+    setTaggedSearches(copyOfTaggedSearches);
+  };
+
+  const deleteTagFromIdInTaggedIds = (id, tag) => {
+    const copyOfTaggedIds = JSON.parse(JSON.stringify(taggedIds));
+    const idTags = copyOfTaggedIds[id];
+    for (let i = 0; i < idTags.length; i++) {
+      const currentTag = idTags[i];
+      if (tag === currentTag) {
+        idTags.splice(i, 1);
+        if (idTags.length === 0) {
+          delete copyOfTaggedIds[id];
+        }
+        break;
+      }
+    }
+    setTaggedIds(copyOfTaggedIds);
+  };
 
   const onSearchWordSubmit = () => {
     const firstCharacter = searchWord[0];
@@ -298,6 +335,7 @@ function App() {
             toggleTagMenu={toggleTagMenu}
             taggedSearches={taggedSearches}
             displayTaggedResults={displayTaggedResults}
+            deleteTag={deleteTag}
           />
         ) : (
           <FilterMenu

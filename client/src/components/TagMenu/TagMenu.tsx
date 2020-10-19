@@ -1,6 +1,6 @@
 import React from "react";
 
-import { TagMenuWrapper } from "./styles";
+import { TagMenuWrapper, TagWrapper, DeleteIcon, Tag } from "./styles";
 
 import { TaggedSearches } from "../../interfaces/interfaces";
 
@@ -8,12 +8,14 @@ interface Props {
   toggleTagMenu: Function;
   taggedSearches: TaggedSearches;
   displayTaggedResults: Function;
+  deleteTag: Function;
 }
 
 function TagMenu({
   toggleTagMenu,
   taggedSearches,
   displayTaggedResults,
+  deleteTag,
 }: Props) {
   const tags = Object.keys(taggedSearches);
   const sortedTags = tags.sort();
@@ -22,7 +24,10 @@ function TagMenu({
     <TagMenuWrapper>
       <div onClick={() => toggleTagMenu()}>Back</div>
       {sortedTags.map((tag) => (
-        <div onClick={() => displayTaggedResults(tag)}>{tag}</div>
+        <TagWrapper>
+          <Tag onClick={() => displayTaggedResults(tag)}>{tag}</Tag>
+          <DeleteIcon onClick={() => deleteTag(tag)}></DeleteIcon>
+        </TagWrapper>
       ))}
     </TagMenuWrapper>
   );
