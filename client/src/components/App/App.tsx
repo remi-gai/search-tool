@@ -111,6 +111,17 @@ function App() {
     setSearchedWord("");
   };
 
+  const clearPinBoard = () => {
+    setPinnedSearches({
+      contacts: [],
+      calendar: [],
+      dropbox: [],
+      slack: [],
+      twitter: [],
+    } as Pinned);
+    setPinnedIds({} as Id);
+  };
+
   const onTagWordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const word = event.target.value;
     setTagWord(word);
@@ -353,6 +364,7 @@ function App() {
               pinnedIds={pinnedIds}
               toggleModal={toggleModal}
               taggedIds={taggedIds}
+              clearPinBoard={clearPinBoard}
             />
             <SearchResult
               calendarData={calendarData}

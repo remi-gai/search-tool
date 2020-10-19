@@ -1,6 +1,6 @@
 import React from "react";
 
-import { PinnedWrapper } from "./styles";
+import { PinnedWrapper, ClearPinBoardButton } from "./styles";
 import ContactsList from "../Contacts/ContactsList";
 import CalendarList from "../Calendar/CalendarList";
 import DropboxList from "../Dropbox/DropboxList";
@@ -14,6 +14,7 @@ interface Props {
   pinSearchResult: Function;
   toggleModal: Function;
   taggedIds: TaggedId;
+  clearPinBoard: Function;
 }
 
 function PinnedSearches({
@@ -22,6 +23,7 @@ function PinnedSearches({
   pinnedIds,
   toggleModal,
   taggedIds,
+  clearPinBoard,
 }: Props) {
   const emptyMessage = <div>The pin board is currently empty.</div>;
   const hasPinnedSearches =
@@ -33,6 +35,9 @@ function PinnedSearches({
 
   return (
     <PinnedWrapper>
+      <ClearPinBoardButton onClick={clearPinBoard}>
+        Clear Pinned Results
+      </ClearPinBoardButton>
       {hasPinnedSearches ? (
         <div>
           <ContactsList

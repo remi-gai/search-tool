@@ -5,4 +5,6 @@ const PinnedWrapper = styled.div`
   margin-bottom: 20px;
 `;
 
-export { PinnedWrapper };
+const ClearPinBoardButton = styled.button``;
+
+export { PinnedWrapper, ClearPinBoardButton };
