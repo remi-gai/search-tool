@@ -16,7 +16,16 @@ const TagModalWrapper = styled.div`
   flex-direction: column;
 `;
 
-const TagsListWrapper = styled.div``;
+const TagsListWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const TagWrapper = styled.div`
+  border: solid 1px black;
+  display: flex;
+  flex-direction: row;
+`;
 
 const TagModalTitle = styled.div``;
 
@@ -33,4 +42,5 @@ export {
   TagModalInputBox,
   SaveTagsButton,
   TagsListWrapper,
+  TagWrapper,
 };

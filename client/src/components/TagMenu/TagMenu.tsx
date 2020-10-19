@@ -1,4 +1,5 @@
 import React from "react";
+import shortid from "shortid";
 
 import { TagMenuWrapper, TagWrapper, DeleteIcon, Tag } from "./styles";
 
@@ -24,7 +25,7 @@ function TagMenu({
     <TagMenuWrapper>
       <div onClick={() => toggleTagMenu()}>Back</div>
       {sortedTags.map((tag) => (
-        <TagWrapper>
+        <TagWrapper key={shortid.generate()}>
           <Tag onClick={() => displayTaggedResults(tag)}>{tag}</Tag>
           <DeleteIcon onClick={() => deleteTag(tag)}></DeleteIcon>
         </TagWrapper>

@@ -1,5 +1,4 @@
 import React from "react";
-import shortid from "shortid";
 
 import SlackEntry from "./SlackEntry";
 import {} from "./styles";

@@ -1,5 +1,5 @@
 import React from "react";
-import shortid from "shortid";
+
 import TwitterEntry from "./TwitterEntry";
 import {} from "./styles";
 

@@ -1,4 +1,5 @@
 import React from "react";
+import shortid from "shortid";
 
 import {
   TagModalWrapper,
@@ -7,25 +8,32 @@ import {
   TagModalInputBox,
   SaveTagsButton,
   CloseModalButton,
+  TagWrapper,
 } from "./styles";
 import { TaggedId, TaggedSearches } from "../../interfaces/interfaces";
 
 interface Props {
+  elementId: string;
   taggedIds: TaggedId;
   taggedSearches: TaggedSearches;
   toggleModal: Function;
   onTagWordChange: Function;
   onSaveTag: Function;
+  deleteElementFromTag: Function;
 }
 
 function TagModalMessage({
+  elementId,
   taggedIds,
-  taggedSearches,
   toggleModal,
   onTagWordChange,
   onSaveTag,
+  deleteElementFromTag,
 }: Props) {
-  const listOfTags = Object.keys(taggedSearches);
+  let listOfTags = [] as string[];
+  if (taggedIds[elementId]) {
+    listOfTags = taggedIds[elementId].slice();
+  }
   const sortedListOfTags = listOfTags.sort();
 
   return (
@@ -33,7 +41,10 @@ function TagModalMessage({
       <CloseModalButton onClick={toggleModal}>x</CloseModalButton>
       <TagsListWrapper>
         {sortedListOfTags.map((tag) => (
-          <div>{tag}</div>
+          <TagWrapper key={shortid.generate()}>
+            <div>{tag}</div>
+            <div onClick={() => deleteElementFromTag(tag)}>x</div>
+          </TagWrapper>
         ))}
       </TagsListWrapper>
       <TagModalTitle>Edit Tags</TagModalTitle>

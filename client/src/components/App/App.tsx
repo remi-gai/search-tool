@@ -134,7 +134,8 @@ function App() {
     }
 
     copyOfTaggedSearches[tagWord][tagCategory].push(tagElement);
-    copyOfTaggedIds[tagElement.id].push(tagWord);
+    if (copyOfTaggedIds[tagElement.id].indexOf(tagWord) === -1)
+      copyOfTaggedIds[tagElement.id].push(tagWord);
     setTaggedSearches(copyOfTaggedSearches);
     setTaggedIds(copyOfTaggedIds);
   };
@@ -149,7 +150,9 @@ function App() {
     setTaggedSearches(copyOfTaggedSearches);
   };
 
-  const deleteElementFromTag = (id, tag, category) => {
+  const deleteElementFromTag = (tag) => {
+    const id = tagElement.id;
+    const category = tagCategory;
     deleteElementFromTaggedSearches(id, tag, category);
     deleteTagFromIdInTaggedIds(id, tag);
   };
@@ -191,7 +194,6 @@ function App() {
     } else if (firstCharacter === "#" && !taggedSearches[remainingCharacter]) {
       formatAndSetResults(null);
     } else {
-      console.log(searchWord);
       getSearchResults(searchWord);
     }
   };
@@ -377,11 +379,13 @@ function App() {
       {showModal ? (
         <TagModal>
           <TagModalMessage
+            elementId={tagElement.id}
             taggedIds={taggedIds}
             taggedSearches={taggedSearches}
             toggleModal={toggleModal}
             onTagWordChange={onTagWordChange}
             onSaveTag={onSaveTag}
+            deleteElementFromTag={deleteElementFromTag}
           ></TagModalMessage>
         </TagModal>
       ) : null}
