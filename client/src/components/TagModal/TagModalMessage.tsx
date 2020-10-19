@@ -21,6 +21,7 @@ interface Props {
   onSaveTag: Function;
   deleteElementFromTag: Function;
   tagWord: string;
+  onKeyUp: Function;
 }
 
 function TagModalMessage({
@@ -31,6 +32,7 @@ function TagModalMessage({
   onSaveTag,
   deleteElementFromTag,
   tagWord,
+  onKeyUp,
 }: Props) {
   let listOfTags = [] as string[];
   if (taggedIds[elementId]) {
@@ -53,6 +55,7 @@ function TagModalMessage({
       <TagModalInputBox
         value={tagWord}
         onChange={(e) => onTagWordChange(e)}
+        onKeyUp={(e) => onKeyUp(e, "tagModal")}
       ></TagModalInputBox>
       <SaveTagsButton onClick={() => onSaveTag()}>Save</SaveTagsButton>
     </TagModalWrapper>

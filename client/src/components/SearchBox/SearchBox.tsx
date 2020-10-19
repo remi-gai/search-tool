@@ -14,6 +14,7 @@ interface Props {
   onSearchWordSubmit: Function;
   searchWord: string;
   clearSearchBox: Function;
+  onKeyUp: Function;
 }
 
 function SearchBox({
@@ -21,6 +22,7 @@ function SearchBox({
   onSearchWordSubmit,
   searchWord,
   clearSearchBox,
+  onKeyUp,
 }: Props) {
   return (
     <SearchBoxWrapper>
@@ -29,10 +31,12 @@ function SearchBox({
         placeholder={"Search"}
         value={searchWord}
         onChange={(e) => onSearchWordChange(e)}
+        onKeyUp={(e) => onKeyUp(e, "search")}
       ></SearchInput>
       <ButtonsWrapper>
         <ClearButton onClick={clearSearchBox}>Clear</ClearButton>
         <SubmitButton onClick={onSearchWordSubmit}>Search</SubmitButton>
+        {/* <SubmitButton onClick={() => onSearchWordSubmit(searchWord)}>Search</SubmitButton> */}
       </ButtonsWrapper>
     </SearchBoxWrapper>
   );

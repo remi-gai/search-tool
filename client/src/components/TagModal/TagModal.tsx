@@ -13,7 +13,7 @@ function TagModal({ children, onSaveTag }) {
   }
 
   useEffect(() => {
-    document.addEventListener("keydown", ModalKeyDownListener);
+    // document.addEventListener("keydown", ModalKeyDownListener);
 
     let modalRoot;
     if (document.getElementById("modal") !== null) {
@@ -24,11 +24,11 @@ function TagModal({ children, onSaveTag }) {
     return () => modalRoot.removeChild(elRef.current);
   }, []);
 
-  const ModalKeyDownListener = (event: KeyboardEvent) => {
-    if (event.code === "Enter" || event.code === "NumpadEnter") {
-      onSaveTag();
-    }
-  };
+  // const ModalKeyDownListener = (event: KeyboardEvent) => {
+  //   if (event.code === "Enter" || event.code === "NumpadEnter") {
+  //     onSaveTag();
+  //   }
+  // };
 
   return createPortal(
     <ModalBackground>{children}</ModalBackground>,
