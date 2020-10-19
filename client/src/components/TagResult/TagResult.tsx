@@ -1,6 +1,6 @@
 import React from "react";
 
-import { SearchResultOuterWrapper, SearchResultInnerWrapper } from "./styles";
+import {} from "./styles";
 import ContactsList from "../Contacts/ContactsList";
 import CalendarList from "../Calendar/CalendarList";
 import DropboxList from "../Dropbox/DropboxList";

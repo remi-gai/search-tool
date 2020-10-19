@@ -8,6 +8,7 @@ import PinnedSearches from "../PinnedSearches/PinnedSearches";
 import SearchResult from "../SearchResult/SearchResult";
 import TagModal from "../TagModal/TagModal";
 import TagModalMessage from "../TagModal/TagModalMessage";
+import TagMenu from "../TagMenu/TagMenu";
 
 import {
   WindowWrapper,
@@ -15,6 +16,7 @@ import {
   PinnedAndResultsWrapper,
   InitialMessageWrapper,
 } from "./styles";
+
 import {
   Calendar,
   Contacts,
@@ -24,7 +26,6 @@ import {
   Category,
   Pinned,
   Id,
-  Tag,
   TaggedSearches,
   TaggedId,
   TagElement,
@@ -70,6 +71,7 @@ function App() {
   const [tagWord, setTagWord] = useState("" as string);
   const [tagCategory, setTagCategory] = useState("" as string);
   const [tagElement, setTagElement] = useState({} as TagElement);
+  const [showTagMenu, setTagMenu] = useState(false as boolean);
 
   useEffect(() => {
     document.addEventListener("keydown", keyDownListener);
@@ -135,6 +137,18 @@ function App() {
 
   const onSearchWordSubmit = () => {
     getSearchResults(searchWord);
+  };
+
+  const toggleTagMenu = () => {
+    setTagMenu(!showTagMenu);
+  };
+
+  const displayTaggedResults = (tag) => {
+    setContacts(taggedSearches[tag].contacts);
+    setCalendar(taggedSearches[tag].calendar);
+    setDropbox(taggedSearches[tag].dropbox);
+    setSlack(taggedSearches[tag].slack);
+    setTwitter(taggedSearches[tag].twitter);
   };
 
   const getSearchResults = (searchWord: string) => {
@@ -242,7 +256,18 @@ function App() {
       />
 
       <ResultsOuterWrapper>
-        <FilterMenu filterCategory={filterCategory} />
+        {showTagMenu ? (
+          <TagMenu
+            toggleTagMenu={toggleTagMenu}
+            taggedSearches={taggedSearches}
+            displayTaggedResults={displayTaggedResults}
+          />
+        ) : (
+          <FilterMenu
+            filterCategory={filterCategory}
+            toggleTagMenu={toggleTagMenu}
+          />
+        )}
         {searchedWord.length ? (
           <PinnedAndResultsWrapper>
             <PinnedSearches
@@ -273,7 +298,6 @@ function App() {
             you click on submit or enter on your keyboard
           </InitialMessageWrapper>
         )}
-        <button onClick={() => toggleModal("", {})}>click</button>
       </ResultsOuterWrapper>
       {showModal ? (
         <TagModal>

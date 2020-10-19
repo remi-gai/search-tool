@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const FilterMenuWrapper = styled.div`
+const TagMenuWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding-top: 10px;
@@ -11,6 +11,4 @@ const FilterMenuWrapper = styled.div`
   border: solid 1px black;
 `;
 
-const TagsFilter = styled.div``;
-
-export { TagsFilter, FilterMenuWrapper };
+export { TagMenuWrapper };

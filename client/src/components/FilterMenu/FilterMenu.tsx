@@ -1,13 +1,14 @@
 import React from "react";
 import shortid from "shortid";
 
-import { FilterMenuWrapper } from "./styles";
+import { TagsFilter, FilterMenuWrapper } from "./styles";
 
 interface Props {
   filterCategory: Function;
+  toggleTagMenu: Function;
 }
 
-function FilterMenu({ filterCategory }: Props) {
+function FilterMenu({ filterCategory, toggleTagMenu }: Props) {
   const categories = [
     "All",
     "Contacts",
@@ -19,6 +20,7 @@ function FilterMenu({ filterCategory }: Props) {
 
   return (
     <FilterMenuWrapper>
+      <TagsFilter onClick={toggleTagMenu}>Tags</TagsFilter>
       {categories.map((category) => {
         return (
           <div
