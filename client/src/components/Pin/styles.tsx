@@ -5,14 +5,11 @@ const PinWrapper = styled.div`
   align-items: center;
 `;
 
-const PinnedIcon = styled.img.attrs({ src: "./icons/saved-icon.png" })`
+const PinIcon = styled.img.attrs((props) => ({
+  src: props.src,
+}))`
   width: 14px;
   height: 18px;
 `;
 
-const UnpinnedIcon = styled.img.attrs({ src: "./icons/save-icon.png" })`
-  width: 15px;
-  height: 18px;
-`;
-
-export { PinWrapper, PinnedIcon, UnpinnedIcon };
+export { PinWrapper, PinIcon };

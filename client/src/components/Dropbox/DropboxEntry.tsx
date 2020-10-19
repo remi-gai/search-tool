@@ -12,9 +12,9 @@ import {
   DropboxTitle,
   DropboxPath,
 } from "./styles";
-import { PinWrapper, PinnedIcon, UnpinnedIcon } from "../Pin/styles";
+import { PinWrapper, PinIcon } from "../Pin/styles";
 
-import { TagWrapper, TaggedIcon, UntaggedIcon } from "../Tag/styles";
+import { TagWrapper, TagIcon } from "../Tag/styles";
 
 import { Dropbox, Id, TaggedId } from "../../interfaces/interfaces";
 
@@ -35,6 +35,9 @@ function DropboxEntry({
   toggleModal,
   taggedIds,
 }: Props) {
+  const isPinned = pinnedIds[id] ? true : false;
+  const isTagged = taggedIds[id] ? true : false;
+
   return (
     <DropboxOuterWrapper>
       <DropboxLeftWrapper>
@@ -51,25 +54,29 @@ function DropboxEntry({
           {"Created: " + moment(dropboxFile.created, "YYYY-MM-DD").fromNow()}
         </DropboxDate>
         <PinWrapper>
-          {pinnedIds[id] ? (
-            <PinnedIcon
+          {isPinned ? (
+            <PinIcon
               onClick={() => pinSearchResult("dropbox", id)}
-            ></PinnedIcon>
+              src="./icons/pinned-icon.png"
+            ></PinIcon>
           ) : (
-            <UnpinnedIcon
+            <PinIcon
               onClick={() => pinSearchResult("dropbox", id)}
-            ></UnpinnedIcon>
+              src="./icons/unpinned-icon.png"
+            ></PinIcon>
           )}
         </PinWrapper>
         <TagWrapper>
-          {taggedIds[id] ? (
-            <TaggedIcon
+          {isTagged ? (
+            <TagIcon
               onClick={() => toggleModal("dropbox", dropboxFile)}
-            ></TaggedIcon>
+              src="./icons/tagged-icon.png"
+            ></TagIcon>
           ) : (
-            <UntaggedIcon
+            <TagIcon
               onClick={() => toggleModal("dropbox", dropboxFile)}
-            ></UntaggedIcon>
+              src="./icons/untagged-icon.png"
+            ></TagIcon>
           )}
         </TagWrapper>
       </DropboxRightWrappper>

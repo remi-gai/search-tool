@@ -13,9 +13,9 @@ import {
   ContactDate,
 } from "./styles";
 
-import { PinWrapper, PinnedIcon, UnpinnedIcon } from "../Pin/styles";
+import { PinWrapper, PinIcon } from "../Pin/styles";
 
-import { TagWrapper, TaggedIcon, UntaggedIcon } from "../Tag/styles";
+import { TagWrapper, TagIcon } from "../Tag/styles";
 
 import { Contacts, Id, TaggedId } from "../../interfaces/interfaces";
 
@@ -36,6 +36,9 @@ function ContactEntry({
   toggleModal,
   taggedIds,
 }: Props) {
+  const isPinned = pinnedIds[id] ? true : false;
+  const isTagged = taggedIds[id] ? true : false;
+
   return (
     <ContactOuterWrapper>
       <ContactLeftWrapper>
@@ -53,25 +56,29 @@ function ContactEntry({
             moment(contact.last_contact, "YYYY-MM-DD").fromNow()}
         </ContactDate>
         <PinWrapper>
-          {pinnedIds[id] ? (
-            <PinnedIcon
+          {isPinned ? (
+            <PinIcon
               onClick={() => pinSearchResult("contacts", id)}
-            ></PinnedIcon>
+              src="./icons/pinned-icon.png"
+            ></PinIcon>
           ) : (
-            <UnpinnedIcon
+            <PinIcon
               onClick={() => pinSearchResult("contacts", id)}
-            ></UnpinnedIcon>
+              src="./icons/unpinned-icon.png"
+            ></PinIcon>
           )}
         </PinWrapper>
         <TagWrapper>
-          {taggedIds[id] ? (
-            <TaggedIcon
+          {isTagged ? (
+            <TagIcon
               onClick={() => toggleModal("contacts", contact)}
-            ></TaggedIcon>
+              src="./icons/tagged-icon.png"
+            ></TagIcon>
           ) : (
-            <UntaggedIcon
+            <TagIcon
               onClick={() => toggleModal("contacts", contact)}
-            ></UntaggedIcon>
+              src="./icons/untagged-icon.png"
+            ></TagIcon>
           )}
         </TagWrapper>
       </ContactRightWrappper>

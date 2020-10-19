@@ -12,9 +12,9 @@ import {
   CalendarTitle,
   CalendarInvitees,
 } from "./styles";
-import { PinWrapper, PinnedIcon, UnpinnedIcon } from "../Pin/styles";
+import { PinWrapper, PinIcon } from "../Pin/styles";
 
-import { TagWrapper, TaggedIcon, UntaggedIcon } from "../Tag/styles";
+import { TagWrapper, TagIcon } from "../Tag/styles";
 
 import { Calendar, Id, TaggedId } from "../../interfaces/interfaces";
 
@@ -35,6 +35,9 @@ function CalendarEntry({
   toggleModal,
   taggedIds,
 }: Props) {
+  const isPinned = pinnedIds[id] ? true : false;
+  const isTagged = taggedIds[id] ? true : false;
+
   return (
     <CalendarOuterWrapper>
       <CalendarLeftWrapper>
@@ -54,25 +57,29 @@ function CalendarEntry({
             moment(calendar.date, "YYYY-MM-DD hh:mm:ss").fromNow()}
         </CalendarDate>
         <PinWrapper>
-          {pinnedIds[id] ? (
-            <PinnedIcon
+          {isPinned ? (
+            <PinIcon
               onClick={() => pinSearchResult("calendar", id)}
-            ></PinnedIcon>
+              src="./icons/pinned-icon.png"
+            ></PinIcon>
           ) : (
-            <UnpinnedIcon
+            <PinIcon
               onClick={() => pinSearchResult("calendar", id)}
-            ></UnpinnedIcon>
+              src="./icons/unpinned-icon.png"
+            ></PinIcon>
           )}
         </PinWrapper>
         <TagWrapper>
-          {taggedIds[id] ? (
-            <TaggedIcon
+          {isTagged ? (
+            <TagIcon
               onClick={() => toggleModal("calendar", calendar)}
-            ></TaggedIcon>
+              src="./icons/tagged-icon.png"
+            ></TagIcon>
           ) : (
-            <UntaggedIcon
+            <TagIcon
               onClick={() => toggleModal("calendar", calendar)}
-            ></UntaggedIcon>
+              src="./icons/untagged-icon.png"
+            ></TagIcon>
           )}
         </TagWrapper>
       </CalendarRightWrappper>

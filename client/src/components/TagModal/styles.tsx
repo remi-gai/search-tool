@@ -35,6 +35,15 @@ const TagModalInputBox = styled.input`
 
 const SaveTagsButton = styled.button``;
 
+const ModalBackground = styled.div`
+  background-color: rgba(0, 0, 0, 0.1);
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+`;
+
 export {
   CloseModalButton,
   TagModalWrapper,
@@ -43,4 +52,5 @@ export {
   SaveTagsButton,
   TagsListWrapper,
   TagWrapper,
+  ModalBackground,
 };

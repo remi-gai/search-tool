@@ -52,22 +52,7 @@ function App() {
   const [pinnedIds, setPinnedIds] = useState({} as Id);
   const [showModal, setModal] = useState(false as boolean);
 
-  const [taggedSearches, setTaggedSearches] = useState({
-    test: {
-      contacts: [],
-      calendar: [],
-      dropbox: [],
-      slack: [],
-      twitter: [],
-    },
-    bob: {
-      contacts: [],
-      calendar: [],
-      dropbox: [],
-      slack: [],
-      twitter: [],
-    },
-  } as TaggedSearches);
+  const [taggedSearches, setTaggedSearches] = useState({} as TaggedSearches);
   const [taggedIds, setTaggedIds] = useState({} as TaggedId);
   const [tagWord, setTagWord] = useState("" as string);
   const [tagCategory, setTagCategory] = useState("" as string);

@@ -5,14 +5,11 @@ const TagWrapper = styled.div`
   align-items: center;
 `;
 
-const TaggedIcon = styled.img.attrs({ src: "./icons/tagged-icon.png" })`
+const TagIcon = styled.img.attrs((props) => ({
+  src: props.src,
+}))`
   width: 25px;
   height: 25px;
 `;
 
-const UntaggedIcon = styled.img.attrs({ src: "./icons/untagged-icon.png" })`
-  width: 25px;
-  height: 25px;
-`;
-
-export { TagWrapper, TaggedIcon, UntaggedIcon };
+export { TagWrapper, TagIcon };

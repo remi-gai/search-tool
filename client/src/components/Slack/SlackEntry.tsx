@@ -13,9 +13,9 @@ import {
   SlackMessage,
 } from "./styles";
 
-import { PinWrapper, PinnedIcon, UnpinnedIcon } from "../Pin/styles";
+import { PinWrapper, PinIcon } from "../Pin/styles";
 
-import { TagWrapper, TaggedIcon, UntaggedIcon } from "../Tag/styles";
+import { TagWrapper, TagIcon } from "../Tag/styles";
 
 import { Slack, Id, TaggedId } from "../../interfaces/interfaces";
 
@@ -36,6 +36,9 @@ function SlackEntry({
   toggleModal,
   taggedIds,
 }: Props) {
+  const isPinned = pinnedIds[id] ? true : false;
+  const isTagged = taggedIds[id] ? true : false;
+
   return (
     <SlackOuterWrapper>
       <SlackLeftWrapper>
@@ -55,25 +58,29 @@ function SlackEntry({
             moment(slackMessage.timestamp, "YYYY-MM-DD hh:mm:ss").fromNow()}
         </SlackDate>
         <PinWrapper>
-          {pinnedIds[id] ? (
-            <PinnedIcon
+          {isPinned ? (
+            <PinIcon
               onClick={() => pinSearchResult("slack", id)}
-            ></PinnedIcon>
+              src="./icons/pinned-icon.png"
+            ></PinIcon>
           ) : (
-            <UnpinnedIcon
+            <PinIcon
               onClick={() => pinSearchResult("slack", id)}
-            ></UnpinnedIcon>
+              src="./icons/unpinned-icon.png"
+            ></PinIcon>
           )}
         </PinWrapper>
         <TagWrapper>
-          {taggedIds[id] ? (
-            <TaggedIcon
+          {isTagged ? (
+            <TagIcon
               onClick={() => toggleModal("slack", slackMessage)}
-            ></TaggedIcon>
+              src="./icons/tagged-icon.png"
+            ></TagIcon>
           ) : (
-            <UntaggedIcon
+            <TagIcon
               onClick={() => toggleModal("slack", slackMessage)}
-            ></UntaggedIcon>
+              src="./icons/untagged-icon.png"
+            ></TagIcon>
           )}
         </TagWrapper>
       </SlackRightWrappper>

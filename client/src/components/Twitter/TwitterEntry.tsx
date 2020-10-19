@@ -12,9 +12,9 @@ import {
   TwitterUser,
   TwitterMessage,
 } from "./styles";
-import { PinWrapper, PinnedIcon, UnpinnedIcon } from "../Pin/styles";
+import { PinWrapper, PinIcon } from "../Pin/styles";
 
-import { TagWrapper, TaggedIcon, UntaggedIcon } from "../Tag/styles";
+import { TagWrapper, TagIcon } from "../Tag/styles";
 
 import { Twitter, Id, TaggedId } from "../../interfaces/interfaces";
 
@@ -35,6 +35,9 @@ function TwitterEntry({
   toggleModal,
   taggedIds,
 }: Props) {
+  const isPinned = pinnedIds[id] ? true : false;
+  const isTagged = taggedIds[id] ? true : false;
+
   return (
     <TwitterOuterWrapper>
       <TwitterLeftWrapper>
@@ -52,25 +55,29 @@ function TwitterEntry({
             moment(twitterMessage.timestamp, "YYYY-MM-DD").fromNow()}
         </TwitterDate>
         <PinWrapper>
-          {pinnedIds[id] ? (
-            <PinnedIcon
+          {isPinned ? (
+            <PinIcon
               onClick={() => pinSearchResult("twitter", id)}
-            ></PinnedIcon>
+              src="./icons/pinned-icon.png"
+            ></PinIcon>
           ) : (
-            <UnpinnedIcon
+            <PinIcon
               onClick={() => pinSearchResult("twitter", id)}
-            ></UnpinnedIcon>
+              src="./icons/unpinned-icon.png"
+            ></PinIcon>
           )}
         </PinWrapper>
         <TagWrapper>
-          {taggedIds[id] ? (
-            <TaggedIcon
+          {isTagged ? (
+            <TagIcon
               onClick={() => toggleModal("twitter", twitterMessage)}
-            ></TaggedIcon>
+              src="./icons/tagged-icon.png"
+            ></TagIcon>
           ) : (
-            <UntaggedIcon
+            <TagIcon
               onClick={() => toggleModal("twitter", twitterMessage)}
-            ></UntaggedIcon>
+              src="./icons/untagged-icon.png"
+            ></TagIcon>
           )}
         </TagWrapper>
       </TwitterRightWrappper>
