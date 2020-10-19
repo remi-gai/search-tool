@@ -1,8 +1,10 @@
 import React from "react";
 
 import {
+  SearchIcon,
   SearchBoxWrapper,
   SearchInput,
+  ButtonsWrapper,
   SubmitButton,
   ClearButton,
 } from "./styles";
@@ -22,12 +24,16 @@ function SearchBox({
 }: Props) {
   return (
     <SearchBoxWrapper>
+      <SearchIcon></SearchIcon>
       <SearchInput
+        placeholder={"Search"}
         value={searchWord}
         onChange={(e) => onSearchWordChange(e)}
       ></SearchInput>
-      <ClearButton onClick={clearSearchBox}>Clear</ClearButton>
-      <SubmitButton onClick={onSearchWordSubmit}>Submit</SubmitButton>
+      <ButtonsWrapper>
+        <ClearButton onClick={clearSearchBox}>Clear</ClearButton>
+        <SubmitButton onClick={onSearchWordSubmit}>Search</SubmitButton>
+      </ButtonsWrapper>
     </SearchBoxWrapper>
   );
 }

@@ -5,7 +5,7 @@ import { ModalBackground } from "./styles";
 
 /*Existence of null for modalRoot has been described in "The Billion Dollar Mistake". One way to fix this is to ensure that the values are never null or undefined, for example by verifying them up front*/
 
-function TagModal({ children }) {
+function TagModal({ children, onSaveTag }) {
   const elRef: any = useRef(null);
   if (!elRef.current) {
     const div: HTMLElement = document.createElement("div");
@@ -13,6 +13,8 @@ function TagModal({ children }) {
   }
 
   useEffect(() => {
+    document.addEventListener("keydown", ModalKeyDownListener);
+
     let modalRoot;
     if (document.getElementById("modal") !== null) {
       modalRoot = document.getElementById("modal");
@@ -21,6 +23,12 @@ function TagModal({ children }) {
 
     return () => modalRoot.removeChild(elRef.current);
   }, []);
+
+  const ModalKeyDownListener = (event: KeyboardEvent) => {
+    if (event.code === "Enter" || event.code === "NumpadEnter") {
+      onSaveTag();
+    }
+  };
 
   return createPortal(
     <ModalBackground>{children}</ModalBackground>,

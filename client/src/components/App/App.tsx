@@ -12,6 +12,7 @@ import TagModalMessage from "../TagModal/TagModalMessage";
 import TagMenu from "../TagMenu/TagMenu";
 
 import {
+  GlobalStyle,
   WindowWrapper,
   ResultsOuterWrapper,
   PinnedAndResultsWrapper,
@@ -33,11 +34,13 @@ import {
 } from "../../interfaces/interfaces";
 
 function App() {
+  // Group?
   const [contactsData, setContacts] = useState([] as Contacts[]);
   const [calendarData, setCalendar] = useState([] as Calendar[]);
   const [dropboxData, setDropbox] = useState([] as Dropbox[]);
   const [slackData, setSlack] = useState([] as Slack[]);
   const [twitterData, setTwitter] = useState([] as Twitter[]);
+
   const [category, setCategory] = useState("ALL" as string);
   const [searchWord, setSearchWord] = useState("" as string);
   const [searchedWord, setSearchedWord] = useState("" as string);
@@ -69,17 +72,12 @@ function App() {
 
   const toggleModal = (category, element) => {
     setModal(!showModal);
-    setTagCategoryAndElement(category, element);
-  };
-
-  const setTagCategoryAndElement = (category, element) => {
     setTagCategory(category);
     setTagElement(element);
   };
 
   const keyDownListener = (event: KeyboardEvent) => {
     if (event.code === "Enter" || event.code === "NumpadEnter") {
-      // showModal ? onSaveTag() : onSearchWordSubmit();
       onSearchWordSubmit();
     }
   };
@@ -323,8 +321,11 @@ function App() {
     setPinnedIds(copyOfPinnedIds);
   };
 
+  const hasSearched = searchedWord ? true : false;
+
   return (
     <WindowWrapper>
+      <GlobalStyle />
       <SearchBox
         onSearchWordChange={onSearchWordChange}
         onSearchWordSubmit={onSearchWordSubmit}
@@ -346,44 +347,40 @@ function App() {
             toggleTagMenu={toggleTagMenu}
           />
         )}
-        {searchedWord.length ? (
-          <PinnedAndResultsWrapper>
-            <PinnedSearches
-              pinnedSearches={pinnedSearches}
+        <PinnedAndResultsWrapper>
+          <PinnedSearches
+            pinnedSearches={pinnedSearches}
+            pinSearchResult={pinSearchResult}
+            pinnedIds={pinnedIds}
+            toggleModal={toggleModal}
+            taggedIds={taggedIds}
+            clearPinBoard={clearPinBoard}
+          />
+          {hasSearched ? (
+            <SearchResult
+              calendarData={calendarData}
+              contactsData={contactsData}
+              dropboxData={dropboxData}
+              slackData={slackData}
+              twitterData={twitterData}
+              category={category}
+              searchedWord={searchedWord}
               pinSearchResult={pinSearchResult}
               pinnedIds={pinnedIds}
               toggleModal={toggleModal}
               taggedIds={taggedIds}
-              clearPinBoard={clearPinBoard}
             />
-            {
-              <SearchResult
-                calendarData={calendarData}
-                contactsData={contactsData}
-                dropboxData={dropboxData}
-                slackData={slackData}
-                twitterData={twitterData}
-                category={category}
-                searchedWord={searchedWord}
-                pinSearchResult={pinSearchResult}
-                pinnedIds={pinnedIds}
-                toggleModal={toggleModal}
-                taggedIds={taggedIds}
-              />
-            }
-          </PinnedAndResultsWrapper>
-        ) : isLoading ? (
-          <Roller />
-        ) : (
-          <InitialMessageWrapper>
-            Search across contacts, calendar, dropbox, slack and twitter. Enter
-            a query in the search input above, and results will displayed after
-            you click on submit or enter on your keyboard
-          </InitialMessageWrapper>
-        )}
+          ) : (
+            <InitialMessageWrapper>
+              Search across contacts, calendar, dropbox, slack and twitter.
+              Enter a query in the search input above, and results will
+              displayed after you click on submit or enter on your keyboard
+            </InitialMessageWrapper>
+          )}
+        </PinnedAndResultsWrapper>
       </ResultsOuterWrapper>
-      {showModal ? (
-        <TagModal>
+      {showModal && (
+        <TagModal onSaveTag={onSaveTag}>
           <TagModalMessage
             elementId={tagElement.id}
             taggedIds={taggedIds}
@@ -392,9 +389,10 @@ function App() {
             onTagWordChange={onTagWordChange}
             onSaveTag={onSaveTag}
             deleteElementFromTag={deleteElementFromTag}
+            tagWord={tagWord}
           ></TagModalMessage>
         </TagModal>
-      ) : null}
+      )}
     </WindowWrapper>
   );
 }

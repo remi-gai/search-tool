@@ -20,6 +20,7 @@ interface Props {
   onTagWordChange: Function;
   onSaveTag: Function;
   deleteElementFromTag: Function;
+  tagWord: string;
 }
 
 function TagModalMessage({
@@ -29,6 +30,7 @@ function TagModalMessage({
   onTagWordChange,
   onSaveTag,
   deleteElementFromTag,
+  tagWord,
 }: Props) {
   let listOfTags = [] as string[];
   if (taggedIds[elementId]) {
@@ -48,7 +50,10 @@ function TagModalMessage({
         ))}
       </TagsListWrapper>
       <TagModalTitle>Edit Tags</TagModalTitle>
-      <TagModalInputBox onChange={(e) => onTagWordChange(e)}></TagModalInputBox>
+      <TagModalInputBox
+        value={tagWord}
+        onChange={(e) => onTagWordChange(e)}
+      ></TagModalInputBox>
       <SaveTagsButton onClick={() => onSaveTag()}>Save</SaveTagsButton>
     </TagModalWrapper>
   );
