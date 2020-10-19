@@ -1,7 +1,16 @@
 import React from "react";
 import shortid from "shortid";
 
-import { TagMenuWrapper, TagWrapper, DeleteIcon, Tag } from "./styles";
+import {
+  TagMenuWrapper,
+  TagWrapper,
+  BackArrowIconAndTitleWrapper,
+  BackArrowIcon,
+  DeleteIcon,
+  Tag,
+  BackToMenuTitle,
+  UpperSectionWrapper,
+} from "./styles";
 
 import { TaggedSearches } from "../../interfaces/interfaces";
 
@@ -23,7 +32,12 @@ function TagMenu({
 
   return (
     <TagMenuWrapper>
-      <div onClick={() => toggleTagMenu()}>Back</div>
+      <UpperSectionWrapper>
+        <BackArrowIconAndTitleWrapper onClick={() => toggleTagMenu()}>
+          <BackArrowIcon></BackArrowIcon>
+          <BackToMenuTitle>Tags</BackToMenuTitle>
+        </BackArrowIconAndTitleWrapper>
+      </UpperSectionWrapper>
       {sortedTags.map((tag) => (
         <TagWrapper key={shortid.generate()}>
           <Tag onClick={() => displayTaggedResults(tag)}>{tag}</Tag>

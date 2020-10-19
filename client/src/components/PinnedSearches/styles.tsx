@@ -20,6 +20,9 @@ const ClearPinBoardButton = styled.button`
     cursor: pointer;
     color: #415aff;
   }
+  &:focus {
+    outline: none;
+  }
 `;
 
 export { PinnedWrapper, ClearPinBoardWrapper, ClearPinBoardButton };
