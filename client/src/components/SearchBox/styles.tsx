@@ -5,6 +5,7 @@ const SearchBoxWrapper = styled.div`
   align-items: center;
   flex-direction: row;
   height: 80px;
+  border-bottom: 1px solid #e0e0e0;
 `;
 
 const SearchInput = styled.input`

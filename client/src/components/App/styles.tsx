@@ -20,17 +20,26 @@ const PinnedAndResultsWrapper = styled.div`
   max-width: 800px;
 `;
 
+const SearchResultsWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+  padding-top: 20px;
+  width: 100%;
+  border: 1px solid black;
+`;
+
 const ResultsOuterWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   padding-top: 50px;
-  border: solid 1px black;
 `;
 
 const InitialMessageWrapper = styled.div`
-  border: solid 1px;
-  min-height: 400px;
+  font-size: 18px;
+  text-align: center;
 `;
 
 export {
@@ -39,4 +48,5 @@ export {
   ResultsOuterWrapper,
   PinnedAndResultsWrapper,
   InitialMessageWrapper,
+  SearchResultsWrapper,
 };

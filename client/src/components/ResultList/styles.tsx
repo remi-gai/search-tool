@@ -1,4 +1,11 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
+
+const ResultListWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  /* width: 400px; */
+`;
 
 const DetailsWrapper = styled.div`
   display: flex;
@@ -67,6 +74,7 @@ const TwitterIcon = styled.img.attrs({
 `;
 
 export {
+  ResultListWrapper,
   DetailsWrapper,
   Title,
   Date,

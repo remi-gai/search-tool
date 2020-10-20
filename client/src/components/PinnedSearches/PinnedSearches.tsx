@@ -3,8 +3,14 @@ import shortid from "shortid";
 
 import {
   PinnedWrapper,
-  ClearPinBoardWrapper,
+  PinIcon,
+  ClearPinBoardAndIconWrapper,
   ClearPinBoardButton,
+  PinAndPinBoardTitleWrapper,
+  PinBoardTitle,
+  EmptyMessage,
+  PinnedSearchListAndMessageWrapper,
+  PinnedSearchListWrapper,
 } from "./styles";
 
 import { Id, SearchData, TaggedId } from "../../interfaces/interfaces";
@@ -28,7 +34,9 @@ function PinnedSearches({
   taggedIds,
   clearPinBoard,
 }: Props) {
-  const emptyMessage = <div>The pin board is currently empty.</div>;
+  const emptyMessage = (
+    <EmptyMessage>The pin board is currently empty.</EmptyMessage>
+  );
   const hasPinnedSearches =
     pinnedSearches.contacts.length ||
     pinnedSearches.calendar.length ||
@@ -39,30 +47,36 @@ function PinnedSearches({
 
   return (
     <PinnedWrapper>
-      <ClearPinBoardWrapper>
+      <ClearPinBoardAndIconWrapper>
+        <PinAndPinBoardTitleWrapper>
+          <PinIcon></PinIcon>
+          <PinBoardTitle>Pin Board</PinBoardTitle>
+        </PinAndPinBoardTitleWrapper>
         <ClearPinBoardButton onClick={clearPinBoard}>
           Clear Pinned Results
         </ClearPinBoardButton>
-      </ClearPinBoardWrapper>
-      {hasPinnedSearches ? (
-        <div>
-          {categories.map((category) => {
-            return (
-              <ResultList
-                searchData={pinnedSearches}
-                category={category}
-                pinSearchResult={pinSearchResult}
-                pinnedIds={pinnedIds}
-                toggleModal={toggleModal}
-                taggedIds={taggedIds}
-                key={shortid.generate()}
-              ></ResultList>
-            );
-          })}
-        </div>
-      ) : (
-        emptyMessage
-      )}
+      </ClearPinBoardAndIconWrapper>
+      <PinnedSearchListAndMessageWrapper>
+        {hasPinnedSearches ? (
+          <PinnedSearchListWrapper>
+            {categories.map((category) => {
+              return (
+                <ResultList
+                  searchData={pinnedSearches}
+                  category={category}
+                  pinSearchResult={pinSearchResult}
+                  pinnedIds={pinnedIds}
+                  toggleModal={toggleModal}
+                  taggedIds={taggedIds}
+                  key={shortid.generate()}
+                ></ResultList>
+              );
+            })}
+          </PinnedSearchListWrapper>
+        ) : (
+          emptyMessage
+        )}
+      </PinnedSearchListAndMessageWrapper>
     </PinnedWrapper>
   );
 }

@@ -2,6 +2,7 @@ import React from "react";
 import moment from "moment";
 
 import {
+  ResultListWrapper,
   DetailsWrapper,
   Title,
   Date,
@@ -158,7 +159,7 @@ function ResultList({
   };
 
   return (
-    <div>
+    <ResultListWrapper>
       {searchData[category].map((result) => {
         return (
           <ResultEntry
@@ -176,7 +177,7 @@ function ResultList({
           ></ResultEntry>
         );
       })}
-    </div>
+    </ResultListWrapper>
   );
 }
 

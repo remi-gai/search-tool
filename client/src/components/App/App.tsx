@@ -17,6 +17,7 @@ import {
   ResultsOuterWrapper,
   PinnedAndResultsWrapper,
   InitialMessageWrapper,
+  SearchResultsWrapper,
 } from "./styles";
 
 import {
@@ -347,23 +348,25 @@ function App() {
             taggedIds={taggedIds}
             clearPinBoard={clearPinBoard}
           />
-          {hasSearched ? (
-            <SearchResult
-              searchData={searchData}
-              category={category}
-              searchedWord={searchedWord}
-              pinSearchResult={pinSearchResult}
-              pinnedIds={pinnedIds}
-              toggleModal={toggleModal}
-              taggedIds={taggedIds}
-            />
-          ) : (
-            <InitialMessageWrapper>
-              Search across contacts, calendar, dropbox, slack and twitter.
-              Enter a query in the search input above, and results will
-              displayed after you click on submit or enter on your keyboard
-            </InitialMessageWrapper>
-          )}
+          <SearchResultsWrapper>
+            {hasSearched ? (
+              <SearchResult
+                searchData={searchData}
+                category={category}
+                searchedWord={searchedWord}
+                pinSearchResult={pinSearchResult}
+                pinnedIds={pinnedIds}
+                toggleModal={toggleModal}
+                taggedIds={taggedIds}
+              />
+            ) : (
+              <InitialMessageWrapper>
+                {
+                  "Search across contacts, calendar, dropbox, slack and twitter. Enter a query in the search input above, and results will displayed after you click on submit or enter on your keyboard."
+                }
+              </InitialMessageWrapper>
+            )}
+          </SearchResultsWrapper>
         </PinnedAndResultsWrapper>
       </ResultsOuterWrapper>
       {showModal && (
