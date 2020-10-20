@@ -1,19 +1,18 @@
 import React from "react";
+import shortid from "shortid";
 
 import {
   PinnedWrapper,
   ClearPinBoardWrapper,
   ClearPinBoardButton,
 } from "./styles";
-import ContactsList from "../Contacts/ContactsList";
-import CalendarList from "../Calendar/CalendarList";
-import DropboxList from "../Dropbox/DropboxList";
-import SlackList from "../Slack/SlackList";
-import TwitterList from "../Twitter/TwitterList";
-import { Id, Pinned, TaggedId } from "../../interfaces/interfaces";
+
+import { Id, SearchData, TaggedId } from "../../interfaces/interfaces";
+
+import ResultList from "../ResultList/ResultList";
 
 interface Props {
-  pinnedSearches: Pinned;
+  pinnedSearches: SearchData;
   pinnedIds: Id;
   pinSearchResult: Function;
   toggleModal: Function;
@@ -36,6 +35,7 @@ function PinnedSearches({
     pinnedSearches.dropbox.length ||
     pinnedSearches.slack.length ||
     pinnedSearches.twitter.length;
+  const categories = ["contacts", "calendar", "dropbox", "slack", "twitter"];
 
   return (
     <PinnedWrapper>
@@ -46,41 +46,19 @@ function PinnedSearches({
       </ClearPinBoardWrapper>
       {hasPinnedSearches ? (
         <div>
-          <ContactsList
-            contactsData={pinnedSearches.contacts}
-            pinSearchResult={pinSearchResult}
-            pinnedIds={pinnedIds}
-            toggleModal={toggleModal}
-            taggedIds={taggedIds}
-          />
-          <CalendarList
-            calendarData={pinnedSearches.calendar}
-            pinSearchResult={pinSearchResult}
-            pinnedIds={pinnedIds}
-            toggleModal={toggleModal}
-            taggedIds={taggedIds}
-          />
-          <DropboxList
-            dropboxData={pinnedSearches.dropbox}
-            pinSearchResult={pinSearchResult}
-            pinnedIds={pinnedIds}
-            toggleModal={toggleModal}
-            taggedIds={taggedIds}
-          />
-          <SlackList
-            slackData={pinnedSearches.slack}
-            pinSearchResult={pinSearchResult}
-            pinnedIds={pinnedIds}
-            toggleModal={toggleModal}
-            taggedIds={taggedIds}
-          />
-          <TwitterList
-            twitterData={pinnedSearches.twitter}
-            pinSearchResult={pinSearchResult}
-            pinnedIds={pinnedIds}
-            toggleModal={toggleModal}
-            taggedIds={taggedIds}
-          />
+          {categories.map((category) => {
+            return (
+              <ResultList
+                searchData={pinnedSearches}
+                category={category}
+                pinSearchResult={pinSearchResult}
+                pinnedIds={pinnedIds}
+                toggleModal={toggleModal}
+                taggedIds={taggedIds}
+                key={shortid.generate()}
+              ></ResultList>
+            );
+          })}
         </div>
       ) : (
         emptyMessage

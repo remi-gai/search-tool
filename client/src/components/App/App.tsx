@@ -26,16 +26,24 @@ import {
   Slack,
   Twitter,
   Category,
-  Pinned,
+  SearchData,
   Id,
   TaggedSearches,
   TaggedId,
-  TagElement,
+  Entry,
 } from "../../interfaces/interfaces";
 
 function App() {
   // Group?
   // refactor into generic type
+  const [searchData, setSearchData] = useState({
+    contacts: [],
+    calendar: [],
+    dropbox: [],
+    slack: [],
+    twitter: [],
+  } as SearchData);
+
   const [contactsData, setContacts] = useState([] as Contacts[]);
   const [calendarData, setCalendar] = useState([] as Calendar[]);
   const [dropboxData, setDropbox] = useState([] as Dropbox[]);
@@ -52,7 +60,7 @@ function App() {
     dropbox: [],
     slack: [],
     twitter: [],
-  } as Pinned);
+  } as SearchData);
   const [pinnedIds, setPinnedIds] = useState({} as Id);
   const [showModal, setModal] = useState(false as boolean);
 
@@ -60,7 +68,7 @@ function App() {
   const [taggedIds, setTaggedIds] = useState({} as TaggedId);
   const [tagWord, setTagWord] = useState("" as string);
   const [tagCategory, setTagCategory] = useState("" as string);
-  const [tagElement, setTagElement] = useState({} as TagElement);
+  const [tagElement, setTagElement] = useState({} as Entry);
   const [showTagMenu, setTagMenu] = useState(false as boolean);
   const [isLoading, setIsLoading] = useState(false as boolean);
 
@@ -108,42 +116,29 @@ function App() {
   };
 
   const formatAndSetResults = (results) => {
-    if (results === null) {
-      setContacts([]);
-      setCalendar([]);
-      setDropbox([]);
-      setSlack([]);
-      setTwitter([]);
-      setSearchedWord(searchWord);
-      return;
-    }
     // sort array based on descending time to improve search relevance
-    const sortedContacts = sortArrayByTimeDescendingOrder(
+    results.data.contacts = sortArrayByTimeDescendingOrder(
       results.data.contacts,
       "contacts"
     );
-    const sortedCalendar = sortArrayByTimeDescendingOrder(
+    results.data.calendar = sortArrayByTimeDescendingOrder(
       results.data.calendar,
       "calendar"
     );
-    const sortedDropbox = sortArrayByTimeDescendingOrder(
+    results.data.dropbox = sortArrayByTimeDescendingOrder(
       results.data.dropbox,
       "dropbox"
     );
-    const sortedSlack = sortArrayByTimeDescendingOrder(
+    results.data.slack = sortArrayByTimeDescendingOrder(
       results.data.slack,
       "slack"
     );
-    const sortedTwitter = sortArrayByTimeDescendingOrder(
-      results.data.tweet,
-      "tweet"
+    results.data.twitter = sortArrayByTimeDescendingOrder(
+      results.data.twitter,
+      "twitter"
     );
 
-    setContacts(sortedContacts);
-    setCalendar(sortedCalendar);
-    setDropbox(sortedDropbox);
-    setSlack(sortedSlack);
-    setTwitter(sortedTwitter);
+    setSearchData(results.data);
     setSearchedWord(searchWord);
     setIsLoading(false);
   };
@@ -156,7 +151,7 @@ function App() {
       timeKey = "date";
     } else if (category === "dropbox") {
       timeKey = "created";
-    } else if (category === "slack" || category === "tweet") {
+    } else if (category === "slack" || category === "twitter") {
       timeKey = "timestamp";
     }
 
@@ -303,24 +298,13 @@ function App() {
 
   // Pin methods
   const pinSearchResult = (category: string, id: string) => {
-    let categoryData;
-    if (category === "contacts") {
-      categoryData = contactsData;
-    } else if (category === "calendar") {
-      categoryData = calendarData;
-    } else if (category === "dropbox") {
-      categoryData = dropboxData;
-    } else if (category === "slack") {
-      categoryData = slackData;
-    } else if (category === "twitter") {
-      categoryData = twitterData;
-    }
-
     const copyOfPinnedSearches = JSON.parse(JSON.stringify(pinnedSearches));
     const copyOfPinnedIds = JSON.parse(JSON.stringify(pinnedIds));
 
     if (!pinnedIds[id]) {
-      const targetResult = categoryData.filter((element) => element.id === id);
+      const targetResult = searchData[category].filter(
+        (element) => element.id === id
+      );
       copyOfPinnedSearches[category].push(targetResult[0]);
       copyOfPinnedIds[id] = true;
     } else {
@@ -345,7 +329,7 @@ function App() {
       dropbox: [],
       slack: [],
       twitter: [],
-    } as Pinned);
+    } as SearchData);
     setPinnedIds({} as Id);
   };
 
@@ -387,11 +371,7 @@ function App() {
           />
           {hasSearched ? (
             <SearchResult
-              calendarData={calendarData}
-              contactsData={contactsData}
-              dropboxData={dropboxData}
-              slackData={slackData}
-              twitterData={twitterData}
+              searchData={searchData}
               category={category}
               searchedWord={searchedWord}
               pinSearchResult={pinSearchResult}

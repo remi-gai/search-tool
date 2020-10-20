@@ -50,7 +50,7 @@ enum Category {
   TWITTER = "TWITTER",
 }
 
-interface Pinned {
+interface SearchData {
   contacts: Contacts[];
   calendar: Calendar[];
   dropbox: Dropbox[];
@@ -78,7 +78,7 @@ interface TaggedId {
   [tagId: string]: string[];
 }
 
-interface TagElement {
+interface Entry {
   id: string;
   user: string;
   message: string;
@@ -101,10 +101,10 @@ export {
   Twitter,
   Dropbox,
   Category,
-  Pinned,
+  SearchData,
   Id,
   Tag,
   TaggedSearches,
   TaggedId,
-  TagElement,
+  Entry,
 };

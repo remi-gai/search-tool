@@ -6,7 +6,7 @@ const contactsData = require("./data/contacts");
 const calendarData = require("./data/calendar");
 const dropboxData = require("./data/dropbox");
 const slackData = require("./data/slack");
-const tweetData = require("./data/tweet");
+const twitterData = require("./data/twitter");
 
 const app = express();
 
@@ -20,7 +20,7 @@ insertUniqueIDs(contactsData.contacts);
 insertUniqueIDs(calendarData.calendar);
 insertUniqueIDs(dropboxData.dropbox);
 insertUniqueIDs(slackData.slack);
-insertUniqueIDs(tweetData.tweet);
+insertUniqueIDs(twitterData.twitter);
 
 app.get("/api/results/:search", (req, res) => {
   const searchTerm = req.params.search;
@@ -29,14 +29,14 @@ app.get("/api/results/:search", (req, res) => {
     calendar: [],
     dropbox: [],
     slack: [],
-    tweet: [],
+    twitter: [],
   };
 
   result.contacts = getCategoryData("contacts", searchTerm);
   result.calendar = getCategoryData("calendar", searchTerm);
   result.dropbox = getCategoryData("dropbox", searchTerm);
   result.slack = getCategoryData("slack", searchTerm);
-  result.tweet = getCategoryData("tweet", searchTerm);
+  result.twitter = getCategoryData("twitter", searchTerm);
 
   // setTimeout to simulate delay to show the spinner on the front end
   setTimeout(() => {
@@ -57,8 +57,8 @@ const getCategoryData = (category, searchWord) => {
     category = dropboxData.dropbox;
   } else if (category === "slack") {
     category = slackData.slack;
-  } else if (category === "tweet") {
-    category = tweetData.tweet;
+  } else if (category === "twitter") {
+    category = twitterData.twitter;
   }
 
   for (let i = 0; i < category.length; i++) {
