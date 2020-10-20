@@ -1,14 +1,32 @@
 import React from "react";
 import shortid from "shortid";
 
-import { TagsFilter, FilterMenuWrapper } from "./styles";
+import {
+  TagsFilter,
+  FilterMenuWrapper,
+  FilterTitle,
+  CategoryFilter,
+  TagsFilterWrapper,
+  TagIcon,
+  CategoryFilterWrapper,
+  CategoryResultCount,
+} from "./styles";
+
+import { SearchData } from "../../interfaces/interfaces";
 
 interface Props {
+  category: string;
   setCategory: Function;
   toggleTagMenu: Function;
+  searchData: SearchData;
 }
 
-function FilterMenu({ setCategory, toggleTagMenu }: Props) {
+function FilterMenu({
+  setCategory,
+  toggleTagMenu,
+  category,
+  searchData,
+}: Props) {
   const categories = [
     "All",
     "Contacts",
@@ -18,17 +36,38 @@ function FilterMenu({ setCategory, toggleTagMenu }: Props) {
     "Twitter",
   ];
 
+  console.log(searchData);
+
+  let totalCount = 0;
+  for (let category in searchData) {
+    totalCount += searchData[category].length;
+  }
+
   return (
     <FilterMenuWrapper>
-      <TagsFilter onClick={toggleTagMenu}>Tags</TagsFilter>
-      {categories.map((category) => {
+      <TagsFilterWrapper onClick={toggleTagMenu}>
+        <TagIcon></TagIcon>
+        <TagsFilter>Tags</TagsFilter>
+      </TagsFilterWrapper>
+      <FilterTitle>Filter</FilterTitle>
+      {categories.map((filterCategory) => {
         return (
-          <div
-            onClick={() => setCategory(category.toLowerCase())}
-            key={shortid.generate()}
-          >
-            {category}
-          </div>
+          <CategoryFilterWrapper>
+            <CategoryFilter
+              category={filterCategory.toLowerCase() === category}
+              onClick={() => setCategory(filterCategory.toLowerCase())}
+              key={shortid.generate()}
+            >
+              {filterCategory}
+            </CategoryFilter>
+            <CategoryResultCount
+              category={filterCategory.toLowerCase() === category}
+            >
+              {filterCategory === "All"
+                ? totalCount
+                : searchData[filterCategory.toLowerCase()].length}
+            </CategoryResultCount>
+          </CategoryFilterWrapper>
         );
       })}
     </FilterMenuWrapper>

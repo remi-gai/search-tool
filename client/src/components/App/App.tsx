@@ -20,7 +20,6 @@ import {
 } from "./styles";
 
 import {
-  Category,
   SearchData,
   Id,
   TaggedSearches,
@@ -332,7 +331,12 @@ function App() {
             deleteTag={deleteTag}
           />
         ) : (
-          <FilterMenu setCategory={setCategory} toggleTagMenu={toggleTagMenu} />
+          <FilterMenu
+            category={category}
+            searchData={searchData}
+            setCategory={setCategory}
+            toggleTagMenu={toggleTagMenu}
+          />
         )}
         <PinnedAndResultsWrapper>
           <PinnedSearches

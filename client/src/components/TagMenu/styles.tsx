@@ -3,27 +3,36 @@ import styled from "styled-components";
 const TagMenuWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  /* justify-content: flex-start; */
   padding-top: 10px;
   margin-left: 20px;
   align-items: center;
-  width: 200px;
+  min-width: 200px;
   height: 400px;
-  border: solid 1px black;
+  max-height: 400px;
+  overflow-y: scroll;
+  overflow: hidden;
+  overflow-x: hidden;
 `;
 
 const UpperSectionWrapper = styled.div`
   display: flex;
-  align-items: flex-start;
+  width: 100%;
 `;
 
 const TagWrapper = styled.div`
   display: flex;
+  width: 100%;
   flex-direction: row;
+  justify-content: flex-start;
 `;
 
 const Tag = styled.div`
-  cursor: pointer;
+  margin: 5px;
+  &:hover {
+    color: #415aff;
+    font-weight: bolder;
+    cursor: pointer;
+  }
 `;
 
 const BackArrowIconAndTitleWrapper = styled.div`
@@ -41,11 +50,17 @@ const BackArrowIcon = styled.img.attrs({ src: "./icons/backarrow-icon.png" })`
 
 const BackToMenuTitle = styled.div`
   cursor: pointer;
+  &:hover {
+    color: #415aff;
+    font-weight: bolder;
+    cursor: pointer;
+  }
 `;
 
 const DeleteIcon = styled.img.attrs({ src: "./icons/delete-icon.png" })`
   width: 14px;
   height: 18px;
+  margin-left: 15px;
   cursor: pointer;
 `;
 

@@ -3,18 +3,26 @@ import styled from "styled-components";
 const FilterMenuWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   padding-top: 10px;
   margin-left: 20px;
-  align-items: center;
   width: 200px;
   height: 400px;
-  border: solid 1px black;
 `;
 
-const TagsFilter = styled.div`
+const TagsFilter = styled.div``;
+
+const TagIcon = styled.img.attrs({ src: "./icons/tagged-icon.png" })`
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+`;
+
+const TagsFilterWrapper = styled.div`
   display: flex;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   width: 100%;
   font-size: 16px;
   font-weight: 400;
@@ -22,9 +30,47 @@ const TagsFilter = styled.div`
   height: 40px;
   border-radius: 4px;
   &:hover {
-    background-color: #d6eee7;
+    color: #415aff;
+    font-weight: bolder;
     cursor: pointer;
   }
 `;
 
-export { TagsFilter, FilterMenuWrapper };
+const FilterTitle = styled.div`
+  font-weight: bolder;
+  color: gray;
+`;
+
+const CategoryFilter = styled.div`
+  font-weight: ${(props) => (props.category ? "bolder" : "normal")};
+  color: ${(props) => (props.category ? "#415aff" : "black")};
+  &:hover {
+    color: #415aff;
+    font-weight: bolder;
+    cursor: pointer;
+  }
+`;
+
+const CategoryFilterWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+const CategoryResultCount = styled.div`
+  font-size: 14px;
+  color: gray;
+  font-weight: ${(props) => (props.category ? "bolder" : "normal")};
+  color: ${(props) => (props.category ? "#415aff" : "black")};
+`;
+
+export {
+  TagsFilter,
+  TagIcon,
+  TagsFilterWrapper,
+  FilterMenuWrapper,
+  FilterTitle,
+  CategoryFilter,
+  CategoryFilterWrapper,
+  CategoryResultCount,
+};
