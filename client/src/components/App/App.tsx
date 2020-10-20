@@ -67,6 +67,7 @@ function App() {
   // Toggles
   const toggleModal = (category, element) => {
     setModal(!showModal);
+    setTagWord("");
     setTagCategory(category);
     setTagElement(element);
   };
@@ -218,11 +219,28 @@ function App() {
   const deleteTag = (tag) => {
     const copyOfTaggedSearches = JSON.parse(JSON.stringify(taggedSearches));
     delete copyOfTaggedSearches[tag];
-    const keysInTaggedIds = Object.keys(taggedIds);
-    keysInTaggedIds.forEach((id) => {
-      deleteTagFromIdInTaggedIds(id, tag);
-    });
     setTaggedSearches(copyOfTaggedSearches);
+    deleteTagFromAllTaggedIds(tag);
+  };
+
+  const deleteTagFromAllTaggedIds = (tag) => {
+    const keysInTaggedIds = Object.keys(taggedIds);
+    const copyOfTaggedIds = JSON.parse(JSON.stringify(taggedIds));
+
+    keysInTaggedIds.forEach((id) => {
+      const idTags = copyOfTaggedIds[id];
+      for (let i = 0; i < idTags.length; i++) {
+        const currentTag = idTags[i];
+        if (tag === currentTag) {
+          idTags.splice(i, 1);
+          if (idTags.length === 0) {
+            delete copyOfTaggedIds[id];
+          }
+          break;
+        }
+      }
+    });
+    setTaggedIds(copyOfTaggedIds);
   };
 
   const deleteElementFromTag = (tag) => {
@@ -252,7 +270,9 @@ function App() {
       const currentTag = idTags[i];
       if (tag === currentTag) {
         idTags.splice(i, 1);
+        console.log(idTags.length);
         if (idTags.length === 0) {
+          console.log("deleted", id);
           delete copyOfTaggedIds[id];
         }
         break;
