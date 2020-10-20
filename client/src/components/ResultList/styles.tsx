@@ -1,10 +1,7 @@
 import styled from "styled-components";
 
 const ResultListWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
   width: 100%;
-  /* width: 400px; */
 `;
 
 const DetailsWrapper = styled.div`

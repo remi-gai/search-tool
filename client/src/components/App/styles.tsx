@@ -24,10 +24,8 @@ const SearchResultsWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 400px;
-  padding-top: 20px;
+  padding-top: 10px;
   width: 100%;
-  border: 1px solid black;
 `;
 
 const ResultsOuterWrapper = styled.div`
@@ -37,16 +35,10 @@ const ResultsOuterWrapper = styled.div`
   padding-top: 50px;
 `;
 
-const InitialMessageWrapper = styled.div`
-  font-size: 18px;
-  text-align: center;
-`;
-
 export {
   GlobalStyle,
   WindowWrapper,
   ResultsOuterWrapper,
   PinnedAndResultsWrapper,
-  InitialMessageWrapper,
   SearchResultsWrapper,
 };

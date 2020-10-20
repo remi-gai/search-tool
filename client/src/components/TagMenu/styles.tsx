@@ -3,6 +3,7 @@ import styled from "styled-components";
 const TagMenuWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   padding-top: 10px;
   margin-left: 20px;
   align-items: center;
@@ -17,6 +18,11 @@ const UpperSectionWrapper = styled.div`
 `;
 
 const TagListWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
   overflow-y: auto;
   overflow-x: hidden;
 `;

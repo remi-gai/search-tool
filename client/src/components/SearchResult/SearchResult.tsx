@@ -1,7 +1,16 @@
 import React from "react";
 import shortid from "shortid";
 
-import { SearchResultOuterWrapper, SearchResultInnerWrapper } from "./styles";
+import {
+  SearchResultOuterWrapper,
+  SearchResultInnerWrapper,
+  ClearSearchBoardAndIconWrapper,
+  SearchAndSearchBoardTitleWrapper,
+  SearchIcon,
+  SearchBoardTitle,
+  ClearSearchBoardButton,
+  InitialMessageWrapper,
+} from "./styles";
 import ResultList from "../ResultList/ResultList";
 
 import { SearchData, Id, TaggedId } from "../../interfaces/interfaces";
@@ -10,10 +19,12 @@ interface Props {
   searchData: SearchData;
   category: string;
   searchedWord: string;
-  pinSearchResult: Function;
   pinnedIds: Id;
-  toggleModal: Function;
   taggedIds: TaggedId;
+  pinSearchResult: Function;
+  toggleModal: Function;
+  setSearchData: Function;
+  setSearchedWord: Function;
 }
 
 function SearchResult({
@@ -24,6 +35,8 @@ function SearchResult({
   pinnedIds,
   toggleModal,
   taggedIds,
+  setSearchData,
+  setSearchedWord,
 }: Props) {
   let display;
 
@@ -33,13 +46,32 @@ function SearchResult({
     searchData.dropbox.length +
     searchData.slack.length +
     searchData.twitter.length;
-  const isDataAvailable = lengthOfAllData ? true : false;
+
+  const initialMessage = (
+    <InitialMessageWrapper>
+      {
+        "Search across contacts, calendar, dropbox, slack and twitter. Enter a query in the search input above, and results will displayed after you click on submit or enter on your keyboard."
+      }
+    </InitialMessageWrapper>
+  );
+
   const errorMessage = (
     <SearchResultInnerWrapper>
       {`Oops! We couldn't find any result for ${searchedWord}. Please try again with a different
       search, filter or tag.`}
     </SearchResultInnerWrapper>
   );
+
+  const isDataAvailable = lengthOfAllData ? true : false;
+  const message = searchedWord ? errorMessage : initialMessage;
+
+  const emptyData = {
+    contacts: [],
+    calendar: [],
+    dropbox: [],
+    slack: [],
+    twitter: [],
+  };
 
   const categories = ["contacts", "calendar", "dropbox", "slack", "twitter"];
 
@@ -76,7 +108,21 @@ function SearchResult({
 
   return (
     <SearchResultOuterWrapper>
-      {isDataAvailable ? display : errorMessage}
+      <ClearSearchBoardAndIconWrapper>
+        <SearchAndSearchBoardTitleWrapper>
+          <SearchIcon></SearchIcon>
+          <SearchBoardTitle>Search Board</SearchBoardTitle>
+        </SearchAndSearchBoardTitleWrapper>
+        <ClearSearchBoardButton
+          onClick={() => {
+            setSearchData(emptyData);
+            setSearchedWord("");
+          }}
+        >
+          Clear Search Results
+        </ClearSearchBoardButton>
+      </ClearSearchBoardAndIconWrapper>
+      {isDataAvailable ? display : message}
     </SearchResultOuterWrapper>
   );
 }
