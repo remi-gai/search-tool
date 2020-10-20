@@ -22,7 +22,9 @@ const TagWrapper = styled.div`
   flex-direction: row;
 `;
 
-const Tag = styled.div``;
+const Tag = styled.div`
+  cursor: pointer;
+`;
 
 const BackArrowIconAndTitleWrapper = styled.div`
   display: flex;
@@ -44,6 +46,7 @@ const BackToMenuTitle = styled.div`
 const DeleteIcon = styled.img.attrs({ src: "./icons/delete-icon.png" })`
   width: 14px;
   height: 18px;
+  cursor: pointer;
 `;
 
 export {

@@ -43,7 +43,7 @@ function SearchResult({
 
   const categories = ["contacts", "calendar", "dropbox", "slack", "twitter"];
 
-  if (category === "ALL") {
+  if (category === "all") {
     display = (
       <div>
         {categories.map((category) => {

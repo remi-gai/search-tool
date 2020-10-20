@@ -43,11 +43,11 @@ interface Twitter {
 }
 
 enum Category {
-  ALL = "ALL",
-  CONTACTS = "CONTACTS",
-  DROPBOX = "DROPBOX",
-  SLACK = "SLACK",
-  TWITTER = "TWITTER",
+  ALL = "all",
+  CONTACTS = "contacts",
+  DROPBOX = "dropbox",
+  SLACK = "slack",
+  TWITTER = "twitter",
 }
 
 interface SearchData {

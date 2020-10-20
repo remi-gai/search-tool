@@ -40,7 +40,7 @@ function ResultList({
       return (
         <DetailsWrapper>
           <Title>{result.name}</Title>
-          <Details>{result.emails[0]}</Details>
+          <Details>{result.emails.join(", ")}</Details>
         </DetailsWrapper>
       );
     },

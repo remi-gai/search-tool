@@ -42,7 +42,9 @@ function TagModalMessage({
 
   return (
     <TagModalWrapper>
-      <CloseModalButton onClick={toggleModal}>x</CloseModalButton>
+      <CloseModalButton onClick={() => toggleModal(null, null)}>
+        x
+      </CloseModalButton>
       <TagsListWrapper>
         {sortedListOfTags.map((tag) => (
           <TagWrapper key={shortid.generate()}>

@@ -20,11 +20,6 @@ import {
 } from "./styles";
 
 import {
-  Calendar,
-  Contacts,
-  Dropbox,
-  Slack,
-  Twitter,
   Category,
   SearchData,
   Id,
@@ -34,8 +29,6 @@ import {
 } from "../../interfaces/interfaces";
 
 function App() {
-  // Group?
-  // refactor into generic type
   const [searchData, setSearchData] = useState({
     contacts: [],
     calendar: [],
@@ -44,13 +37,7 @@ function App() {
     twitter: [],
   } as SearchData);
 
-  const [contactsData, setContacts] = useState([] as Contacts[]);
-  const [calendarData, setCalendar] = useState([] as Calendar[]);
-  const [dropboxData, setDropbox] = useState([] as Dropbox[]);
-  const [slackData, setSlack] = useState([] as Slack[]);
-  const [twitterData, setTwitter] = useState([] as Twitter[]);
-
-  const [category, setCategory] = useState("ALL" as string);
+  const [category, setCategory] = useState("all" as string);
   const [searchWord, setSearchWord] = useState("" as string);
   const [searchedWord, setSearchedWord] = useState("" as string);
 
@@ -75,6 +62,9 @@ function App() {
   // Toggles
   const toggleModal = (category, element) => {
     setModal(!showModal);
+    if (category === null) {
+      return;
+    }
     setTagWord("");
     setTagCategory(category);
     setTagElement(element);
@@ -277,11 +267,7 @@ function App() {
   };
 
   const displayTaggedResults = (tag) => {
-    setContacts(taggedSearches[tag].contacts);
-    setCalendar(taggedSearches[tag].calendar);
-    setDropbox(taggedSearches[tag].dropbox);
-    setSlack(taggedSearches[tag].slack);
-    setTwitter(taggedSearches[tag].twitter);
+    setSearchData(taggedSearches[tag]);
     setSearchWord("#" + tag);
     setSearchedWord("#" + tag);
   };

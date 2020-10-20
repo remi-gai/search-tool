@@ -24,7 +24,7 @@ function FilterMenu({ filterCategory, toggleTagMenu }: Props) {
       {categories.map((category) => {
         return (
           <div
-            onClick={() => filterCategory(category.toUpperCase())}
+            onClick={() => filterCategory(category.toLowerCase())}
             key={shortid.generate()}
           >
             {category}
