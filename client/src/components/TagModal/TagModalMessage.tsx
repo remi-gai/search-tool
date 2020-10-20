@@ -67,6 +67,7 @@ function TagModalMessage({
           value={tagWord}
           onChange={(e) => onTagWordChange(e)}
           onKeyUp={(e) => onKeyUp(e, "tagModal")}
+          maxLength="20"
         ></TagModalInputBox>
         <SaveTagsButton onClick={() => onSaveTag()}>Save</SaveTagsButton>
       </TagAndButtonWrapper>

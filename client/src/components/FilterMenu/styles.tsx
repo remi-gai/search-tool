@@ -6,7 +6,7 @@ const FilterMenuWrapper = styled.div`
   justify-content: flex-start;
   padding-top: 10px;
   margin-left: 20px;
-  width: 200px;
+  width: 240px;
   height: 400px;
 `;
 

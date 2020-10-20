@@ -26,9 +26,9 @@ const SearchAndSearchBoardTitleWrapper = styled.div`
   align-items: center;
 `;
 
-const SearchIcon = styled.img.attrs({ src: "./icons/search-icon.png" })`
-  width: 28px;
-  height: 28px;
+const SearchIcon = styled.img.attrs({ src: "./icons/search-icon-black.png" })`
+  width: 20px;
+  height: 20px;
   margin: 4px;
 `;
 

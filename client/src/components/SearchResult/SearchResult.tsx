@@ -111,7 +111,7 @@ function SearchResult({
       <ClearSearchBoardAndIconWrapper>
         <SearchAndSearchBoardTitleWrapper>
           <SearchIcon></SearchIcon>
-          <SearchBoardTitle>Search Board</SearchBoardTitle>
+          <SearchBoardTitle>Search Results</SearchBoardTitle>
         </SearchAndSearchBoardTitleWrapper>
         <ClearSearchBoardButton
           onClick={() => {

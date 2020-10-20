@@ -7,7 +7,7 @@ const TagMenuWrapper = styled.div`
   padding-top: 10px;
   margin-left: 20px;
   align-items: center;
-  min-width: 200px;
+  width: 240px;
   height: 400px;
   max-height: 400px;
 `;
