@@ -10,7 +10,7 @@ const SearchResultInnerWrapper = styled.div`
   width: 100%;
   max-width: 800px;
   max-height: 800px;
-  overflow-y: scroll;
+  overflow-y: auto;
 `;
 
 export { SearchResultOuterWrapper, SearchResultInnerWrapper };

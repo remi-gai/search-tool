@@ -8,7 +8,11 @@ import {
   TagModalInputBox,
   SaveTagsButton,
   CloseModalButton,
+  CloseButtonWrapper,
   TagWrapper,
+  TagName,
+  DeleteTagIcon,
+  TagAndButtonWrapper,
 } from "./styles";
 import { TaggedId, TaggedSearches } from "../../interfaces/interfaces";
 
@@ -42,24 +46,30 @@ function TagModalMessage({
 
   return (
     <TagModalWrapper>
-      <CloseModalButton onClick={() => toggleModal(null, null)}>
-        x
-      </CloseModalButton>
+      <CloseButtonWrapper>
+        <CloseModalButton
+          onClick={() => toggleModal(null, null)}
+        ></CloseModalButton>
+      </CloseButtonWrapper>
+      <TagModalTitle>Edit Tags</TagModalTitle>
       <TagsListWrapper>
         {sortedListOfTags.map((tag) => (
           <TagWrapper key={shortid.generate()}>
-            <div>{tag}</div>
-            <div onClick={() => deleteElementFromTag(tag)}>x</div>
+            <TagName>{tag}</TagName>
+            <DeleteTagIcon
+              onClick={() => deleteElementFromTag(tag)}
+            ></DeleteTagIcon>
           </TagWrapper>
         ))}
       </TagsListWrapper>
-      <TagModalTitle>Edit Tags</TagModalTitle>
-      <TagModalInputBox
-        value={tagWord}
-        onChange={(e) => onTagWordChange(e)}
-        onKeyUp={(e) => onKeyUp(e, "tagModal")}
-      ></TagModalInputBox>
-      <SaveTagsButton onClick={() => onSaveTag()}>Save</SaveTagsButton>
+      <TagAndButtonWrapper>
+        <TagModalInputBox
+          value={tagWord}
+          onChange={(e) => onTagWordChange(e)}
+          onKeyUp={(e) => onKeyUp(e, "tagModal")}
+        ></TagModalInputBox>
+        <SaveTagsButton onClick={() => onSaveTag()}>Save</SaveTagsButton>
+      </TagAndButtonWrapper>
     </TagModalWrapper>
   );
 }

@@ -9,14 +9,16 @@ const TagMenuWrapper = styled.div`
   min-width: 200px;
   height: 400px;
   max-height: 400px;
-  overflow-y: scroll;
-  overflow: hidden;
-  overflow-x: hidden;
 `;
 
 const UpperSectionWrapper = styled.div`
   display: flex;
   width: 100%;
+`;
+
+const TagListWrapper = styled.div`
+  overflow-y: auto;
+  overflow-x: hidden;
 `;
 
 const TagWrapper = styled.div`
@@ -73,4 +75,5 @@ export {
   DeleteIcon,
   BackToMenuTitle,
   UpperSectionWrapper,
+  TagListWrapper,
 };

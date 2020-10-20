@@ -76,4 +76,5 @@ export {
   SubmitButton,
   ClearButton,
   SearchIcon,
+  Button,
 };

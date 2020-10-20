@@ -10,6 +10,7 @@ import {
   Tag,
   BackToMenuTitle,
   UpperSectionWrapper,
+  TagListWrapper,
 } from "./styles";
 
 import { TaggedSearches } from "../../interfaces/interfaces";
@@ -38,12 +39,14 @@ function TagMenu({
           <BackToMenuTitle>Tags</BackToMenuTitle>
         </BackArrowIconAndTitleWrapper>
       </UpperSectionWrapper>
-      {sortedTags.map((tag) => (
-        <TagWrapper key={shortid.generate()}>
-          <Tag onClick={() => displayTaggedResults(tag)}>{tag}</Tag>
-          <DeleteIcon onClick={() => deleteTag(tag)}></DeleteIcon>
-        </TagWrapper>
-      ))}
+      <TagListWrapper>
+        {sortedTags.map((tag) => (
+          <TagWrapper key={shortid.generate()}>
+            <Tag onClick={() => displayTaggedResults(tag)}>{tag}</Tag>
+            <DeleteIcon onClick={() => deleteTag(tag)}></DeleteIcon>
+          </TagWrapper>
+        ))}
+      </TagListWrapper>
     </TagMenuWrapper>
   );
 }

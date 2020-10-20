@@ -36,8 +36,6 @@ function FilterMenu({
     "Twitter",
   ];
 
-  console.log(searchData);
-
   let totalCount = 0;
   for (let category in searchData) {
     totalCount += searchData[category].length;
@@ -52,11 +50,10 @@ function FilterMenu({
       <FilterTitle>Filter</FilterTitle>
       {categories.map((filterCategory) => {
         return (
-          <CategoryFilterWrapper>
+          <CategoryFilterWrapper key={shortid.generate()}>
             <CategoryFilter
               category={filterCategory.toLowerCase() === category}
               onClick={() => setCategory(filterCategory.toLowerCase())}
-              key={shortid.generate()}
             >
               {filterCategory}
             </CategoryFilter>
