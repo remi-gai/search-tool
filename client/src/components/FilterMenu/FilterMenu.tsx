@@ -4,11 +4,11 @@ import shortid from "shortid";
 import { TagsFilter, FilterMenuWrapper } from "./styles";
 
 interface Props {
-  filterCategory: Function;
+  setCategory: Function;
   toggleTagMenu: Function;
 }
 
-function FilterMenu({ filterCategory, toggleTagMenu }: Props) {
+function FilterMenu({ setCategory, toggleTagMenu }: Props) {
   const categories = [
     "All",
     "Contacts",
@@ -24,7 +24,7 @@ function FilterMenu({ filterCategory, toggleTagMenu }: Props) {
       {categories.map((category) => {
         return (
           <div
-            onClick={() => filterCategory(category.toLowerCase())}
+            onClick={() => setCategory(category.toLowerCase())}
             key={shortid.generate()}
           >
             {category}

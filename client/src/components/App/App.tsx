@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo } from "react";
+import React, { useState, useEffect, useRef, memo } from "react";
 import { Roller } from "react-awesome-spinners";
 import axios from "axios";
 import moment from "moment";
@@ -59,6 +59,8 @@ function App() {
   const [showTagMenu, setTagMenu] = useState(false as boolean);
   const [isLoading, setIsLoading] = useState(false as boolean);
 
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
   // Toggles
   const toggleModal = (category, element) => {
     setModal(!showModal);
@@ -107,26 +109,13 @@ function App() {
 
   const formatAndSetResults = (results) => {
     // sort array based on descending time to improve search relevance
-    results.data.contacts = sortArrayByTimeDescendingOrder(
-      results.data.contacts,
-      "contacts"
-    );
-    results.data.calendar = sortArrayByTimeDescendingOrder(
-      results.data.calendar,
-      "calendar"
-    );
-    results.data.dropbox = sortArrayByTimeDescendingOrder(
-      results.data.dropbox,
-      "dropbox"
-    );
-    results.data.slack = sortArrayByTimeDescendingOrder(
-      results.data.slack,
-      "slack"
-    );
-    results.data.twitter = sortArrayByTimeDescendingOrder(
-      results.data.twitter,
-      "twitter"
-    );
+    const categories = ["contacts", "calendar", "dropbox", "slack", "twitter"];
+    categories.forEach((category) => {
+      results.data[category] = sortArrayByTimeDescendingOrder(
+        results.data[category],
+        category
+      );
+    });
 
     setSearchData(results.data);
     setSearchedWord(searchWord);
@@ -156,10 +145,6 @@ function App() {
     });
   };
 
-  const filterCategory = (category: Category) => {
-    setCategory(category);
-  };
-
   const onSearchWordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const word = event.target.value;
     setSearchWord(word);
@@ -168,6 +153,10 @@ function App() {
   const clearSearchBox = () => {
     setSearchWord("");
     setSearchedWord("");
+
+    if (searchInputRef.current !== null) {
+      searchInputRef.current.focus();
+    }
   };
 
   // Tag Methods
@@ -266,6 +255,7 @@ function App() {
     setTaggedIds(copyOfTaggedIds);
   };
 
+  // sharing setSearchData and s
   const displayTaggedResults = (tag) => {
     setSearchData(taggedSearches[tag]);
     setSearchWord("#" + tag);
@@ -330,6 +320,7 @@ function App() {
         searchWord={searchWord}
         clearSearchBox={clearSearchBox}
         onKeyUp={onKeyUp}
+        searchInputRef={searchInputRef}
       />
 
       <ResultsOuterWrapper>
@@ -341,10 +332,7 @@ function App() {
             deleteTag={deleteTag}
           />
         ) : (
-          <FilterMenu
-            filterCategory={filterCategory}
-            toggleTagMenu={toggleTagMenu}
-          />
+          <FilterMenu setCategory={setCategory} toggleTagMenu={toggleTagMenu} />
         )}
         <PinnedAndResultsWrapper>
           <PinnedSearches

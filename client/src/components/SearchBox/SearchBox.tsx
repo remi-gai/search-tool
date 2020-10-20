@@ -15,6 +15,7 @@ interface Props {
   searchWord: string;
   clearSearchBox: Function;
   onKeyUp: Function;
+  searchInputRef: React.Ref<HTMLInputElement>;
 }
 
 function SearchBox({
@@ -23,6 +24,7 @@ function SearchBox({
   searchWord,
   clearSearchBox,
   onKeyUp,
+  searchInputRef,
 }: Props) {
   return (
     <SearchBoxWrapper>
@@ -32,6 +34,7 @@ function SearchBox({
         value={searchWord}
         onChange={(e) => onSearchWordChange(e)}
         onKeyUp={(e) => onKeyUp(e, "search")}
+        ref={searchInputRef}
       ></SearchInput>
       <ButtonsWrapper>
         <ClearButton onClick={clearSearchBox}>Clear</ClearButton>

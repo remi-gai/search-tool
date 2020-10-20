@@ -57,30 +57,20 @@ function ResultEntry({
       <ResultRightWrappper>
         {renderDateMap[category](result)}
         <PinWrapper>
-          {isPinned ? (
-            <PinIcon
-              onClick={() => pinSearchResult(category, id)}
-              src="./icons/pinned-icon.png"
-            ></PinIcon>
-          ) : (
-            <PinIcon
-              onClick={() => pinSearchResult(category, id)}
-              src="./icons/unpinned-icon.png"
-            ></PinIcon>
-          )}
+          <PinIcon
+            onClick={() => pinSearchResult(category, id)}
+            src={
+              isPinned ? "./icons/pinned-icon.png" : "./icons/unpinned-icon.png"
+            }
+          ></PinIcon>
         </PinWrapper>
         <TagWrapper>
-          {isTagged ? (
-            <TagIcon
-              onClick={() => toggleModal(category, result)}
-              src="./icons/tagged-icon.png"
-            ></TagIcon>
-          ) : (
-            <TagIcon
-              onClick={() => toggleModal(category, result)}
-              src="./icons/untagged-icon.png"
-            ></TagIcon>
-          )}
+          <TagIcon
+            onClick={() => toggleModal(category, result)}
+            src={
+              isTagged ? "./icons/tagged-icon.png" : "./icons/untagged-icon.png"
+            }
+          ></TagIcon>
         </TagWrapper>
       </ResultRightWrappper>
     </ResultOuterWrapper>
