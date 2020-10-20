@@ -32,6 +32,7 @@ const TagWrapper = styled.div`
   width: 100%;
   flex-direction: row;
   justify-content: flex-start;
+  align-items: center;
 `;
 
 const Tag = styled.div`

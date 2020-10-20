@@ -107,6 +107,13 @@ function App() {
   };
 
   const formatAndSetResults = (results) => {
+    setSearchedWord(searchWord);
+    setIsLoading(false);
+
+    if (results === null) {
+      return setSearchData(emptyData);
+    }
+
     // sort array based on descending time to improve search relevance
     const categories = ["contacts", "calendar", "dropbox", "slack", "twitter"];
     categories.forEach((category) => {
@@ -117,8 +124,6 @@ function App() {
     });
 
     setSearchData(results.data);
-    setSearchedWord(searchWord);
-    setIsLoading(false);
   };
 
   const sortArrayByTimeDescendingOrder = (array: [], category: string) => {
@@ -306,6 +311,14 @@ function App() {
       twitter: [],
     } as SearchData);
     setPinnedIds({} as Id);
+  };
+
+  const emptyData = {
+    contacts: [],
+    calendar: [],
+    dropbox: [],
+    slack: [],
+    twitter: [],
   };
 
   return (
