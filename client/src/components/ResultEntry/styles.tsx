@@ -39,8 +39,8 @@ const TagWrapper = styled.div`
 const TagIcon = styled.img.attrs((props) => ({
   src: props.src,
 }))`
-  width: 25px;
-  height: 25px;
+  width: 17px;
+  height: 17px;
   cursor: pointer;
 `;
 

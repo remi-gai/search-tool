@@ -11,6 +11,8 @@ import {
   BackToMenuTitle,
   UpperSectionWrapper,
   TagListWrapper,
+  EmptyListMessageWrapper,
+  EmptyListMessage,
 } from "./styles";
 
 import { TaggedSearches } from "../../interfaces/interfaces";
@@ -40,12 +42,18 @@ function TagMenu({
         </BackArrowIconAndTitleWrapper>
       </UpperSectionWrapper>
       <TagListWrapper>
-        {sortedTags.map((tag) => (
-          <TagWrapper key={shortid.generate()}>
-            <Tag onClick={() => displayTaggedResults(tag)}>{tag}</Tag>
-            <DeleteIcon onClick={() => deleteTag(tag)}></DeleteIcon>
-          </TagWrapper>
-        ))}
+        {sortedTags.length ? (
+          sortedTags.map((tag) => (
+            <TagWrapper key={shortid.generate()}>
+              <Tag onClick={() => displayTaggedResults(tag)}>{tag}</Tag>
+              <DeleteIcon onClick={() => deleteTag(tag)}></DeleteIcon>
+            </TagWrapper>
+          ))
+        ) : (
+          <EmptyListMessageWrapper>
+            <EmptyListMessage>There are no saved tags</EmptyListMessage>
+          </EmptyListMessageWrapper>
+        )}
       </TagListWrapper>
     </TagMenuWrapper>
   );

@@ -31,14 +31,23 @@ const TagListWrapper = styled.div`
   width: 100%;
   overflow-y: auto;
   overflow-x: hidden;
+  height: 100%;
 `;
 
 const TagWrapper = styled.div`
   display: flex;
-  width: 100%;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+  width: 100%;
+  height: 20px;
+  margin: 1px;
+  padding: 3px;
+  &:hover {
+    color: #415aff;
+    font-weight: bolder;
+    cursor: pointer;
+  }
 `;
 
 const Tag = styled.div`
@@ -79,6 +88,19 @@ const DeleteIcon = styled.img.attrs({ src: "./icons/delete-icon.png" })`
   cursor: pointer;
 `;
 
+const EmptyListMessageWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+`;
+
+const EmptyListMessage = styled.div`
+  font-weight: lighter;
+  color: gray;
+`;
+
 export {
   TagMenuWrapper,
   TagWrapper,
@@ -89,4 +111,6 @@ export {
   BackToMenuTitle,
   UpperSectionWrapper,
   TagListWrapper,
+  EmptyListMessage,
+  EmptyListMessageWrapper,
 };
