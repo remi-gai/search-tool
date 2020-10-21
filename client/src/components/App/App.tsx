@@ -110,6 +110,7 @@ function App() {
     setIsLoading(false);
 
     if (results === null) {
+      setCategory("all");
       return setSearchData(emptyData);
     }
 
@@ -122,6 +123,7 @@ function App() {
       );
     });
 
+    setCategory("all");
     setSearchData(results.data);
   };
 
@@ -191,6 +193,7 @@ function App() {
       copyOfTaggedIds[tagElement.id].push(tagWord);
     setTaggedSearches(copyOfTaggedSearches);
     setTaggedIds(copyOfTaggedIds);
+    setTagWord("");
   };
 
   const deleteTag = (tag) => {
@@ -263,6 +266,7 @@ function App() {
     setSearchData(taggedSearches[tag]);
     setSearchWord("#" + tag);
     setSearchedWord("#" + tag);
+    setCategory("all");
   };
 
   const onKeyUp = (event, refName) => {
