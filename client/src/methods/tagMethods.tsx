@@ -16,6 +16,10 @@ const onSaveTag = ({
   setTaggedIds,
   setTagWord,
 }) => {
+  if (tagWord.length === 0) {
+    return;
+  }
+
   const copyOfTaggedSearches = JSON.parse(JSON.stringify(taggedSearches));
   const copyOfTaggedIds = JSON.parse(JSON.stringify(taggedIds));
   if (!taggedSearches[tagWord]) {

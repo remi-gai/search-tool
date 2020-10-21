@@ -38,7 +38,7 @@ const onSearchWordSubmit = (searchHooks, pinHooks, tagHooks, setIsLoading) => {
   return formatAndSetResults(null, searchHooks, setIsLoading);
 };
 
-const getSearchResults = (searchWord: string, setIsLoading, searchHooks) => {
+const getSearchResults = (searchWord, setIsLoading, searchHooks) => {
   setIsLoading(true);
   axios
     .get("/api/results/" + searchWord.toLowerCase())
