@@ -130,7 +130,7 @@ function SearchResult({
       </ClearSearchBoardAndIconWrapper>
       {isLoading ? (
         <SpinnerWrapper>
-          <Ellipsis color="#26A65B"></Ellipsis>
+          <Ellipsis color="#415aff"></Ellipsis>
         </SpinnerWrapper>
       ) : (
         <div>{isDataAvailable ? display : message}</div>
