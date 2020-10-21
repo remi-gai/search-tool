@@ -15,6 +15,7 @@ const TagMenuWrapper = styled.div`
 const UpperSectionWrapper = styled.div`
   display: flex;
   width: 100%;
+  height: 40px;
   &:hover {
     color: #415aff;
     background-color: #f9f9f9;

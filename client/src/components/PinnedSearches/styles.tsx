@@ -53,6 +53,8 @@ const ClearPinBoardButton = styled.button`
   &:hover {
     cursor: pointer;
     color: #415aff;
+    background-color: #f9f9f9;
+    font-weight: bolder;
   }
   &:focus {
     outline: none;
