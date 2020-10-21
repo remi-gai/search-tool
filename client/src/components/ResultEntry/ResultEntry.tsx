@@ -10,22 +10,17 @@ import {
   TagIcon,
 } from "./styles";
 
-import { Entry, Id, TaggedId } from "../../interfaces/interfaces";
+import {
+  renderTitleAndDetailsMap,
+  renderDateMap,
+  renderIconMap,
+} from "./CategoryRenderingMaps";
 
-interface RenderMap {
-  contacts: Function;
-  calendar: Function;
-  dropbox: Function;
-  slack: Function;
-  twitter: Function;
-}
+import { Entry, Id, TaggedId } from "../../interfaces/interfaces";
 
 interface Props {
   result: Entry;
   category: string;
-  renderTitleAndDetailsMap: RenderMap;
-  renderDateMap: RenderMap;
-  renderIconMap: RenderMap;
   id: string;
   pinSearchResult: Function;
   pinnedIds: Id;
@@ -36,9 +31,6 @@ interface Props {
 function ResultEntry({
   result,
   category,
-  renderTitleAndDetailsMap,
-  renderDateMap,
-  renderIconMap,
   id,
   pinnedIds,
   pinSearchResult,
