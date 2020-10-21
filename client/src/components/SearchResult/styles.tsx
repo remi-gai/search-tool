@@ -46,9 +46,15 @@ const ClearSearchBoardButton = styled.button`
   }
 `;
 
-const InitialMessageWrapper = styled.div`
+const InitialMessageWrapper = styled.p`
   font-size: 18px;
   text-align: center;
+`;
+
+const SpinnerWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export {
@@ -60,4 +66,5 @@ export {
   SearchBoardTitle,
   ClearSearchBoardButton,
   InitialMessageWrapper,
+  SpinnerWrapper,
 };

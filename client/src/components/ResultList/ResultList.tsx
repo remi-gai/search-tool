@@ -36,20 +36,30 @@ function ResultList({
   toggleModal,
   taggedIds,
 }: Props) {
+  const addElipsisToString = (text) => {
+    if (text.length < 70) {
+      return text;
+    }
+
+    return text.substring(0, 71) + "...";
+  };
+
   const renderTitleAndDetailsMap = {
     contacts: (result) => {
       return (
         <DetailsWrapper>
-          <Title>{result.name}</Title>
-          <Details>{result.emails.join(", ")}</Details>
+          <Title>{addElipsisToString(result.name)}</Title>
+          <Details>{addElipsisToString(result.emails.join(", "))}</Details>
         </DetailsWrapper>
       );
     },
     calendar: (result) => {
       return (
         <DetailsWrapper>
-          <Title>{result.title}</Title>
-          <Details>{"Invitees: " + result.invitees}</Details>
+          <Title>{addElipsisToString(result.title)}</Title>
+          <Details>
+            {addElipsisToString("Invitees: " + result.invitees)}
+          </Details>
         </DetailsWrapper>
       );
     },
@@ -57,23 +67,25 @@ function ResultList({
       return (
         <DetailsWrapper>
           <Title>{result.title}</Title>
-          <Details>{"File Path: " + result.path}</Details>
+          <Details>{addElipsisToString("File Path: " + result.path)}</Details>
         </DetailsWrapper>
       );
     },
     slack: (result) => {
       return (
         <DetailsWrapper>
-          <Title>{result.channel}</Title>
-          <Details>{result.author + ": " + result.message}</Details>
+          <Title>{addElipsisToString(result.channel)}</Title>
+          <Details>
+            {addElipsisToString(result.author + ": " + result.message)}
+          </Details>
         </DetailsWrapper>
       );
     },
     twitter: (result) => {
       return (
         <DetailsWrapper>
-          <Title>{result.user}</Title>
-          <Details>{result.message}</Details>
+          <Title>{addElipsisToString(result.user)}</Title>
+          <Details>{addElipsisToString(result.message)}</Details>
         </DetailsWrapper>
       );
     },

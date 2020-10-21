@@ -11,6 +11,12 @@
       "message": "We're no longer hiring in Timbuktu",
       "timestamp": "2019-02-27",
       "matching_terms": ["acme", "hiring", "timbuktu"]
+    },
+    {
+      "user": "@acmecorp",
+      "message": "We are thrilled to annouce our partnership with FreeCheese and further expand our business in the North Pole",
+      "timestamp": "2019-02-27",
+      "matching_terms": ["acme", "hiring", "timbuktu"]
     }
   ]
 }

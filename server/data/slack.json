@@ -47,6 +47,14 @@
       "message": "I think John from Acme was in that meeting too",
       "timestamp": "2020-10-17 19:14:01",
       "matching_terms": ["dave", "john", "acme"]
+    },
+    {
+      "id": "22347",
+      "channel": "customer-chatter",
+      "author": "Paul",
+      "message": "Who wants to order take out? We can choose between wings, burgers, pizza, chinese, indian, italian food",
+      "timestamp": "2020-10-17 19:14:01",
+      "matching_terms": ["dave", "john", "acme"]
     }
   ]
 }

@@ -43,7 +43,7 @@ app.get("/api/results/:search", (req, res) => {
     res.status(200);
     res.send(result);
     res.end();
-  }, 1500);
+  }, 1000);
 });
 
 const getCategoryData = (category, searchWord) => {

@@ -1,5 +1,6 @@
 import React from "react";
 import shortid from "shortid";
+import { Ellipsis } from "react-awesome-spinners";
 
 import {
   SearchResultOuterWrapper,
@@ -10,6 +11,7 @@ import {
   SearchBoardTitle,
   ClearSearchBoardButton,
   InitialMessageWrapper,
+  SpinnerWrapper,
 } from "./styles";
 import ResultList from "../ResultList/ResultList";
 
@@ -25,6 +27,7 @@ interface Props {
   toggleModal: Function;
   setSearchData: Function;
   setSearchedWord: Function;
+  isLoading: boolean;
 }
 
 function SearchResult({
@@ -37,6 +40,7 @@ function SearchResult({
   taggedIds,
   setSearchData,
   setSearchedWord,
+  isLoading,
 }: Props) {
   let display;
 
@@ -57,8 +61,10 @@ function SearchResult({
 
   const errorMessage = (
     <SearchResultInnerWrapper>
-      {`Oops! We couldn't find any result for ${searchedWord}. Please try again with a different
-      search, filter or tag.`}
+      <p>
+        Oops! We couldn't find any result for <strong>{searchedWord}</strong>.
+        Please try again with a different search, filter or tag.
+      </p>
     </SearchResultInnerWrapper>
   );
 
@@ -122,7 +128,13 @@ function SearchResult({
           Clear Search Results
         </ClearSearchBoardButton>
       </ClearSearchBoardAndIconWrapper>
-      {isDataAvailable ? display : message}
+      {isLoading ? (
+        <SpinnerWrapper>
+          <Ellipsis color="#26A65B"></Ellipsis>
+        </SpinnerWrapper>
+      ) : (
+        <div>{isDataAvailable ? display : message}</div>
+      )}
     </SearchResultOuterWrapper>
   );
 }

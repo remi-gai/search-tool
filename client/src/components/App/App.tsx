@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef, memo } from "react";
-import { Roller } from "react-awesome-spinners";
+import React, { useState, useRef } from "react";
 import axios from "axios";
 import moment from "moment";
 
@@ -96,7 +95,7 @@ function App() {
   const getSearchResults = (searchWord: string) => {
     setIsLoading(true);
     axios
-      .get("/api/results/" + searchWord)
+      .get("/api/results/" + searchWord.toLowerCase())
       .then((results) => {
         formatAndSetResults(results);
       })
@@ -369,6 +368,7 @@ function App() {
               pinnedIds={pinnedIds}
               toggleModal={toggleModal}
               taggedIds={taggedIds}
+              isLoading={isLoading}
             />
           </SearchResultsWrapper>
         </PinnedAndResultsWrapper>
