@@ -57,6 +57,18 @@ const SpinnerWrapper = styled.div`
   justify-content: center;
 `;
 
+const ResultCategoryTitle = styled.div`
+  color: gray;
+  width: 100%;
+  font-weight: lighter;
+  margin-bottom: 20px;
+`;
+
+const GrayLineDivider = styled.div`
+  border-bottom: solid 1px #e0e0e0;
+  margin: 20px;
+`;
+
 export {
   SearchResultOuterWrapper,
   SearchResultInnerWrapper,
@@ -67,4 +79,6 @@ export {
   ClearSearchBoardButton,
   InitialMessageWrapper,
   SpinnerWrapper,
+  ResultCategoryTitle,
+  GrayLineDivider,
 };

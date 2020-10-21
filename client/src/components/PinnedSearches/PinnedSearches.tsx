@@ -50,7 +50,7 @@ function PinnedSearches({
       <ClearPinBoardAndIconWrapper>
         <PinAndPinBoardTitleWrapper>
           <PinIcon></PinIcon>
-          <PinBoardTitle>Pin Board</PinBoardTitle>
+          <PinBoardTitle>Pin Board:</PinBoardTitle>
         </PinAndPinBoardTitleWrapper>
         <ClearPinBoardButton onClick={clearPinBoard}>
           Clear Pinned Results

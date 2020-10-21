@@ -13,9 +13,10 @@ const FilterMenuWrapper = styled.div`
 const TagsFilter = styled.div``;
 
 const TagIcon = styled.img.attrs({ src: "./icons/tagged-icon.png" })`
-  width: 25px;
-  height: 25px;
+  width: 18px;
+  height: 18px;
   cursor: pointer;
+  margin-right: 5px;
 `;
 
 const TagsFilterWrapper = styled.div`
@@ -31,6 +32,7 @@ const TagsFilterWrapper = styled.div`
   border-radius: 4px;
   &:hover {
     color: #415aff;
+    background-color: #f9f9f9;
     font-weight: bolder;
     cursor: pointer;
   }

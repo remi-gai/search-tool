@@ -33,8 +33,8 @@ function TagMenu({
 
   return (
     <TagMenuWrapper>
-      <UpperSectionWrapper>
-        <BackArrowIconAndTitleWrapper onClick={() => toggleTagMenu()}>
+      <UpperSectionWrapper onClick={() => toggleTagMenu()}>
+        <BackArrowIconAndTitleWrapper>
           <BackArrowIcon></BackArrowIcon>
           <BackToMenuTitle>Tags</BackToMenuTitle>
         </BackArrowIconAndTitleWrapper>

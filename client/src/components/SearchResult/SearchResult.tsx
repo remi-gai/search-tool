@@ -12,6 +12,8 @@ import {
   ClearSearchBoardButton,
   InitialMessageWrapper,
   SpinnerWrapper,
+  ResultCategoryTitle,
+  GrayLineDivider,
 } from "./styles";
 import ResultList from "../ResultList/ResultList";
 
@@ -85,30 +87,52 @@ function SearchResult({
     display = (
       <div>
         {categories.map((category) => {
+          const hasData = searchData[category].length;
           return (
-            <ResultList
-              searchData={searchData}
-              category={category}
-              pinSearchResult={pinSearchResult}
-              pinnedIds={pinnedIds}
-              toggleModal={toggleModal}
-              taggedIds={taggedIds}
-              key={shortid.generate()}
-            ></ResultList>
+            <div>
+              {hasData ? (
+                <ResultCategoryTitle>
+                  {category[0].toUpperCase() +
+                    category.substring(1, category.length)}
+                </ResultCategoryTitle>
+              ) : null}
+              <ResultList
+                searchData={searchData}
+                category={category}
+                pinSearchResult={pinSearchResult}
+                pinnedIds={pinnedIds}
+                toggleModal={toggleModal}
+                taggedIds={taggedIds}
+                key={shortid.generate()}
+              ></ResultList>
+              {hasData ? <GrayLineDivider></GrayLineDivider> : null}
+            </div>
           );
         })}
       </div>
     );
   } else {
     display = (
-      <ResultList
-        searchData={searchData}
-        category={category}
-        pinSearchResult={pinSearchResult}
-        pinnedIds={pinnedIds}
-        toggleModal={toggleModal}
-        taggedIds={taggedIds}
-      ></ResultList>
+      <div>
+        <ResultCategoryTitle>
+          {category[0].toUpperCase() + category.substring(1, category.length)}
+        </ResultCategoryTitle>
+        {searchData[category].length ? (
+          <ResultList
+            searchData={searchData}
+            category={category}
+            pinSearchResult={pinSearchResult}
+            pinnedIds={pinnedIds}
+            toggleModal={toggleModal}
+            taggedIds={taggedIds}
+          ></ResultList>
+        ) : (
+          <div>
+            The <strong>{category}</strong> category does not have any search
+            results.
+          </div>
+        )}
+      </div>
     );
   }
 
@@ -117,7 +141,7 @@ function SearchResult({
       <ClearSearchBoardAndIconWrapper>
         <SearchAndSearchBoardTitleWrapper>
           <SearchIcon></SearchIcon>
-          <SearchBoardTitle>Search Results</SearchBoardTitle>
+          <SearchBoardTitle>Search Results:</SearchBoardTitle>
         </SearchAndSearchBoardTitleWrapper>
         <ClearSearchBoardButton
           onClick={() => {

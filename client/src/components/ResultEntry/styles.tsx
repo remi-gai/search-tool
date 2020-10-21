@@ -4,8 +4,8 @@ const ResultOuterWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-top: 6px;
-  margin-bottom: 6px;
+  margin-top: 8px;
+  margin-bottom: 8px;
 `;
 
 const ResultLeftWrapper = styled.div`
