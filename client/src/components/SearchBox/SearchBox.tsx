@@ -12,29 +12,29 @@ import {
 interface Props {
   onSearchWordChange: Function;
   onSearchWordSubmit: Function;
-  searchWord: string;
   clearSearchBox: Function;
   onKeyUp: Function;
   searchInputRef: React.Ref<HTMLInputElement>;
+  setIsLoading: any;
   //temp
   searchHooks: any;
   pinHooks: any;
   tagHooks: any;
-  setIsLoading: any;
 }
 
 function SearchBox({
   onSearchWordChange,
   onSearchWordSubmit,
-  searchWord,
   clearSearchBox,
   onKeyUp,
+  setIsLoading,
   searchInputRef,
   searchHooks,
   pinHooks,
   tagHooks,
-  setIsLoading,
 }: Props) {
+  const { searchWord } = searchHooks;
+
   return (
     <SearchBoxWrapper>
       <SearchIcon></SearchIcon>

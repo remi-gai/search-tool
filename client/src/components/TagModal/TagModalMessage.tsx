@@ -14,19 +14,13 @@ import {
   DeleteTagIcon,
   TagAndButtonWrapper,
 } from "./styles";
-import { TaggedId, TaggedSearches } from "../../interfaces/interfaces";
 
 interface Props {
-  elementId: string;
-  taggedIds: TaggedId;
-  taggedSearches: TaggedSearches;
   toggleModal: Function;
   onTagWordChange: Function;
   onSaveTag: Function;
   deleteElementFromTag: Function;
-  tagWord: string;
   onKeyUp: Function;
-  setTagWord: Function;
   // temp
   tagHooks: any;
   pinHooks: any;
@@ -36,21 +30,20 @@ interface Props {
 }
 
 function TagModalMessage({
-  elementId,
-  taggedIds,
   toggleModal,
   onTagWordChange,
   onSaveTag,
   deleteElementFromTag,
-  tagWord,
   onKeyUp,
-  setTagWord,
   tagHooks,
   pinHooks,
   searchHooks,
   setIsLoading,
   modalHooks,
 }: Props) {
+  const { tagElement, taggedIds, tagWord, setTagWord } = tagHooks;
+  const elementId = tagElement.id;
+
   let listOfTags = [] as string[];
   if (taggedIds[elementId]) {
     listOfTags = taggedIds[elementId].slice();

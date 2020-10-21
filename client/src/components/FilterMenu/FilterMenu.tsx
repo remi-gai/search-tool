@@ -12,24 +12,16 @@ import {
   CategoryResultCount,
 } from "./styles";
 
-import { SearchData } from "../../interfaces/interfaces";
-
 interface Props {
-  category: string;
-  setCategory: Function;
   toggleTagMenu: Function;
-  searchData: SearchData;
   // temp
   tagHooks: any;
+  searchHooks: any;
 }
 
-function FilterMenu({
-  setCategory,
-  toggleTagMenu,
-  category,
-  searchData,
-  tagHooks,
-}: Props) {
+function FilterMenu({ toggleTagMenu, tagHooks, searchHooks }: Props) {
+  const { category, searchData, setCategory } = searchHooks;
+
   const categories = [
     "All",
     "Contacts",

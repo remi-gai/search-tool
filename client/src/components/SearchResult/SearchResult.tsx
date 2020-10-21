@@ -15,20 +15,12 @@ import {
   ResultCategoryTitle,
   GrayLineDivider,
 } from "./styles";
+
 import ResultList from "../ResultList/ResultList";
 
-import { SearchData, Id, TaggedId } from "../../interfaces/interfaces";
-
 interface Props {
-  searchData: SearchData;
-  category: string;
-  searchedWord: string;
-  pinnedIds: Id;
-  taggedIds: TaggedId;
   pinSearchResult: Function;
   toggleModal: Function;
-  setSearchData: Function;
-  setSearchedWord: Function;
   isLoading: boolean;
   //temp
   pinHooks: any;
@@ -38,21 +30,24 @@ interface Props {
 }
 
 function SearchResult({
-  searchData,
-  category,
-  searchedWord,
   pinSearchResult,
-  pinnedIds,
   toggleModal,
-  taggedIds,
-  setSearchData,
-  setSearchedWord,
   isLoading,
   pinHooks,
   searchHooks,
   modalHooks,
   tagHooks,
 }: Props) {
+  const {
+    searchData,
+    category,
+    searchedWord,
+    setSearchData,
+    setSearchedWord,
+  } = searchHooks;
+  const { pinnedIds } = pinHooks;
+  const { taggedIds } = tagHooks;
+
   let display;
 
   const lengthOfAllData =

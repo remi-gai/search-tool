@@ -15,11 +15,8 @@ import {
   EmptyListMessage,
 } from "./styles";
 
-import { TaggedSearches } from "../../interfaces/interfaces";
-
 interface Props {
   toggleTagMenu: Function;
-  taggedSearches: TaggedSearches;
   displayTaggedResults: Function;
   deleteTag: Function;
   // temp
@@ -29,13 +26,12 @@ interface Props {
 
 function TagMenu({
   toggleTagMenu,
-  taggedSearches,
   displayTaggedResults,
   deleteTag,
   tagHooks,
   searchHooks,
 }: Props) {
-  const tags = Object.keys(taggedSearches);
+  const tags = Object.keys(tagHooks.taggedSearches);
   const sortedTags = tags.sort();
 
   return (

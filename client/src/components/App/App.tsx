@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 
 import SearchBox from "../SearchBox/SearchBox";
 import FilterMenu from "../FilterMenu/FilterMenu";
@@ -22,9 +22,6 @@ import {
   clearSearchBox,
   displayTaggedResults,
 } from "../../methods/searchMethods";
-
-import { pinSearchResult, clearPinBoard } from "../../methods/pinMethods";
-
 import {
   onTagWordChange,
   onSaveTag,
@@ -32,48 +29,52 @@ import {
   deleteElementFromTag,
   toggleTagMenu,
 } from "../../methods/tagMethods";
-
+import { pinSearchResult, clearPinBoard } from "../../methods/pinMethods";
 import { toggleModal, onKeyUp } from "../../methods/utilsMethods";
 
-import {
-  SearchData,
-  Id,
-  TaggedSearches,
-  TaggedId,
-  Entry,
-} from "../../interfaces/interfaces";
+import { useSearch } from "../../hooks/searchHooks";
+import { usePin } from "../../hooks/pinHooks";
+import { useTag } from "../../hooks/tagHooks";
+import { useModalStatus } from "../../hooks/modalHooks";
+import { useLoadingStatus } from "../../hooks/loadingHooks";
 
 function App() {
-  const [searchData, setSearchData] = useState({
-    contacts: [],
-    calendar: [],
-    dropbox: [],
-    slack: [],
-    twitter: [],
-  } as SearchData);
+  const {
+    searchData,
+    category,
+    searchWord,
+    searchedWord,
+    setSearchData,
+    setCategory,
+    setSearchWord,
+    setSearchedWord,
+  } = useSearch();
 
-  const [category, setCategory] = useState("all" as string);
-  const [searchWord, setSearchWord] = useState("" as string);
-  const [searchedWord, setSearchedWord] = useState("" as string);
+  const {
+    pinnedSearches,
+    pinnedIds,
+    setPinnedSearches,
+    setPinnedIds,
+  } = usePin();
 
-  const [pinnedSearches, setPinnedSearches] = useState({
-    contacts: [],
-    calendar: [],
-    dropbox: [],
-    slack: [],
-    twitter: [],
-  } as SearchData);
-  const [pinnedIds, setPinnedIds] = useState({} as Id);
+  const {
+    taggedSearches,
+    taggedIds,
+    tagWord,
+    tagCategory,
+    tagElement,
+    showTagMenu,
+    setTaggedSearches,
+    setTaggedIds,
+    setTagWord,
+    setTagCategory,
+    setTagElement,
+    setTagMenu,
+  } = useTag();
 
-  const [showModal, setModal] = useState(false as boolean);
-  const [isLoading, setIsLoading] = useState(false as boolean);
+  const { showModal, setModal } = useModalStatus();
 
-  const [taggedSearches, setTaggedSearches] = useState({} as TaggedSearches);
-  const [taggedIds, setTaggedIds] = useState({} as TaggedId);
-  const [tagWord, setTagWord] = useState("" as string);
-  const [tagCategory, setTagCategory] = useState("" as string);
-  const [tagElement, setTagElement] = useState({} as Entry);
-  const [showTagMenu, setTagMenu] = useState(false as boolean);
+  const { isLoading, setIsLoading } = useLoadingStatus();
 
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -121,21 +122,19 @@ function App() {
       <SearchBox
         onSearchWordChange={onSearchWordChange}
         onSearchWordSubmit={onSearchWordSubmit}
-        searchWord={searchWord}
         clearSearchBox={clearSearchBox}
         onKeyUp={onKeyUp}
+        setIsLoading={setIsLoading}
         searchInputRef={searchInputRef}
         searchHooks={searchHooks}
         pinHooks={pinHooks}
         tagHooks={tagHooks}
-        setIsLoading={setIsLoading}
       />
 
       <ResultsOuterWrapper>
         {showTagMenu ? (
           <TagMenu
             toggleTagMenu={toggleTagMenu}
-            taggedSearches={taggedSearches}
             displayTaggedResults={displayTaggedResults}
             deleteTag={deleteTag}
             tagHooks={tagHooks}
@@ -143,20 +142,15 @@ function App() {
           />
         ) : (
           <FilterMenu
-            category={category}
-            searchData={searchData}
-            setCategory={setCategory}
             toggleTagMenu={toggleTagMenu}
+            searchHooks={searchHooks}
             tagHooks={tagHooks}
           />
         )}
         <PinnedAndResultsWrapper>
           <PinnedSearches
-            pinnedSearches={pinnedSearches}
             pinSearchResult={pinSearchResult}
-            pinnedIds={pinnedIds}
             toggleModal={toggleModal}
-            taggedIds={taggedIds}
             clearPinBoard={clearPinBoard}
             pinHooks={pinHooks}
             searchHooks={searchHooks}
@@ -165,15 +159,8 @@ function App() {
           />
           <SearchResultsWrapper>
             <SearchResult
-              searchData={searchData}
-              setSearchData={setSearchData}
-              setSearchedWord={setSearchedWord}
-              category={category}
-              searchedWord={searchedWord}
               pinSearchResult={pinSearchResult}
-              pinnedIds={pinnedIds}
               toggleModal={toggleModal}
-              taggedIds={taggedIds}
               isLoading={isLoading}
               pinHooks={pinHooks}
               searchHooks={searchHooks}
@@ -186,20 +173,15 @@ function App() {
       {showModal && (
         <TagModal>
           <TagModalMessage
-            elementId={tagElement.id}
-            taggedIds={taggedIds}
-            taggedSearches={taggedSearches}
             toggleModal={toggleModal}
             onTagWordChange={onTagWordChange}
             onSaveTag={onSaveTag}
             deleteElementFromTag={deleteElementFromTag}
-            tagWord={tagWord}
             onKeyUp={onKeyUp}
-            setTagWord={setTagWord}
+            setIsLoading={setIsLoading}
             tagHooks={tagHooks}
             pinHooks={pinHooks}
             searchHooks={searchHooks}
-            setIsLoading={setIsLoading}
             modalHooks={modalHooks}
           ></TagModalMessage>
         </TagModal>

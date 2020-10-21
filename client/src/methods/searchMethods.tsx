@@ -125,4 +125,5 @@ export {
   onSearchWordChange,
   clearSearchBox,
   onSearchWordSubmit,
+  emptyData,
 };

@@ -3,8 +3,6 @@ import { createPortal } from "react-dom";
 
 import { ModalBackground } from "./styles";
 
-/*Existence of null for modalRoot has been described in "The Billion Dollar Mistake". One way to fix this is to ensure that the values are never null or undefined, for example by verifying them up front*/
-
 function TagModal({ children }) {
   const elRef: any = useRef(null);
   if (!elRef.current) {

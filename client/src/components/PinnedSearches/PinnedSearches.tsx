@@ -13,16 +13,11 @@ import {
   PinnedSearchListWrapper,
 } from "./styles";
 
-import { Id, SearchData, TaggedId } from "../../interfaces/interfaces";
-
 import ResultList from "../ResultList/ResultList";
 
 interface Props {
-  pinnedSearches: SearchData;
-  pinnedIds: Id;
   pinSearchResult: Function;
   toggleModal: Function;
-  taggedIds: TaggedId;
   clearPinBoard: Function;
   //temp
   pinHooks: any;
@@ -32,17 +27,17 @@ interface Props {
 }
 
 function PinnedSearches({
-  pinnedSearches,
   pinSearchResult,
-  pinnedIds,
   toggleModal,
-  taggedIds,
   clearPinBoard,
   pinHooks,
   searchHooks,
   modalHooks,
   tagHooks,
 }: Props) {
+  const { pinnedSearches, pinnedIds } = pinHooks;
+  const { taggedIds } = tagHooks;
+
   const emptyMessage = (
     <EmptyMessage>The pin board is currently empty.</EmptyMessage>
   );
