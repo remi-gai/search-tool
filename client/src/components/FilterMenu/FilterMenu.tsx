@@ -19,6 +19,8 @@ interface Props {
   setCategory: Function;
   toggleTagMenu: Function;
   searchData: SearchData;
+  // temp
+  tagHooks: any;
 }
 
 function FilterMenu({
@@ -26,6 +28,7 @@ function FilterMenu({
   toggleTagMenu,
   category,
   searchData,
+  tagHooks,
 }: Props) {
   const categories = [
     "All",
@@ -43,7 +46,7 @@ function FilterMenu({
 
   return (
     <FilterMenuWrapper>
-      <TagsFilterWrapper onClick={toggleTagMenu}>
+      <TagsFilterWrapper onClick={() => toggleTagMenu(tagHooks)}>
         <TagIcon></TagIcon>
         <TagsFilter>Tags</TagsFilter>
       </TagsFilterWrapper>

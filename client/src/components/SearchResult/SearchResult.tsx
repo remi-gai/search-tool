@@ -30,6 +30,11 @@ interface Props {
   setSearchData: Function;
   setSearchedWord: Function;
   isLoading: boolean;
+  //temp
+  pinHooks: any;
+  searchHooks: any;
+  modalHooks: any;
+  tagHooks: any;
 }
 
 function SearchResult({
@@ -43,6 +48,10 @@ function SearchResult({
   setSearchData,
   setSearchedWord,
   isLoading,
+  pinHooks,
+  searchHooks,
+  modalHooks,
+  tagHooks,
 }: Props) {
   let display;
 
@@ -89,7 +98,7 @@ function SearchResult({
         {categories.map((category) => {
           const hasData = searchData[category].length;
           return (
-            <div>
+            <div key={shortid.generate()}>
               {hasData ? (
                 <ResultCategoryTitle>
                   {category[0].toUpperCase() +
@@ -103,7 +112,10 @@ function SearchResult({
                 pinnedIds={pinnedIds}
                 toggleModal={toggleModal}
                 taggedIds={taggedIds}
-                key={shortid.generate()}
+                pinHooks={pinHooks}
+                searchHooks={searchHooks}
+                modalHooks={modalHooks}
+                tagHooks={tagHooks}
               ></ResultList>
               {hasData ? <GrayLineDivider></GrayLineDivider> : null}
             </div>
@@ -125,6 +137,10 @@ function SearchResult({
             pinnedIds={pinnedIds}
             toggleModal={toggleModal}
             taggedIds={taggedIds}
+            pinHooks={pinHooks}
+            searchHooks={searchHooks}
+            modalHooks={modalHooks}
+            tagHooks={tagHooks}
           ></ResultList>
         ) : (
           <div>

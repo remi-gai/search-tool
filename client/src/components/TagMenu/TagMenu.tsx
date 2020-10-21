@@ -22,6 +22,9 @@ interface Props {
   taggedSearches: TaggedSearches;
   displayTaggedResults: Function;
   deleteTag: Function;
+  // temp
+  tagHooks: any;
+  searchHooks: any;
 }
 
 function TagMenu({
@@ -29,13 +32,15 @@ function TagMenu({
   taggedSearches,
   displayTaggedResults,
   deleteTag,
+  tagHooks,
+  searchHooks,
 }: Props) {
   const tags = Object.keys(taggedSearches);
   const sortedTags = tags.sort();
 
   return (
     <TagMenuWrapper>
-      <UpperSectionWrapper onClick={() => toggleTagMenu()}>
+      <UpperSectionWrapper onClick={() => toggleTagMenu(tagHooks)}>
         <BackArrowIconAndTitleWrapper>
           <BackArrowIcon></BackArrowIcon>
           <BackToMenuTitle>Tags</BackToMenuTitle>
@@ -45,8 +50,12 @@ function TagMenu({
         {sortedTags.length ? (
           sortedTags.map((tag) => (
             <TagWrapper key={shortid.generate()}>
-              <Tag onClick={() => displayTaggedResults(tag)}>{tag}</Tag>
-              <DeleteIcon onClick={() => deleteTag(tag)}></DeleteIcon>
+              <Tag
+                onClick={() => displayTaggedResults(tag, tagHooks, searchHooks)}
+              >
+                {tag}
+              </Tag>
+              <DeleteIcon onClick={() => deleteTag(tag, tagHooks)}></DeleteIcon>
             </TagWrapper>
           ))
         ) : (

@@ -24,6 +24,11 @@ interface Props {
   toggleModal: Function;
   taggedIds: TaggedId;
   clearPinBoard: Function;
+  //temp
+  pinHooks: any;
+  searchHooks: any;
+  modalHooks: any;
+  tagHooks: any;
 }
 
 function PinnedSearches({
@@ -33,6 +38,10 @@ function PinnedSearches({
   toggleModal,
   taggedIds,
   clearPinBoard,
+  pinHooks,
+  searchHooks,
+  modalHooks,
+  tagHooks,
 }: Props) {
   const emptyMessage = (
     <EmptyMessage>The pin board is currently empty.</EmptyMessage>
@@ -69,6 +78,10 @@ function PinnedSearches({
                   toggleModal={toggleModal}
                   taggedIds={taggedIds}
                   key={shortid.generate()}
+                  pinHooks={pinHooks}
+                  searchHooks={searchHooks}
+                  modalHooks={modalHooks}
+                  tagHooks={tagHooks}
                 ></ResultList>
               );
             })}

@@ -13,6 +13,11 @@ interface Props {
   pinnedIds: Id;
   toggleModal: Function;
   taggedIds: TaggedId;
+  //temp
+  pinHooks: any;
+  searchHooks: any;
+  modalHooks: any;
+  tagHooks: any;
 }
 
 function ResultList({
@@ -22,6 +27,10 @@ function ResultList({
   pinnedIds,
   toggleModal,
   taggedIds,
+  pinHooks,
+  searchHooks,
+  modalHooks,
+  tagHooks,
 }: Props) {
   return (
     <ResultListWrapper>
@@ -35,7 +44,11 @@ function ResultList({
             pinnedIds={pinnedIds}
             toggleModal={toggleModal}
             taggedIds={taggedIds}
+            pinHooks={pinHooks}
+            searchHooks={searchHooks}
             key={result.id}
+            modalHooks={modalHooks}
+            tagHooks={tagHooks}
           ></ResultEntry>
         );
       })}

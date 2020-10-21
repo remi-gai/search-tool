@@ -26,6 +26,13 @@ interface Props {
   deleteElementFromTag: Function;
   tagWord: string;
   onKeyUp: Function;
+  setTagWord: Function;
+  // temp
+  tagHooks: any;
+  pinHooks: any;
+  searchHooks: any;
+  setIsLoading: any;
+  modalHooks: any;
 }
 
 function TagModalMessage({
@@ -37,6 +44,12 @@ function TagModalMessage({
   deleteElementFromTag,
   tagWord,
   onKeyUp,
+  setTagWord,
+  tagHooks,
+  pinHooks,
+  searchHooks,
+  setIsLoading,
+  modalHooks,
 }: Props) {
   let listOfTags = [] as string[];
   if (taggedIds[elementId]) {
@@ -48,7 +61,7 @@ function TagModalMessage({
     <TagModalWrapper>
       <CloseButtonWrapper>
         <CloseModalButton
-          onClick={() => toggleModal(null, null)}
+          onClick={() => toggleModal(null, null, modalHooks, tagHooks)}
         ></CloseModalButton>
       </CloseButtonWrapper>
       <TagModalTitle>Edit Tags</TagModalTitle>
@@ -57,7 +70,7 @@ function TagModalMessage({
           <TagWrapper key={shortid.generate()}>
             <TagName>{tag}</TagName>
             <DeleteTagIcon
-              onClick={() => deleteElementFromTag(tag)}
+              onClick={() => deleteElementFromTag(tag, tagHooks)}
             ></DeleteTagIcon>
           </TagWrapper>
         ))}
@@ -65,11 +78,22 @@ function TagModalMessage({
       <TagAndButtonWrapper>
         <TagModalInputBox
           value={tagWord}
-          onChange={(e) => onTagWordChange(e)}
-          onKeyUp={(e) => onKeyUp(e, "tagModal")}
+          onChange={(e) => onTagWordChange(e, setTagWord)}
+          onKeyUp={(e) =>
+            onKeyUp(
+              e,
+              "tagModal",
+              pinHooks,
+              tagHooks,
+              searchHooks,
+              setIsLoading
+            )
+          }
           maxLength="20"
         ></TagModalInputBox>
-        <SaveTagsButton onClick={() => onSaveTag()}>Save</SaveTagsButton>
+        <SaveTagsButton onClick={() => onSaveTag(tagHooks)}>
+          Save
+        </SaveTagsButton>
       </TagAndButtonWrapper>
     </TagModalWrapper>
   );

@@ -16,6 +16,11 @@ interface Props {
   clearSearchBox: Function;
   onKeyUp: Function;
   searchInputRef: React.Ref<HTMLInputElement>;
+  //temp
+  searchHooks: any;
+  pinHooks: any;
+  tagHooks: any;
+  setIsLoading: any;
 }
 
 function SearchBox({
@@ -25,6 +30,10 @@ function SearchBox({
   clearSearchBox,
   onKeyUp,
   searchInputRef,
+  searchHooks,
+  pinHooks,
+  tagHooks,
+  setIsLoading,
 }: Props) {
   return (
     <SearchBoxWrapper>
@@ -32,14 +41,25 @@ function SearchBox({
       <SearchInput
         placeholder={"Search"}
         value={searchWord}
-        onChange={(e) => onSearchWordChange(e)}
-        onKeyUp={(e) => onKeyUp(e, "search")}
+        onChange={(e) => onSearchWordChange(e, searchHooks)}
+        onKeyUp={(e) =>
+          onKeyUp(e, "search", pinHooks, tagHooks, searchHooks, setIsLoading)
+        }
         ref={searchInputRef}
       ></SearchInput>
       <ButtonsWrapper>
-        <ClearButton onClick={clearSearchBox}>Clear</ClearButton>
-        <SubmitButton onClick={onSearchWordSubmit}>Search</SubmitButton>
-        {/* <SubmitButton onClick={() => onSearchWordSubmit(searchWord)}>Search</SubmitButton> */}
+        <ClearButton
+          onClick={() => clearSearchBox(searchHooks, searchInputRef)}
+        >
+          Clear
+        </ClearButton>
+        <SubmitButton
+          onClick={() =>
+            onSearchWordSubmit(searchHooks, pinHooks, tagHooks, setIsLoading)
+          }
+        >
+          Search
+        </SubmitButton>
       </ButtonsWrapper>
     </SearchBoxWrapper>
   );

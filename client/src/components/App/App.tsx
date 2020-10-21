@@ -1,6 +1,4 @@
 import React, { useState, useRef } from "react";
-import axios from "axios";
-import moment from "moment";
 
 import SearchBox from "../SearchBox/SearchBox";
 import FilterMenu from "../FilterMenu/FilterMenu";
@@ -17,6 +15,25 @@ import {
   PinnedAndResultsWrapper,
   SearchResultsWrapper,
 } from "./styles";
+
+import {
+  onSearchWordSubmit,
+  onSearchWordChange,
+  clearSearchBox,
+  displayTaggedResults,
+} from "../../methods/searchMethods";
+
+import { pinSearchResult, clearPinBoard } from "../../methods/pinMethods";
+
+import {
+  onTagWordChange,
+  onSaveTag,
+  deleteTag,
+  deleteElementFromTag,
+  toggleTagMenu,
+} from "../../methods/tagMethods";
+
+import { toggleModal, onKeyUp } from "../../methods/utilsMethods";
 
 import {
   SearchData,
@@ -47,7 +64,9 @@ function App() {
     twitter: [],
   } as SearchData);
   const [pinnedIds, setPinnedIds] = useState({} as Id);
+
   const [showModal, setModal] = useState(false as boolean);
+  const [isLoading, setIsLoading] = useState(false as boolean);
 
   const [taggedSearches, setTaggedSearches] = useState({} as TaggedSearches);
   const [taggedIds, setTaggedIds] = useState({} as TaggedId);
@@ -55,273 +74,45 @@ function App() {
   const [tagCategory, setTagCategory] = useState("" as string);
   const [tagElement, setTagElement] = useState({} as Entry);
   const [showTagMenu, setTagMenu] = useState(false as boolean);
-  const [isLoading, setIsLoading] = useState(false as boolean);
 
   const searchInputRef = useRef<HTMLInputElement>(null);
 
-  // Toggles
-  const toggleModal = (category, element) => {
-    setModal(!showModal);
-    if (category === null) {
-      return;
-    }
-    setTagWord("");
-    setTagCategory(category);
-    setTagElement(element);
+  const searchHooks = {
+    searchData,
+    setSearchData,
+    category,
+    setCategory,
+    searchWord,
+    setSearchWord,
+    searchedWord,
+    setSearchedWord,
   };
 
-  const toggleTagMenu = () => {
-    setTagMenu(!showTagMenu);
+  const tagHooks = {
+    taggedSearches,
+    setTaggedSearches,
+    taggedIds,
+    setTaggedIds,
+    tagWord,
+    setTagWord,
+    tagCategory,
+    setTagCategory,
+    tagElement,
+    setTagElement,
+    showTagMenu,
+    setTagMenu,
   };
 
-  //search methods
-
-  // pass in searchWord
-  const onSearchWordSubmit = () => {
-    const firstCharacter = searchWord[0];
-    const remainingCharacter = searchWord.substring(1, searchWord.length);
-
-    if (firstCharacter !== "#") {
-      return getSearchResults(searchWord);
-    }
-
-    if (taggedSearches[remainingCharacter]) {
-      return displayTaggedResults(remainingCharacter);
-    }
-
-    return formatAndSetResults(null);
+  const pinHooks = {
+    pinnedSearches,
+    setPinnedSearches,
+    pinnedIds,
+    setPinnedIds,
   };
 
-  const getSearchResults = (searchWord: string) => {
-    setIsLoading(true);
-    axios
-      .get("/api/results/" + searchWord.toLowerCase())
-      .then((results) => {
-        formatAndSetResults(results);
-      })
-      .catch((err) => {
-        console.log("error: ", err);
-        setIsLoading(false);
-      });
-  };
-
-  const formatAndSetResults = (results) => {
-    setSearchedWord(searchWord);
-    setIsLoading(false);
-
-    if (results === null) {
-      setCategory("all");
-      return setSearchData(emptyData);
-    }
-
-    // sort array based on descending time to improve search relevance
-    const categories = ["contacts", "calendar", "dropbox", "slack", "twitter"];
-    categories.forEach((category) => {
-      results.data[category] = sortArrayByTimeDescendingOrder(
-        results.data[category],
-        category
-      );
-    });
-
-    setCategory("all");
-    setSearchData(results.data);
-  };
-
-  const sortArrayByTimeDescendingOrder = (array: [], category: string) => {
-    let timeKey: string;
-    if (category === "contacts") {
-      timeKey = "last_contact";
-    } else if (category === "calendar") {
-      timeKey = "date";
-    } else if (category === "dropbox") {
-      timeKey = "created";
-    } else if (category === "slack" || category === "twitter") {
-      timeKey = "timestamp";
-    }
-
-    return array.sort((a, b) => {
-      const bTime = moment(b[timeKey], "YYYY-MM-DD hh:mm:ss").format(
-        "YYYYMMDDhhmmss"
-      );
-      const aTime = moment(a[timeKey], "YYYY-MM-DD hh:mm:ss").format(
-        "YYYYMMDDhhmmss"
-      );
-      return Number(bTime) - Number(aTime);
-    });
-  };
-
-  const onSearchWordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const word = event.target.value;
-    setSearchWord(word);
-  };
-
-  const clearSearchBox = () => {
-    setSearchWord("");
-    setSearchedWord("");
-
-    if (searchInputRef.current !== null) {
-      searchInputRef.current.focus();
-    }
-  };
-
-  // Tag Methods
-
-  const onTagWordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const word = event.target.value;
-    setTagWord(word);
-  };
-
-  const onSaveTag = () => {
-    const copyOfTaggedSearches = JSON.parse(JSON.stringify(taggedSearches));
-    const copyOfTaggedIds = JSON.parse(JSON.stringify(taggedIds));
-    if (!taggedSearches[tagWord]) {
-      const template = {
-        contacts: [],
-        calendar: [],
-        dropbox: [],
-        slack: [],
-        twitter: [],
-      };
-      copyOfTaggedSearches[tagWord] = template;
-    }
-    if (!taggedIds[tagElement.id]) {
-      copyOfTaggedIds[tagElement.id] = [];
-    }
-
-    copyOfTaggedSearches[tagWord][tagCategory].push(tagElement);
-    if (copyOfTaggedIds[tagElement.id].indexOf(tagWord) === -1)
-      copyOfTaggedIds[tagElement.id].push(tagWord);
-    setTaggedSearches(copyOfTaggedSearches);
-    setTaggedIds(copyOfTaggedIds);
-    setTagWord("");
-  };
-
-  const deleteTag = (tag) => {
-    const copyOfTaggedSearches = JSON.parse(JSON.stringify(taggedSearches));
-    delete copyOfTaggedSearches[tag];
-    setTaggedSearches(copyOfTaggedSearches);
-    deleteTagFromAllTaggedIds(tag);
-  };
-
-  const deleteTagFromAllTaggedIds = (tag) => {
-    const keysInTaggedIds = Object.keys(taggedIds);
-    const copyOfTaggedIds = JSON.parse(JSON.stringify(taggedIds));
-
-    keysInTaggedIds.forEach((id) => {
-      const idTags = copyOfTaggedIds[id];
-      for (let i = 0; i < idTags.length; i++) {
-        const currentTag = idTags[i];
-        if (tag === currentTag) {
-          idTags.splice(i, 1);
-          if (idTags.length === 0) {
-            delete copyOfTaggedIds[id];
-          }
-          break;
-        }
-      }
-    });
-    setTaggedIds(copyOfTaggedIds);
-  };
-
-  const deleteElementFromTag = (tag) => {
-    const id = tagElement.id;
-    const category = tagCategory;
-    deleteElementFromTaggedSearches(id, tag, category);
-    deleteTagFromIdInTaggedIds(id, tag);
-  };
-
-  const deleteElementFromTaggedSearches = (id, tag, category) => {
-    const copyOfTaggedSearches = JSON.parse(JSON.stringify(taggedSearches));
-    const tagAndCategoryData = copyOfTaggedSearches[tag][category];
-    for (let i = 0; i < tagAndCategoryData.length; i++) {
-      const currentElement = tagAndCategoryData[i];
-      if (id === currentElement.id) {
-        tagAndCategoryData.splice(i, 1);
-        break;
-      }
-    }
-    setTaggedSearches(copyOfTaggedSearches);
-  };
-
-  const deleteTagFromIdInTaggedIds = (id, tag) => {
-    const copyOfTaggedIds = JSON.parse(JSON.stringify(taggedIds));
-    const idTags = copyOfTaggedIds[id];
-    for (let i = 0; i < idTags.length; i++) {
-      const currentTag = idTags[i];
-      if (tag === currentTag) {
-        idTags.splice(i, 1);
-        console.log(idTags.length);
-        if (idTags.length === 0) {
-          console.log("deleted", id);
-          delete copyOfTaggedIds[id];
-        }
-        break;
-      }
-    }
-    setTaggedIds(copyOfTaggedIds);
-  };
-
-  // sharing setSearchData and s
-  const displayTaggedResults = (tag) => {
-    setSearchData(taggedSearches[tag]);
-    setSearchWord("#" + tag);
-    setSearchedWord("#" + tag);
-    setCategory("all");
-  };
-
-  const onKeyUp = (event, refName) => {
-    if (event.key === "Enter") {
-      if (refName === "search") {
-        onSearchWordSubmit();
-      } else {
-        onSaveTag();
-      }
-    }
-  };
-
-  // Pin methods
-  const pinSearchResult = (category: string, id: string) => {
-    const copyOfPinnedSearches = JSON.parse(JSON.stringify(pinnedSearches));
-    const copyOfPinnedIds = JSON.parse(JSON.stringify(pinnedIds));
-
-    if (!pinnedIds[id]) {
-      const targetResult = searchData[category].filter(
-        (element) => element.id === id
-      );
-      copyOfPinnedSearches[category].push(targetResult[0]);
-      copyOfPinnedIds[id] = true;
-    } else {
-      copyOfPinnedSearches[category];
-      for (let i = 0; i < copyOfPinnedSearches[category].length; i++) {
-        const currentElement = copyOfPinnedSearches[category][i];
-        if (currentElement.id === id) {
-          copyOfPinnedSearches[category].splice(i, 1);
-          break;
-        }
-      }
-      delete copyOfPinnedIds[id];
-    }
-    setPinnedSearches(copyOfPinnedSearches);
-    setPinnedIds(copyOfPinnedIds);
-  };
-
-  const clearPinBoard = () => {
-    setPinnedSearches({
-      contacts: [],
-      calendar: [],
-      dropbox: [],
-      slack: [],
-      twitter: [],
-    } as SearchData);
-    setPinnedIds({} as Id);
-  };
-
-  const emptyData = {
-    contacts: [],
-    calendar: [],
-    dropbox: [],
-    slack: [],
-    twitter: [],
+  const modalHooks = {
+    showModal,
+    setModal,
   };
 
   return (
@@ -334,6 +125,10 @@ function App() {
         clearSearchBox={clearSearchBox}
         onKeyUp={onKeyUp}
         searchInputRef={searchInputRef}
+        searchHooks={searchHooks}
+        pinHooks={pinHooks}
+        tagHooks={tagHooks}
+        setIsLoading={setIsLoading}
       />
 
       <ResultsOuterWrapper>
@@ -343,6 +138,8 @@ function App() {
             taggedSearches={taggedSearches}
             displayTaggedResults={displayTaggedResults}
             deleteTag={deleteTag}
+            tagHooks={tagHooks}
+            searchHooks={searchHooks}
           />
         ) : (
           <FilterMenu
@@ -350,6 +147,7 @@ function App() {
             searchData={searchData}
             setCategory={setCategory}
             toggleTagMenu={toggleTagMenu}
+            tagHooks={tagHooks}
           />
         )}
         <PinnedAndResultsWrapper>
@@ -360,6 +158,10 @@ function App() {
             toggleModal={toggleModal}
             taggedIds={taggedIds}
             clearPinBoard={clearPinBoard}
+            pinHooks={pinHooks}
+            searchHooks={searchHooks}
+            modalHooks={modalHooks}
+            tagHooks={tagHooks}
           />
           <SearchResultsWrapper>
             <SearchResult
@@ -373,12 +175,16 @@ function App() {
               toggleModal={toggleModal}
               taggedIds={taggedIds}
               isLoading={isLoading}
+              pinHooks={pinHooks}
+              searchHooks={searchHooks}
+              modalHooks={modalHooks}
+              tagHooks={tagHooks}
             />
           </SearchResultsWrapper>
         </PinnedAndResultsWrapper>
       </ResultsOuterWrapper>
       {showModal && (
-        <TagModal onSaveTag={onSaveTag}>
+        <TagModal>
           <TagModalMessage
             elementId={tagElement.id}
             taggedIds={taggedIds}
@@ -389,6 +195,12 @@ function App() {
             deleteElementFromTag={deleteElementFromTag}
             tagWord={tagWord}
             onKeyUp={onKeyUp}
+            setTagWord={setTagWord}
+            tagHooks={tagHooks}
+            pinHooks={pinHooks}
+            searchHooks={searchHooks}
+            setIsLoading={setIsLoading}
+            modalHooks={modalHooks}
           ></TagModalMessage>
         </TagModal>
       )}

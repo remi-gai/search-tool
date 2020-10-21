@@ -26,6 +26,11 @@ interface Props {
   pinnedIds: Id;
   toggleModal: Function;
   taggedIds: TaggedId;
+  //temp
+  pinHooks: any;
+  searchHooks: any;
+  modalHooks: any;
+  tagHooks: any;
 }
 
 function ResultEntry({
@@ -36,6 +41,10 @@ function ResultEntry({
   pinSearchResult,
   toggleModal,
   taggedIds,
+  pinHooks,
+  searchHooks,
+  modalHooks,
+  tagHooks,
 }: Props) {
   const isPinned = pinnedIds[id] ? true : false;
   const isTagged = taggedIds[id] ? true : false;
@@ -50,7 +59,7 @@ function ResultEntry({
         {renderDateMap[category](result)}
         <PinWrapper>
           <PinIcon
-            onClick={() => pinSearchResult(category, id)}
+            onClick={() => pinSearchResult(category, id, pinHooks, searchHooks)}
             src={
               isPinned ? "./icons/pinned-icon.png" : "./icons/unpinned-icon.png"
             }
@@ -58,7 +67,7 @@ function ResultEntry({
         </PinWrapper>
         <TagWrapper>
           <TagIcon
-            onClick={() => toggleModal(category, result)}
+            onClick={() => toggleModal(category, result, modalHooks, tagHooks)}
             src={
               isTagged ? "./icons/tagged-icon.png" : "./icons/untagged-icon.png"
             }
