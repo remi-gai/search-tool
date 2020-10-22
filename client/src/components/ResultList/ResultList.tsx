@@ -1,4 +1,5 @@
 import React from "react";
+import shortid from "shortid";
 
 import { ResultListWrapper } from "./styles";
 
@@ -36,6 +37,7 @@ function ResultList({
   return (
     <ResultListWrapper>
       {searchData[category].map((result) => {
+        const randomId = shortid.generate();
         return (
           <ResultEntry
             result={result}
@@ -45,7 +47,7 @@ function ResultList({
             toggleModal={toggleModal}
             pinHooks={pinHooks}
             searchHooks={searchHooks}
-            key={result.id}
+            key={randomId}
             modalHooks={modalHooks}
             tagHooks={tagHooks}
           ></ResultEntry>
