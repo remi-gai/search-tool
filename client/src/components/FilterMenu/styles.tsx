@@ -44,8 +44,8 @@ const FilterTitle = styled.div`
 `;
 
 const CategoryFilter = styled.div`
-  font-weight: ${(props) => (props.category ? "bolder" : "normal")};
-  color: ${(props) => (props.category ? "#415aff" : "black")};
+  font-weight: ${(props) => (props.isCategory ? "bolder" : "normal")};
+  color: ${(props) => (props.isCategory ? "#415aff" : "black")};
   &:hover {
     color: #415aff;
     font-weight: bolder;

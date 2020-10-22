@@ -42,7 +42,6 @@ function TagModalMessage({
   deleteElementFromTag,
   onKeyUp,
   tagHooks,
-  pinHooks,
   searchHooks,
   setIsLoading,
   modalHooks,
@@ -79,14 +78,7 @@ function TagModalMessage({
           value={tagWord}
           onChange={(e) => onTagWordChange(e, setTagWord)}
           onKeyUp={(e) =>
-            onKeyUp(
-              e,
-              "tagModal",
-              pinHooks,
-              tagHooks,
-              searchHooks,
-              setIsLoading
-            )
+            onKeyUp(e, "tagModal", tagHooks, searchHooks, setIsLoading)
           }
           maxLength="20"
         ></TagModalInputBox>

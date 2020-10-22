@@ -12,21 +12,21 @@
       "title": "Acme Final Delivery Meeting",
       "invitees": "dave, john, bob, alice",
       "matching_terms": ["dave", "john", "bob", "alice", "acme"],
-      "date": "2020-10-17 18:30:00"
+      "date": "2020-09-17 18:30:00"
     },
     {
       "id": "12345",
       "title": "Acme Holiday Party",
       "invitees": "dave, john, bob, alice",
       "matching_terms": ["dave", "john", "bob", "alice", "acme"],
-      "date": "2020-11-17 18:30:00"
+      "date": "2020-10-28 18:30:00"
     },
     {
       "id": "12345",
       "title": "Acme Client Meeting in Dallas",
       "invitees": "dave, john, bob, alice",
       "matching_terms": ["dave", "john", "remi", "steve", "acme"],
-      "date": "2020-10-28 18:30:00"
+      "date": "2020-10-21 20:30:00"
     }
   ]
 }

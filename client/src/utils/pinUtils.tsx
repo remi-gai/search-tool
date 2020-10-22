@@ -1,11 +1,16 @@
-import { SearchData, Id } from "../interfaces/interfaces";
+import {
+  SearchData,
+  PinHooks,
+  SearchHooks,
+  Id,
+} from "../interfaces/interfaces";
 
 const pinSearchResult = (
   category: string,
   id: string,
-  { pinnedSearches, pinnedIds, setPinnedSearches, setPinnedIds },
-  { searchData }
-) => {
+  { pinnedSearches, pinnedIds, setPinnedSearches, setPinnedIds }: PinHooks,
+  { searchData }: SearchHooks
+): void => {
   let newList;
 
   if (!pinnedIds[id]) {
@@ -28,13 +33,14 @@ const pinSearchResult = (
       break;
     }
   }
-  const copyOfPinnedIds = JSON.parse(JSON.stringify(pinnedIds));
-  delete copyOfPinnedIds[id];
+
+  const shallowCopyOfPinnedIds = { ...pinnedIds };
+  delete shallowCopyOfPinnedIds[id];
   setPinnedSearches({ ...pinnedSearches, [category]: newList });
-  setPinnedIds(copyOfPinnedIds);
+  setPinnedIds(shallowCopyOfPinnedIds);
 };
 
-const clearPinBoard = ({ setPinnedSearches, setPinnedIds }) => {
+const clearPinBoard = ({ setPinnedSearches, setPinnedIds }: PinHooks): void => {
   setPinnedSearches({
     contacts: [],
     calendar: [],

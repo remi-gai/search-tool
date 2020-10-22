@@ -51,8 +51,6 @@ function SearchResult({
     setSearchData,
     setSearchedWord,
   } = searchHooks;
-  const { pinnedIds } = pinHooks;
-  const { taggedIds } = tagHooks;
 
   let display;
 

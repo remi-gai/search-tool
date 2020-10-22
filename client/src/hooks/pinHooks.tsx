@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { emptyData } from "../methods/searchMethods";
+import { emptyData } from "../utils/searchUtils";
 
 import { SearchData, Id } from "../interfaces/interfaces";
 

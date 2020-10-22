@@ -1,6 +1,14 @@
 import axios from "axios";
 import moment from "moment";
 
+import {
+  Entry,
+  SearchData,
+  SearchHooks,
+  TagHooks,
+  SearchInputRef,
+} from "../interfaces/interfaces";
+
 const emptyData = {
   contacts: [],
   calendar: [],
@@ -10,17 +18,21 @@ const emptyData = {
 };
 
 const displayTaggedResults = (
-  tag,
-  { taggedSearches },
-  { setSearchData, setSearchWord, setSearchedWord, setCategory }
-) => {
+  tag: string,
+  { taggedSearches }: TagHooks,
+  { setSearchData, setSearchWord, setSearchedWord, setCategory }: SearchHooks
+): void => {
   setSearchData(taggedSearches[tag]);
   setSearchWord("#" + tag);
   setSearchedWord("#" + tag);
   setCategory("all");
 };
 
-const onSearchWordSubmit = (searchHooks, pinHooks, tagHooks, setIsLoading) => {
+const onSearchWordSubmit = (
+  searchHooks: SearchHooks,
+  tagHooks: TagHooks,
+  setIsLoading: Function
+): void => {
   const firstCharacter = searchHooks.searchWord[0];
   const remainingCharacter = searchHooks.searchWord.substring(
     1,
@@ -32,18 +44,22 @@ const onSearchWordSubmit = (searchHooks, pinHooks, tagHooks, setIsLoading) => {
   }
 
   if (tagHooks.taggedSearches[remainingCharacter]) {
-    return displayTaggedResults(remainingCharacter, pinHooks, searchHooks);
+    return displayTaggedResults(remainingCharacter, tagHooks, searchHooks);
   }
 
   return formatAndSetResults(null, searchHooks, setIsLoading);
 };
 
-const getSearchResults = (searchWord, setIsLoading, searchHooks) => {
+const getSearchResults = (
+  searchWord: string,
+  setIsLoading: Function,
+  searchHooks: SearchHooks
+): void => {
   setIsLoading(true);
   axios
     .get("/api/results/" + searchWord.toLowerCase())
     .then((results) => {
-      formatAndSetResults(results, searchHooks, setIsLoading);
+      formatAndSetResults(results.data, searchHooks, setIsLoading);
     })
     .catch((err) => {
       console.log("error: ", err);
@@ -52,49 +68,53 @@ const getSearchResults = (searchWord, setIsLoading, searchHooks) => {
 };
 
 const formatAndSetResults = (
-  results,
-  { searchWord, setSearchedWord, setCategory, setSearchData },
-  setIsLoading
-) => {
+  results: SearchData | null,
+  { searchWord, setSearchedWord, setCategory, setSearchData }: SearchHooks,
+  setIsLoading: Function
+): void => {
   setSearchedWord(searchWord);
   setIsLoading(false);
 
   if (results === null) {
     setCategory("all");
-    return setSearchData(emptyData);
+    setSearchData(emptyData);
+    return;
   }
 
   // sort array based on descending time to improve search relevance
   const categories = ["contacts", "calendar", "dropbox", "slack", "twitter"];
   categories.forEach((category) => {
-    results.data[category] = sortArrayByTimeDescendingOrder(
-      results.data[category],
+    results[category] = sortArrayByTimeDescendingOrder(
+      results[category],
       category
     );
   });
 
   setCategory("all");
-  setSearchData(results.data);
+  setSearchData(results);
 };
 
-const sortArrayByTimeDescendingOrder = (array: [], category: string) => {
-  let timeKey: string;
-  if (category === "contacts") {
-    timeKey = "last_contact";
-  } else if (category === "calendar") {
-    timeKey = "date";
-  } else if (category === "dropbox") {
-    timeKey = "created";
-  } else if (category === "slack" || category === "twitter") {
-    timeKey = "timestamp";
+const sortArrayByTimeDescendingOrder = (
+  array: Entry[],
+  category: string
+): Entry[] => {
+  const dateAndTimeFormat = "YYYY-MM-DD hh:mm:ss";
+  const dateAndTimeNoSymbolsFormat = "YYYYMMDDhhmmss";
+
+  enum FormatDateName {
+    contacts = "last_contact",
+    calendar = "date",
+    dropbox = "created",
+    slack = "timestamp",
+    twitter = "timestamp",
   }
 
   return array.sort((a, b) => {
-    const bTime = moment(b[timeKey], "YYYY-MM-DD hh:mm:ss").format(
-      "YYYYMMDDhhmmss"
+    const bTime = moment(b[FormatDateName[category]], dateAndTimeFormat).format(
+      dateAndTimeNoSymbolsFormat
     );
-    const aTime = moment(a[timeKey], "YYYY-MM-DD hh:mm:ss").format(
-      "YYYYMMDDhhmmss"
+    const aTime = moment(a[FormatDateName[category]], dateAndTimeFormat).format(
+      dateAndTimeNoSymbolsFormat
     );
     return Number(bTime) - Number(aTime);
   });
@@ -102,16 +122,16 @@ const sortArrayByTimeDescendingOrder = (array: [], category: string) => {
 
 const onSearchWordChange = (
   event: React.ChangeEvent<HTMLInputElement>,
-  { setSearchWord }
-) => {
+  { setSearchWord }: SearchHooks
+): void => {
   const word = event.target.value;
   setSearchWord(word);
 };
 
 const clearSearchBox = (
-  { setSearchWord, setSearchedWord, setSearchData },
-  searchInputRef
-) => {
+  { setSearchWord, setSearchedWord, setSearchData }: SearchHooks,
+  searchInputRef: SearchInputRef
+): void => {
   setSearchWord("");
   setSearchedWord("");
   setSearchData(emptyData);

@@ -45,20 +45,19 @@ function FilterMenu({ toggleTagMenu, tagHooks, searchHooks }: Props) {
       </TagsFilterWrapper>
       <FilterTitle>Filter</FilterTitle>
       {categories.map((filterCategory) => {
+        const randomId = shortid.generate();
+        const lowerCaseCategory = filterCategory.toLowerCase();
+        const isCategory = lowerCaseCategory === category;
+        const updateCategoryCB = () => setCategory(lowerCaseCategory);
         return (
-          <CategoryFilterWrapper key={shortid.generate()}>
-            <CategoryFilter
-              category={filterCategory.toLowerCase() === category}
-              onClick={() => setCategory(filterCategory.toLowerCase())}
-            >
+          <CategoryFilterWrapper key={randomId}>
+            <CategoryFilter isCategory={isCategory} onClick={updateCategoryCB}>
               {filterCategory}
             </CategoryFilter>
-            <CategoryResultCount
-              category={filterCategory.toLowerCase() === category}
-            >
+            <CategoryResultCount isCategory={isCategory}>
               {filterCategory === "All"
                 ? totalCount
-                : searchData[filterCategory.toLowerCase()].length}
+                : searchData[lowerCaseCategory].length}
             </CategoryResultCount>
           </CategoryFilterWrapper>
         );

@@ -53,6 +53,11 @@ function ResultEntry({
   const isPinned = pinnedIds[id] ? true : false;
   const isTagged = taggedIds[id] ? true : false;
 
+  const pinSearchResultsCB = () =>
+    pinSearchResult(category, id, pinHooks, searchHooks);
+  const toggleModalCB = () =>
+    toggleModal(category, result, modalHooks, tagHooks);
+
   return (
     <ResultOuterWrapper>
       <ResultLeftWrapper>
@@ -63,7 +68,7 @@ function ResultEntry({
         {renderDateMap[category](result)}
         <PinWrapper>
           <PinIcon
-            onClick={() => pinSearchResult(category, id, pinHooks, searchHooks)}
+            onClick={pinSearchResultsCB}
             src={
               isPinned ? "./icons/pinned-icon.png" : "./icons/unpinned-icon.png"
             }
@@ -71,7 +76,7 @@ function ResultEntry({
         </PinWrapper>
         <TagWrapper>
           <TagIcon
-            onClick={() => toggleModal(category, result, modalHooks, tagHooks)}
+            onClick={toggleModalCB}
             src={
               isTagged ? "./icons/tagged-icon.png" : "./icons/untagged-icon.png"
             }
