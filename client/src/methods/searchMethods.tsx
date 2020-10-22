@@ -108,9 +108,13 @@ const onSearchWordChange = (
   setSearchWord(word);
 };
 
-const clearSearchBox = ({ setSearchWord, setSearchedWord }, searchInputRef) => {
+const clearSearchBox = (
+  { setSearchWord, setSearchedWord, setSearchData },
+  searchInputRef
+) => {
   setSearchWord("");
   setSearchedWord("");
+  setSearchData(emptyData);
 
   if (searchInputRef.current !== null) {
     searchInputRef.current.focus();

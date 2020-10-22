@@ -16,7 +16,6 @@ import {
 } from "./styles";
 
 import {
-  SearchData,
   PinHooks,
   TagHooks,
   SearchHooks,
