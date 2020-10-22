@@ -44,7 +44,7 @@ function SearchBox({
         value={searchWord}
         onChange={(e) => onSearchWordChange(e, searchHooks)}
         onKeyUp={(e) =>
-          onKeyUp(e, "search", pinHooks, tagHooks, searchHooks, setIsLoading)
+          onKeyUp(e, "search", tagHooks, searchHooks, setIsLoading)
         }
         ref={searchInputRef}
       ></SearchInput>
@@ -56,7 +56,7 @@ function SearchBox({
         </ClearButton>
         <SubmitButton
           onClick={() =>
-            onSearchWordSubmit(searchHooks, pinHooks, tagHooks, setIsLoading)
+            onSearchWordSubmit(searchHooks, tagHooks, setIsLoading)
           }
         >
           Search

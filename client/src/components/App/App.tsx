@@ -21,16 +21,16 @@ import {
   onSearchWordChange,
   clearSearchBox,
   displayTaggedResults,
-} from "../../methods/searchMethods";
+} from "../../utils/searchUtils";
 import {
   onTagWordChange,
   onSaveTag,
   deleteTag,
   deleteElementFromTag,
   toggleTagMenu,
-} from "../../methods/tagMethods";
-import { pinSearchResult, clearPinBoard } from "../../methods/pinMethods";
-import { toggleModal, onKeyUp } from "../../methods/utilsMethods";
+} from "../../utils/tagUtils";
+import { pinSearchResult, clearPinBoard } from "../../utils/pinUtils";
+import { toggleModal, onKeyUp } from "../../utils/utils";
 
 import { useSearch } from "../../hooks/searchHooks";
 import { usePin } from "../../hooks/pinHooks";

@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { SearchData } from "../interfaces/interfaces";
 
-import { emptyData } from "../methods/searchMethods";
+import { emptyData } from "../utils/searchUtils";
 
 const useSearch = () => {
   const [searchData, updateSearchData] = useState(emptyData as SearchData);

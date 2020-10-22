@@ -132,6 +132,10 @@ interface ModalHooks {
   setModal: Function;
 }
 
+interface SearchInputRef {
+  current: HTMLInputElement;
+}
+
 export {
   Calendar,
   Contacts,
@@ -149,4 +153,5 @@ export {
   SearchHooks,
   PinHooks,
   ModalHooks,
+  SearchInputRef,
 };

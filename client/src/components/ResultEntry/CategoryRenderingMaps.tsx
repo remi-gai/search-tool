@@ -15,11 +15,12 @@ import {
 } from "./styles";
 
 const addElipsisToString = (text) => {
-  if (text.length < 70) {
+  const maxCharactersCount = 70;
+  if (text.length < maxCharactersCount) {
     return text;
   }
 
-  return text.substring(0, 71) + "...";
+  return text.substring(0, maxCharactersCount + 1) + "...";
 };
 
 const renderTitleAndDetailsMap = {
@@ -67,41 +68,39 @@ const renderTitleAndDetailsMap = {
   },
 };
 
+const dateFormat = "YYYY-MM-DD";
+const dateFormatWithTime = "YYYY-MM-DD hh:mm:ss";
+
 const renderDateMap = {
   contacts: (result) => {
     return (
       <Date>
-        {"Last contacted: " +
-          moment(result.last_contact, "YYYY-MM-DD").fromNow()}
+        {"Last contacted: " + moment(result.last_contact, dateFormat).fromNow()}
       </Date>
     );
   },
   calendar: (result) => {
     return (
       <Date>
-        {"Event date: " + moment(result.date, "YYYY-MM-DD hh:mm:ss").fromNow()}
+        {"Event date: " + moment(result.date, dateFormatWithTime).fromNow()}
       </Date>
     );
   },
   dropbox: (result) => {
     return (
-      <Date>
-        {"Created: " + moment(result.created, "YYYY-MM-DD").fromNow()}
-      </Date>
+      <Date>{"Created: " + moment(result.created, dateFormat).fromNow()}</Date>
     );
   },
   slack: (result) => {
     return (
       <Date>
-        {"Posted: " + moment(result.timestamp, "YYYY-MM-DD hh:mm:ss").fromNow()}
+        {"Posted: " + moment(result.timestamp, dateFormatWithTime).fromNow()}
       </Date>
     );
   },
   twitter: (result) => {
     return (
-      <Date>
-        {"Posted: " + moment(result.timestamp, "YYYY-MM-DD").fromNow()}
-      </Date>
+      <Date>{"Posted: " + moment(result.timestamp, dateFormat).fromNow()}</Date>
     );
   },
 };
