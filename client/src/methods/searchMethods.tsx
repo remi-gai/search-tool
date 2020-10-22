@@ -32,7 +32,7 @@ const onSearchWordSubmit = (searchHooks, pinHooks, tagHooks, setIsLoading) => {
   }
 
   if (tagHooks.taggedSearches[remainingCharacter]) {
-    return displayTaggedResults(remainingCharacter, pinHooks, searchHooks);
+    return displayTaggedResults(remainingCharacter, tagHooks, searchHooks);
   }
 
   return formatAndSetResults(null, searchHooks, setIsLoading);

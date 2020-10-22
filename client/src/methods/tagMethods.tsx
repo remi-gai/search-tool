@@ -16,6 +16,8 @@ const onSaveTag = ({
   setTaggedIds,
   setTagWord,
 }) => {
+  tagWord = tagWord.toLowerCase();
+
   if (tagWord.length === 0) {
     return;
   }
