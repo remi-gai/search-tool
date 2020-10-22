@@ -1,6 +1,8 @@
 import { useState } from "react";
 
-const useModalStatus = () => {
+import { ModalHooks } from "../interfaces/interfaces";
+
+const useModalStatus = (): ModalHooks => {
   const [showModal, updateModal] = useState(false as boolean);
 
   const setModal = () => {

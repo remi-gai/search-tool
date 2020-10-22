@@ -1,8 +1,13 @@
 import { useState } from "react";
 
-import { TaggedSearches, TaggedId, Entry } from "../interfaces/interfaces";
+import {
+  TaggedSearches,
+  TaggedId,
+  Entry,
+  TagHooks,
+} from "../interfaces/interfaces";
 
-const useTag = () => {
+const useTag = (): TagHooks => {
   const [taggedSearches, updateTaggedSearches] = useState({} as TaggedSearches);
   const [taggedIds, updateTaggedIds] = useState({} as TaggedId);
   const [tagWord, updateTagWord] = useState("" as string);

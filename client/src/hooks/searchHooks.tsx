@@ -1,10 +1,10 @@
 import { useState } from "react";
 
-import { SearchData } from "../interfaces/interfaces";
+import { SearchData, SearchHooks } from "../interfaces/interfaces";
 
 import { emptyData } from "../utils/searchUtils";
 
-const useSearch = () => {
+const useSearch = (): SearchHooks => {
   const [searchData, updateSearchData] = useState(emptyData as SearchData);
   const [category, updateCategory] = useState("all" as string);
   const [searchWord, updateSearchWord] = useState("" as string);

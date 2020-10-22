@@ -1,6 +1,8 @@
 import { useState } from "react";
 
-const useLoadingStatus = () => {
+import { LoadingHooks } from "../interfaces/interfaces";
+
+const useLoadingStatus = (): LoadingHooks => {
   const [isLoading, updateIsLoading] = useState(false as boolean);
 
   const setIsLoading = (boolean) => {

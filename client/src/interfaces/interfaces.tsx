@@ -132,6 +132,11 @@ interface ModalHooks {
   setModal: Function;
 }
 
+interface LoadingHooks {
+  isLoading: boolean;
+  setIsLoading: Function;
+}
+
 interface SearchInputRef {
   current: HTMLInputElement;
 }
@@ -153,5 +158,6 @@ export {
   SearchHooks,
   PinHooks,
   ModalHooks,
+  LoadingHooks,
   SearchInputRef,
 };
