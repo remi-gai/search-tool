@@ -14,30 +14,42 @@ import {
   DeleteTagIcon,
   TagAndButtonWrapper,
 } from "./styles";
-import { TaggedId, TaggedSearches } from "../../interfaces/interfaces";
+
+import {
+  PinHooks,
+  TagHooks,
+  SearchHooks,
+  ModalHooks,
+} from "../../interfaces/interfaces";
 
 interface Props {
-  elementId: string;
-  taggedIds: TaggedId;
-  taggedSearches: TaggedSearches;
   toggleModal: Function;
   onTagWordChange: Function;
   onSaveTag: Function;
   deleteElementFromTag: Function;
-  tagWord: string;
   onKeyUp: Function;
+  setIsLoading: Function;
+  tagHooks: TagHooks;
+  pinHooks: PinHooks;
+  searchHooks: SearchHooks;
+  modalHooks: ModalHooks;
 }
 
 function TagModalMessage({
-  elementId,
-  taggedIds,
   toggleModal,
   onTagWordChange,
   onSaveTag,
   deleteElementFromTag,
-  tagWord,
   onKeyUp,
+  tagHooks,
+  pinHooks,
+  searchHooks,
+  setIsLoading,
+  modalHooks,
 }: Props) {
+  const { tagElement, taggedIds, tagWord, setTagWord } = tagHooks;
+  const elementId = tagElement.id;
+
   let listOfTags = [] as string[];
   if (taggedIds[elementId]) {
     listOfTags = taggedIds[elementId].slice();
@@ -48,7 +60,7 @@ function TagModalMessage({
     <TagModalWrapper>
       <CloseButtonWrapper>
         <CloseModalButton
-          onClick={() => toggleModal(null, null)}
+          onClick={() => toggleModal(null, null, modalHooks, tagHooks)}
         ></CloseModalButton>
       </CloseButtonWrapper>
       <TagModalTitle>Edit Tags</TagModalTitle>
@@ -57,7 +69,7 @@ function TagModalMessage({
           <TagWrapper key={shortid.generate()}>
             <TagName>{tag}</TagName>
             <DeleteTagIcon
-              onClick={() => deleteElementFromTag(tag)}
+              onClick={() => deleteElementFromTag(tag, tagHooks)}
             ></DeleteTagIcon>
           </TagWrapper>
         ))}
@@ -65,11 +77,22 @@ function TagModalMessage({
       <TagAndButtonWrapper>
         <TagModalInputBox
           value={tagWord}
-          onChange={(e) => onTagWordChange(e)}
-          onKeyUp={(e) => onKeyUp(e, "tagModal")}
+          onChange={(e) => onTagWordChange(e, setTagWord)}
+          onKeyUp={(e) =>
+            onKeyUp(
+              e,
+              "tagModal",
+              pinHooks,
+              tagHooks,
+              searchHooks,
+              setIsLoading
+            )
+          }
           maxLength="20"
         ></TagModalInputBox>
-        <SaveTagsButton onClick={() => onSaveTag()}>Save</SaveTagsButton>
+        <SaveTagsButton onClick={() => onSaveTag(tagHooks)}>
+          Save
+        </SaveTagsButton>
       </TagAndButtonWrapper>
     </TagModalWrapper>
   );

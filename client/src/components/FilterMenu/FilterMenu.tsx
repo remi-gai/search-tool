@@ -12,21 +12,17 @@ import {
   CategoryResultCount,
 } from "./styles";
 
-import { SearchData } from "../../interfaces/interfaces";
+import { TagHooks, SearchHooks } from "../../interfaces/interfaces";
 
 interface Props {
-  category: string;
-  setCategory: Function;
   toggleTagMenu: Function;
-  searchData: SearchData;
+  tagHooks: TagHooks;
+  searchHooks: SearchHooks;
 }
 
-function FilterMenu({
-  setCategory,
-  toggleTagMenu,
-  category,
-  searchData,
-}: Props) {
+function FilterMenu({ toggleTagMenu, tagHooks, searchHooks }: Props) {
+  const { category, searchData, setCategory } = searchHooks;
+
   const categories = [
     "All",
     "Contacts",
@@ -43,7 +39,7 @@ function FilterMenu({
 
   return (
     <FilterMenuWrapper>
-      <TagsFilterWrapper onClick={toggleTagMenu}>
+      <TagsFilterWrapper onClick={() => toggleTagMenu(tagHooks)}>
         <TagIcon></TagIcon>
         <TagsFilter>Tags</TagsFilter>
       </TagsFilterWrapper>

@@ -10,41 +10,46 @@ import {
   TagIcon,
 } from "./styles";
 
-import { Entry, Id, TaggedId } from "../../interfaces/interfaces";
+import {
+  renderTitleAndDetailsMap,
+  renderDateMap,
+  renderIconMap,
+} from "./CategoryRenderingMaps";
 
-interface RenderMap {
-  contacts: Function;
-  calendar: Function;
-  dropbox: Function;
-  slack: Function;
-  twitter: Function;
-}
+import {
+  Entry,
+  PinHooks,
+  TagHooks,
+  SearchHooks,
+  ModalHooks,
+} from "../../interfaces/interfaces";
 
 interface Props {
   result: Entry;
   category: string;
-  renderTitleAndDetailsMap: RenderMap;
-  renderDateMap: RenderMap;
-  renderIconMap: RenderMap;
   id: string;
   pinSearchResult: Function;
-  pinnedIds: Id;
   toggleModal: Function;
-  taggedIds: TaggedId;
+  pinHooks: PinHooks;
+  searchHooks: SearchHooks;
+  modalHooks: ModalHooks;
+  tagHooks: TagHooks;
 }
 
 function ResultEntry({
   result,
   category,
-  renderTitleAndDetailsMap,
-  renderDateMap,
-  renderIconMap,
   id,
-  pinnedIds,
   pinSearchResult,
   toggleModal,
-  taggedIds,
+  pinHooks,
+  searchHooks,
+  modalHooks,
+  tagHooks,
 }: Props) {
+  const { pinnedIds } = pinHooks;
+  const { taggedIds } = tagHooks;
+
   const isPinned = pinnedIds[id] ? true : false;
   const isTagged = taggedIds[id] ? true : false;
 
@@ -58,7 +63,7 @@ function ResultEntry({
         {renderDateMap[category](result)}
         <PinWrapper>
           <PinIcon
-            onClick={() => pinSearchResult(category, id)}
+            onClick={() => pinSearchResult(category, id, pinHooks, searchHooks)}
             src={
               isPinned ? "./icons/pinned-icon.png" : "./icons/unpinned-icon.png"
             }
@@ -66,7 +71,7 @@ function ResultEntry({
         </PinWrapper>
         <TagWrapper>
           <TagIcon
-            onClick={() => toggleModal(category, result)}
+            onClick={() => toggleModal(category, result, modalHooks, tagHooks)}
             src={
               isTagged ? "./icons/tagged-icon.png" : "./icons/untagged-icon.png"
             }

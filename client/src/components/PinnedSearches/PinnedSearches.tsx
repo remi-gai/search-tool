@@ -13,27 +13,37 @@ import {
   PinnedSearchListWrapper,
 } from "./styles";
 
-import { Id, SearchData, TaggedId } from "../../interfaces/interfaces";
+import {
+  PinHooks,
+  TagHooks,
+  SearchHooks,
+  ModalHooks,
+} from "../../interfaces/interfaces";
 
 import ResultList from "../ResultList/ResultList";
 
 interface Props {
-  pinnedSearches: SearchData;
-  pinnedIds: Id;
   pinSearchResult: Function;
   toggleModal: Function;
-  taggedIds: TaggedId;
   clearPinBoard: Function;
+  pinHooks: PinHooks;
+  searchHooks: SearchHooks;
+  modalHooks: ModalHooks;
+  tagHooks: TagHooks;
 }
 
 function PinnedSearches({
-  pinnedSearches,
   pinSearchResult,
-  pinnedIds,
   toggleModal,
-  taggedIds,
   clearPinBoard,
+  pinHooks,
+  searchHooks,
+  modalHooks,
+  tagHooks,
 }: Props) {
+  const { pinnedSearches, pinnedIds } = pinHooks;
+  const { taggedIds } = tagHooks;
+
   const emptyMessage = (
     <EmptyMessage>The pin board is currently empty.</EmptyMessage>
   );
@@ -52,7 +62,7 @@ function PinnedSearches({
           <PinIcon></PinIcon>
           <PinBoardTitle>Pin Board:</PinBoardTitle>
         </PinAndPinBoardTitleWrapper>
-        <ClearPinBoardButton onClick={clearPinBoard}>
+        <ClearPinBoardButton onClick={() => clearPinBoard(pinHooks)}>
           Clear Pinned Results
         </ClearPinBoardButton>
       </ClearPinBoardAndIconWrapper>
@@ -65,10 +75,12 @@ function PinnedSearches({
                   searchData={pinnedSearches}
                   category={category}
                   pinSearchResult={pinSearchResult}
-                  pinnedIds={pinnedIds}
                   toggleModal={toggleModal}
-                  taggedIds={taggedIds}
                   key={shortid.generate()}
+                  pinHooks={pinHooks}
+                  searchHooks={searchHooks}
+                  modalHooks={modalHooks}
+                  tagHooks={tagHooks}
                 ></ResultList>
               );
             })}

@@ -9,37 +9,58 @@ import {
   ClearButton,
 } from "./styles";
 
+import { PinHooks, TagHooks, SearchHooks } from "../../interfaces/interfaces";
+
 interface Props {
   onSearchWordChange: Function;
   onSearchWordSubmit: Function;
-  searchWord: string;
   clearSearchBox: Function;
   onKeyUp: Function;
   searchInputRef: React.Ref<HTMLInputElement>;
+  setIsLoading: Function;
+  searchHooks: SearchHooks;
+  pinHooks: PinHooks;
+  tagHooks: TagHooks;
 }
 
 function SearchBox({
   onSearchWordChange,
   onSearchWordSubmit,
-  searchWord,
   clearSearchBox,
   onKeyUp,
+  setIsLoading,
   searchInputRef,
+  searchHooks,
+  pinHooks,
+  tagHooks,
 }: Props) {
+  const { searchWord } = searchHooks;
+
   return (
     <SearchBoxWrapper>
       <SearchIcon></SearchIcon>
       <SearchInput
         placeholder={"Search"}
         value={searchWord}
-        onChange={(e) => onSearchWordChange(e)}
-        onKeyUp={(e) => onKeyUp(e, "search")}
+        onChange={(e) => onSearchWordChange(e, searchHooks)}
+        onKeyUp={(e) =>
+          onKeyUp(e, "search", pinHooks, tagHooks, searchHooks, setIsLoading)
+        }
         ref={searchInputRef}
       ></SearchInput>
       <ButtonsWrapper>
-        <ClearButton onClick={clearSearchBox}>Clear</ClearButton>
-        <SubmitButton onClick={onSearchWordSubmit}>Search</SubmitButton>
-        {/* <SubmitButton onClick={() => onSearchWordSubmit(searchWord)}>Search</SubmitButton> */}
+        <ClearButton
+          onClick={() => clearSearchBox(searchHooks, searchInputRef)}
+        >
+          Clear
+        </ClearButton>
+        <SubmitButton
+          onClick={() =>
+            onSearchWordSubmit(searchHooks, pinHooks, tagHooks, setIsLoading)
+          }
+        >
+          Search
+        </SubmitButton>
       </ButtonsWrapper>
     </SearchBoxWrapper>
   );

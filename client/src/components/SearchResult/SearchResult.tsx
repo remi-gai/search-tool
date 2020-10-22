@@ -15,35 +15,45 @@ import {
   ResultCategoryTitle,
   GrayLineDivider,
 } from "./styles";
+
 import ResultList from "../ResultList/ResultList";
 
-import { SearchData, Id, TaggedId } from "../../interfaces/interfaces";
+import {
+  PinHooks,
+  TagHooks,
+  SearchHooks,
+  ModalHooks,
+} from "../../interfaces/interfaces";
 
 interface Props {
-  searchData: SearchData;
-  category: string;
-  searchedWord: string;
-  pinnedIds: Id;
-  taggedIds: TaggedId;
   pinSearchResult: Function;
   toggleModal: Function;
-  setSearchData: Function;
-  setSearchedWord: Function;
   isLoading: boolean;
+  pinHooks: PinHooks;
+  searchHooks: SearchHooks;
+  modalHooks: ModalHooks;
+  tagHooks: TagHooks;
 }
 
 function SearchResult({
-  searchData,
-  category,
-  searchedWord,
   pinSearchResult,
-  pinnedIds,
   toggleModal,
-  taggedIds,
-  setSearchData,
-  setSearchedWord,
   isLoading,
+  pinHooks,
+  searchHooks,
+  modalHooks,
+  tagHooks,
 }: Props) {
+  const {
+    searchData,
+    category,
+    searchedWord,
+    setSearchData,
+    setSearchedWord,
+  } = searchHooks;
+  const { pinnedIds } = pinHooks;
+  const { taggedIds } = tagHooks;
+
   let display;
 
   const lengthOfAllData =
@@ -89,7 +99,7 @@ function SearchResult({
         {categories.map((category) => {
           const hasData = searchData[category].length;
           return (
-            <div>
+            <div key={shortid.generate()}>
               {hasData ? (
                 <ResultCategoryTitle>
                   {category[0].toUpperCase() +
@@ -100,10 +110,11 @@ function SearchResult({
                 searchData={searchData}
                 category={category}
                 pinSearchResult={pinSearchResult}
-                pinnedIds={pinnedIds}
                 toggleModal={toggleModal}
-                taggedIds={taggedIds}
-                key={shortid.generate()}
+                pinHooks={pinHooks}
+                searchHooks={searchHooks}
+                modalHooks={modalHooks}
+                tagHooks={tagHooks}
               ></ResultList>
               {hasData ? <GrayLineDivider></GrayLineDivider> : null}
             </div>
@@ -122,9 +133,11 @@ function SearchResult({
             searchData={searchData}
             category={category}
             pinSearchResult={pinSearchResult}
-            pinnedIds={pinnedIds}
             toggleModal={toggleModal}
-            taggedIds={taggedIds}
+            pinHooks={pinHooks}
+            searchHooks={searchHooks}
+            modalHooks={modalHooks}
+            tagHooks={tagHooks}
           ></ResultList>
         ) : (
           <div>
