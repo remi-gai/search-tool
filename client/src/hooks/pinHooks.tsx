@@ -2,9 +2,9 @@ import { useState } from "react";
 
 import { emptyData } from "../utils/searchUtils";
 
-import { SearchData, Id } from "../interfaces/interfaces";
+import { SearchData, Id, PinHooks } from "../interfaces/interfaces";
 
-const usePin = () => {
+const usePin = (): PinHooks => {
   const [pinnedSearches, updatePinnedSearches] = useState(
     emptyData as SearchData
   );
