@@ -53,13 +53,10 @@ function SearchResult({
   } = searchHooks;
 
   let display;
-
-  const lengthOfAllData =
-    searchData.contacts.length +
-    searchData.calendar.length +
-    searchData.dropbox.length +
-    searchData.slack.length +
-    searchData.twitter.length;
+  const lengthOfAllData = Object.keys(searchData).reduce(
+    (prev, next) => prev + searchData[next].length,
+    0
+  );
 
   const initialMessage = (
     <InitialMessageWrapper>
@@ -78,7 +75,7 @@ function SearchResult({
     </SearchResultInnerWrapper>
   );
 
-  const isDataAvailable = lengthOfAllData ? true : false;
+  const isDataAvailable = !!lengthOfAllData;
   const message = searchedWord ? errorMessage : initialMessage;
 
   const emptyData = {
@@ -147,6 +144,11 @@ function SearchResult({
     );
   }
 
+  const onClickClearSearchData = () => {
+    setSearchData(emptyData);
+    setSearchedWord("");
+  };
+
   return (
     <SearchResultOuterWrapper>
       <ClearSearchBoardAndIconWrapper>
@@ -154,12 +156,7 @@ function SearchResult({
           <SearchIcon></SearchIcon>
           <SearchBoardTitle>Search Results:</SearchBoardTitle>
         </SearchAndSearchBoardTitleWrapper>
-        <ClearSearchBoardButton
-          onClick={() => {
-            setSearchData(emptyData);
-            setSearchedWord("");
-          }}
-        >
+        <ClearSearchBoardButton onClick={onClickClearSearchData}>
           Clear Search Results
         </ClearSearchBoardButton>
       </ClearSearchBoardAndIconWrapper>

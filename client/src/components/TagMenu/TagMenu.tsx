@@ -33,7 +33,6 @@ function TagMenu({
   searchHooks,
 }: Props) {
   const tags = Object.keys(tagHooks.taggedSearches);
-  const sortedTags = tags.sort();
 
   return (
     <TagMenuWrapper>
@@ -44,17 +43,18 @@ function TagMenu({
         </BackArrowIconAndTitleWrapper>
       </UpperSectionWrapper>
       <TagListWrapper>
-        {sortedTags.length ? (
-          sortedTags.map((tag) => (
-            <TagWrapper key={shortid.generate()}>
-              <Tag
-                onClick={() => displayTaggedResults(tag, tagHooks, searchHooks)}
-              >
-                {tag}
-              </Tag>
-              <DeleteIcon onClick={() => deleteTag(tag, tagHooks)}></DeleteIcon>
-            </TagWrapper>
-          ))
+        {tags.length ? (
+          tags.sort().map((tag) => {
+            const onClickDisplayTaggedResults = () =>
+              displayTaggedResults(tag, tagHooks, searchHooks);
+            const onClickDeleteTag = () => deleteTag(tag, tagHooks);
+            return (
+              <TagWrapper key={shortid.generate()}>
+                <Tag onClick={onClickDisplayTaggedResults}>{tag}</Tag>
+                <DeleteIcon onClick={onClickDeleteTag}></DeleteIcon>
+              </TagWrapper>
+            );
+          })
         ) : (
           <EmptyListMessageWrapper>
             <EmptyListMessage>There are no saved tags</EmptyListMessage>

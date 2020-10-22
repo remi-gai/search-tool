@@ -9,14 +9,6 @@ import TagModalMessage from "../TagModal/TagModalMessage";
 import TagMenu from "../TagMenu/TagMenu";
 
 import {
-  GlobalStyle,
-  WindowWrapper,
-  ResultsOuterWrapper,
-  PinnedAndResultsWrapper,
-  SearchResultsWrapper,
-} from "./styles";
-
-import {
   onSearchWordSubmit,
   onSearchWordChange,
   clearSearchBox,
@@ -37,6 +29,14 @@ import { usePin } from "../../hooks/pinHooks";
 import { useTag } from "../../hooks/tagHooks";
 import { useModalStatus } from "../../hooks/modalHooks";
 import { useLoadingStatus } from "../../hooks/loadingHooks";
+
+import {
+  GlobalStyle,
+  WindowWrapper,
+  ResultsOuterWrapper,
+  PinnedAndResultsWrapper,
+  SearchResultsWrapper,
+} from "./styles";
 
 function App() {
   const {
@@ -147,6 +147,7 @@ function App() {
             tagHooks={tagHooks}
           />
         )}
+
         <PinnedAndResultsWrapper>
           <PinnedSearches
             pinSearchResult={pinSearchResult}
@@ -157,6 +158,7 @@ function App() {
             modalHooks={modalHooks}
             tagHooks={tagHooks}
           />
+
           <SearchResultsWrapper>
             <SearchResult
               pinSearchResult={pinSearchResult}
@@ -170,6 +172,7 @@ function App() {
           </SearchResultsWrapper>
         </PinnedAndResultsWrapper>
       </ResultsOuterWrapper>
+
       {showModal && (
         <TagModal>
           <TagModalMessage

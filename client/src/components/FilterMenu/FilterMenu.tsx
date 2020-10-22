@@ -32,10 +32,10 @@ function FilterMenu({ toggleTagMenu, tagHooks, searchHooks }: Props) {
     "Twitter",
   ];
 
-  let totalCount = 0;
-  for (let category in searchData) {
-    totalCount += searchData[category].length;
-  }
+  const totalCount = Object.keys(searchData).reduce(
+    (prev, next) => prev + searchData[next].length,
+    0
+  );
 
   return (
     <FilterMenuWrapper>
@@ -44,14 +44,15 @@ function FilterMenu({ toggleTagMenu, tagHooks, searchHooks }: Props) {
         <TagsFilter>Tags</TagsFilter>
       </TagsFilterWrapper>
       <FilterTitle>Filter</FilterTitle>
+
       {categories.map((filterCategory) => {
         const randomId = shortid.generate();
         const lowerCaseCategory = filterCategory.toLowerCase();
         const isCategory = lowerCaseCategory === category;
-        const updateCategoryCB = () => setCategory(lowerCaseCategory);
+        const updateCategory = () => setCategory(lowerCaseCategory);
         return (
           <CategoryFilterWrapper key={randomId}>
-            <CategoryFilter isCategory={isCategory} onClick={updateCategoryCB}>
+            <CategoryFilter isCategory={isCategory} onClick={updateCategory}>
               {filterCategory}
             </CategoryFilter>
             <CategoryResultCount isCategory={isCategory}>
