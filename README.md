@@ -1,6 +1,8 @@
 # Universal Search Tool
 
-This is the demo of a universal search engine that allows users to quickly find relevant search results based on a specific keyword across contacts, calendar, dropbox, twitter and slack. Here's the full video demo.
+![](searchToolDemo.gif)
+
+This is the demo of a universal search engine that allows users to quickly find relevant search results based on a specific keyword across contacts, calendar, dropbox, twitter and slack. Here's the [video demo](https://youtu.be/lo5niYYjJr4).
 
 ## Getting Started
 
@@ -50,7 +52,7 @@ User interaction with search results (pin, delete, tagging):
 
 ![ReadMe-images/Screen_Shot_2020-10-21_at_6.17.42_PM.png](ReadMe-images/Screen_Shot_2020-10-21_at_6.17.42_PM.png)
 
-- [x] As a user, I can retrieve search results based on a specific tag from the tag menu or by directly typing a tag name (starting with "#") in the search box.
+- [x] As a user, I can retrieve search results based on a specific tag from the tag menu or by directly searching a tag name (starting with "#") in the search box.
 
 ![ReadMe-images/Screen_Shot_2020-10-21_at_6.18.50_PM.png](ReadMe-images/Screen_Shot_2020-10-21_at_6.18.50_PM.png)
 
@@ -66,22 +68,22 @@ User interaction with search results (pin, delete, tagging):
 
 ## Design Decisions
 
-### **The search results are ordered based on category:**
+### **The search results are ordered based on categories:**
 
-- **Reason**: Grouping the results by category will allow the user to filter the results at his/her convenience. This feature becomes more handy as the list of search results becomes longer for different categories and doesn't fit into a single page. The **Reason**s for the order of Contacts > Calendar > Dropbox > Slack > Twitter is that Contacts and Calendar first are more likely to be searched on a daily basis.
+- **Reason**: Grouping the results by category will allow the user to filter the results at his/her convenience. This feature becomes more handy as the list of search results becomes longer for different categories and doesn't fit into a single page. The reasons for the current order (Contacts > Calendar > Dropbox > Slack > Twitter) is that Contacts and Calendar first are more likely to be searched on a daily basis (sending an email or checking for the schedule), followed by finding documents, then communication tools and lastly social media.
 
 ![ReadMe-images/Screen_Shot_2020-10-21_at_6.24.21_PM.png](ReadMe-images/Screen_Shot_2020-10-21_at_6.24.21_PM.png)
 
-- **Trade-off**: Ideally, the top result should be prioritized based on “top hits”, similar to the feature on Spotlight Search on Mac, which can be a combination of relevance and frequency of usage.
+- **Trade-off**: Ideally, the results should be ordered based on the likelyhood of usage, similar to the feature on Spotlight Search on Mac, which can be a combination of relevance and frequency of usage.
 
 ![ReadMe-images/Untitled.png](ReadMe-images/Untitled.png)
 
-- Alternatively, the result can also be ordered by the degree of precision on the matching term (which would get more precise as more words are added into the search), and use machine learning to better optimize the relevance of the search based on time or location. For example, a user is less likely to be querying for a John in San Francisco if he/she is in New York, or querying for an event if it has already passed.
+- Alternatively, the results can also be ordered by the degree of precision on the matching term (which would get more precise as more words are added into the search box), and use machine learning to better optimize the relevance of the search based on time or location. For example, a user is less likely to be querying for a "John" in San Francisco if he/she is in New York, or be more likely to query an upcoming event rather than a past event.
 
-### **The results are based on relative time:**
+### **The result dates are based on relative time:**
 
-- **Reason**: It would be more practical for the user to get a general sense of recency instead of mentally calculating dates and times and count back from the present day. For example, if the user queries for an event, it might be more helpful to know that it will happen in 2 hours or 2 days instead of a specific date. A potential issue with absolute date/time is that it might require the user to convert timezones to get their local time (when traveling or working with remote teams), leading to more chance for calculations errors, and consequently missing events or meetings.
-- **Trade-off**: the absolute time display will provide more accuracy and can be more helpful if the user wants to see an exact date.
+- **Reason**: It would be more practical for the user to get a general sense of recency instead of mentally calculating dates and times and count back from the present day. For example, if the user queries for an event, it might be more helpful to know that it will happen in 2 hours or 2 days instead of a specific date. Another potential issue with absolute date/time is that it might require the user to convert timezones to get their local time (when traveling or working with remote teams), leading to more chance for calculations errors, and consequently missing events or meetings.
+- **Trade-off**: the absolute time display will provide more accuracy and can be more helpful if the user wants to directly see an exact date. Perhaps the choice between relative and absolute time can be a choice offered in the settings.
 
 ### **The results are ordered by recency within each category:**
 
@@ -93,15 +95,15 @@ User interaction with search results (pin, delete, tagging):
 
 ### **The pin board allows users to pin search results:**
 
-- **Reason**: I ultimately made the decision to include the pin board on the main page instead of having it on a separate page (like the "favorite" section on Google Drive). The **Reason** of the decision is that having the pin board on a separate page might make be redundant from tags. Instead, users can make a multiple relevant queries (such as looking up for a client's contact info, finding a specific contract, and looking for recent Twitter news for the specific company ) and pin specific results to the pin board, which would be more like a temporary work station. For long term storage queries, users can add tags to results and access them at any time in the future. In sum, having a pin board can provide more convenience and productivity value to the user and avoid redundancy of having two ways of storing information for the long term.
+- **Reason**: I decided to include the pin board on the main page instead of having the pinned results displayed on a separate page (like the "favorite" section on Google Drive). The reason of the decision is that having the pin board on a separate page might be a redundant feature from tags. Instead, users can make a multiple queries (such as looking up for a client's contact information, finding a specific contract, and looking for recent Twitter news for a the specific company) and pin specific results to the pin board, which would serve more like a temporary work station. For long-term storage of queries, users can add tags to specific results and access them at any time in the future. In sum, having a pin board can provide more convenience and productivity value to the user (if used correctly) and avoid redundancy of features.
 
 ![ReadMe-images/Screen_Shot_2020-10-21_at_6.50.27_PM.png](ReadMe-images/Screen_Shot_2020-10-21_at_6.50.27_PM.png)
 
-- **Trade-off**: Ideally the pin board should be used as temporary result storage and be cleared often. If the pin board gets too long, it could take up too much space. A way to mitigate this would be to make the pin board collapsible. More UX research would be required to see if users actually wants this feature, but also if they use the board as temporary or long term storage due to the convenience of one-click pinning.
+- **Trade-off**: Ideally the pin board should be used as temporary result storage and be cleared often. If the pin board gets too long, it could take up too much space on the main page. A way to mitigate this would be to make the pin board collapsible. More UX research would be required to see if users actually wants this feature, but also if the users will use the board as temporary or long-term storage.
 
 ### **The spinner animation helps provide feedback to the user:**
 
-- **Reason**: Searching across multiple sources could take time and having a loading animation would give the feedback that data is being fetched, suggesting the user to avoid to remain on the page and avoid re-submitting the same queries again.
+- **Reason**: Searching across multiple sources could take time and having a loading animation would give the feedback that data is being fetched, suggesting the users to remain on the page and avoid re-submitting the same queries again.
 
 ![ReadMe-images/Screen_Shot_2020-10-21_at_6.54.52_PM_(2).png](<ReadMe-images/Screen_Shot_2020-10-21_at_6.54.52_PM_(2).png>)
 
@@ -109,11 +111,11 @@ User interaction with search results (pin, delete, tagging):
 
 ### **The total number of results are displayed next to the filter:**
 
-- **Reason**: Having the total number of results displayed to the category can help the user get a better sense of how much relevant data is is present from different categories. For example, if the filter shows that the message category has an overwhelming amount of results, the user can then directly filter the search results to a specific category and avoid information overload.
+- **Reason**: Having the total number of results displayed to the category can help the user get a better sense of how much relevant data is present for different categories. For example, if the filter shows that the message category has an overwhelming amount of results, the user can then directly filter the search results to a specific category and avoid information overload.
 
 ![ReadMe-images/Screen_Shot_2020-10-21_at_6.59.21_PM.png](ReadMe-images/Screen_Shot_2020-10-21_at_6.59.21_PM.png)
 
-- **Trade-off**: This feature might not be as useful if the search result can fit within one page.
+- **Trade-off**: This feature might not be as useful if all the search results can fit within one page.
 
 ### **The clear button will clear the search box, search results and focus the cursor back to the search bar:**
 
@@ -121,12 +123,12 @@ User interaction with search results (pin, delete, tagging):
 
 ![ReadMe-images/Screen_Shot_2020-10-21_at_7.01.02_PM.png](ReadMe-images/Screen_Shot_2020-10-21_at_7.01.02_PM.png)
 
-- **Trade-off**: Users will have to click on the "clear" button. Alternatively, we can consider having results being displayed as the user is typing through the search box. However, this might add complexity on the backend to fetch multiple times as the user is typing. To mitigate this issue, the amount of unnecessary queries can be reduced by using a debouncer.
+- **Trade-off**: Users will have to click on the "clear" button. Alternatively, we can consider having search results being displayed as the user types in the search box. However, this might add more load on the backend to fetch multiple times as the user is typing. A way to mitigate this issue would be to use a decounver to reduce the amount of unnecessary queries.
 
 ### **Clicking on the submit button or pressing the 'return' key will make the query:**
 
 - **Reason**: Pressing the 'return' key to submit a query is becoming more intuitive. Additionally, if the tag modal is open, pressing the 'return' key will save the tag instead of running a search query.
-- TradeOff: Having a submit button might lead the user to believe that he/she can only submit the search through the click of the button
+- **Trade-off**: Having a submit button might lead the user to believe that he/she can only submit the search through the click of the button instead of pressing the 'return' key.
 
 ### **Tags are sorted by alphabet:**
 
@@ -144,11 +146,11 @@ User interaction with search results (pin, delete, tagging):
 
 ### **Long result details are trimmed with an ellipsis:**
 
-- **Reason**: The details might be trimmed to make sure that the format of the results are uniform. Users often just need a portion of the relevant message to get a general sense of whether the search result is relevant. If the user wants more details, then he/she can directly click on the result to expand the details or be directed to the search result (not part of this MVP).
+- **Reason**: The details might be trimmed to make sure that the format of the results are uniform. We often just need a portion of the relevant message to get a general sense of whether the search result is relevant. If the user wants more details, then he/she can directly click on the result to expand the details or be directed to the search result (not part of this MVP).
 
 ![ReadMe-images/Screen_Shot_2020-10-21_at_7.33.13_PM.png](ReadMe-images/Screen_Shot_2020-10-21_at_7.33.13_PM.png)
 
-- **Trade-off**: Users will have to click on the search result to get more details. Ideally, we want the snippet to display the relevant portions of the details that are closest to the keyword.
+- **Trade-off**: Users will have to click on the search result to get more details. Ideally, we want the snippet to display the relevant portions of the details that are closest to the search terms.
 
 ### **The tagged results can be retrieved by searching with a '#':**
 
@@ -176,7 +178,7 @@ If more data sources are added to the app, additional categories in the filter m
 
 ![ReadMe-images/Untitled%203.png](ReadMe-images/Untitled%203.png)
 
-- **Trade-off**: The filter will take more space if the list of apps gets longer. We can then consider making each app category collapsible.
+- **Trade-off**: The filter will take more space if the list of apps gets longer. We can then consider making each category in the filter collapsible.
 
 ## Built with:
 
