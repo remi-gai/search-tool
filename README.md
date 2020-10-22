@@ -1,61 +1,70 @@
-# Neeva Design Doc
-
-Overview:
+# Universal Search Tool
 
 This is a demo of a universal search engine that allows users to quickly find relevant search results based on keywords across contacts, calendar, dropbox, twitter and slack. Here's the full video demo.
 
-1. **How to Run the Project:**
+## Getting Started
 
+### Installation
+
+```
 npm install
+```
 
+To generate the bundle file with Webpack:
+
+```
 npm run build
+```
 
-open localhost 3000 on browser
+To run the server:
 
-Suggested Searches:
+```
+npm start
+```
 
-Acme
-Alice
+Finally, open http://localhost:3000/ on browser
 
-1. **Additional Feature:**
+Suggested search term with the most results: **Acme**
+
+## Additional Feature
 
 User interaction with search results (pin, delete, tagging):
 
 Pin:
 
-- As a user, I can pin search results onto the pin board by clicking on the pin icon, which will be marked in orange
+- [x] As a user, I can pin search results onto the pin board by clicking on the pin icon, which will be marked in orange
 
 ![ReadMe-images/Screen_Shot_2020-10-21_at_6.13.44_PM.png](ReadMe-images/Screen_Shot_2020-10-21_at_6.13.44_PM.png)
 
-- As a user, I can remove the pinned search results by clicking on the pin icon from the pin board or results board
+- [x] As a user, I can remove the pinned search results by clicking on the pin icon from the pin board or results board
 
 ![ReadMe-images/Screen_Shot_2020-10-21_at_6.14.01_PM.png](ReadMe-images/Screen_Shot_2020-10-21_at_6.14.01_PM.png)
 
 Tagging:
 
-- As a user, I can tag my search results based with specific keywords
+- [x] As a user, I can tag my search results based with specific keywords
 
 ![ReadMe-images/Screen_Shot_2020-10-21_at_6.17.47_PM.png](ReadMe-images/Screen_Shot_2020-10-21_at_6.17.47_PM.png)
 
-- As a user, I can add tags to specific search result
+- [x] As a user, I can add tags to specific search result
 
 ![ReadMe-images/Screen_Shot_2020-10-21_at_6.17.42_PM.png](ReadMe-images/Screen_Shot_2020-10-21_at_6.17.42_PM.png)
 
-- As a user, I can pull search results based on a specific tag from the tag menu
+- [x] As a user, I can pull search results based on a specific tag from the tag menu
 
 ![ReadMe-images/Screen_Shot_2020-10-21_at_6.18.50_PM.png](ReadMe-images/Screen_Shot_2020-10-21_at_6.18.50_PM.png)
 
 Delete:
 
-- As a user, I can delete the tags on a specific result by clicking on the cross on the tag box
+- [x] As a user, I can delete the tags on a specific result by clicking on the cross on the tag box
 
 ![ReadMe-images/Screen_Shot_2020-10-21_at_6.19.29_PM.png](ReadMe-images/Screen_Shot_2020-10-21_at_6.19.29_PM.png)
 
-- As a user, I can delete untag all the results related to specific tag by clicking on the Trash icon in the tag menu
+- [x] As a user, I can delete untag all the results related to specific tag by clicking on the Trash icon in the tag menu
 
 ![ReadMe-images/Screen_Shot_2020-10-21_at_6.19.57_PM.png](ReadMe-images/Screen_Shot_2020-10-21_at_6.19.57_PM.png)
 
-1. **Design Decisions:**
+## Design Decisions
 
 The search results are ordered based on category:
 
@@ -169,7 +178,7 @@ If more data sources are added to the app, additional categories in the filter m
 
 - Tradeoff: The filter will take more space if the list of apps gets longer. We can then consider making each app category collapsible.
 
-Built with:
+## Built with:
 
 - React 16
 - Typescript 4
