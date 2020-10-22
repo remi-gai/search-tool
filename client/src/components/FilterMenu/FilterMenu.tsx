@@ -12,11 +12,12 @@ import {
   CategoryResultCount,
 } from "./styles";
 
+import { TagHooks, SearchHooks } from "../../interfaces/interfaces";
+
 interface Props {
   toggleTagMenu: Function;
-  // temp
-  tagHooks: any;
-  searchHooks: any;
+  tagHooks: TagHooks;
+  searchHooks: SearchHooks;
 }
 
 function FilterMenu({ toggleTagMenu, tagHooks, searchHooks }: Props) {

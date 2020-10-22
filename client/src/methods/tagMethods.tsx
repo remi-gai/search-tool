@@ -22,6 +22,7 @@ const onSaveTag = ({
 
   const copyOfTaggedSearches = JSON.parse(JSON.stringify(taggedSearches));
   const copyOfTaggedIds = JSON.parse(JSON.stringify(taggedIds));
+
   if (!taggedSearches[tagWord]) {
     const template = {
       contacts: [],
@@ -32,13 +33,17 @@ const onSaveTag = ({
     };
     copyOfTaggedSearches[tagWord] = template;
   }
+
   if (!taggedIds[tagElement.id]) {
     copyOfTaggedIds[tagElement.id] = [];
   }
 
   copyOfTaggedSearches[tagWord][tagCategory].push(tagElement);
-  if (copyOfTaggedIds[tagElement.id].indexOf(tagWord) === -1)
+
+  if (copyOfTaggedIds[tagElement.id].indexOf(tagWord) === -1) {
     copyOfTaggedIds[tagElement.id].push(tagWord);
+  }
+
   setTaggedSearches(copyOfTaggedSearches);
   setTaggedIds(copyOfTaggedIds);
   setTagWord("");
@@ -86,16 +91,25 @@ const deleteElementFromTaggedSearches = (
   category,
   { setTaggedSearches, taggedSearches }
 ) => {
-  const copyOfTaggedSearches = JSON.parse(JSON.stringify(taggedSearches));
-  const tagAndCategoryData = copyOfTaggedSearches[tag][category];
+  let newList;
+  const tagAndCategoryData = taggedSearches[tag][category];
+
   for (let i = 0; i < tagAndCategoryData.length; i++) {
     const currentElement = tagAndCategoryData[i];
     if (id === currentElement.id) {
-      tagAndCategoryData.splice(i, 1);
+      newList = tagAndCategoryData.slice();
+      newList.splice(i, 1);
       break;
     }
   }
-  setTaggedSearches(copyOfTaggedSearches);
+
+  setTaggedSearches({
+    ...taggedSearches,
+    [tag]: {
+      ...taggedSearches[tag],
+      [category]: newList,
+    },
+  });
 };
 
 const deleteTagFromIdInTaggedIds = (id, tag, { setTaggedIds, taggedIds }) => {

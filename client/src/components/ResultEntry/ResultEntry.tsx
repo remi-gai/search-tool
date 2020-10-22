@@ -16,36 +16,40 @@ import {
   renderIconMap,
 } from "./CategoryRenderingMaps";
 
-import { Entry, Id, TaggedId } from "../../interfaces/interfaces";
+import {
+  Entry,
+  PinHooks,
+  TagHooks,
+  SearchHooks,
+  ModalHooks,
+} from "../../interfaces/interfaces";
 
 interface Props {
   result: Entry;
   category: string;
   id: string;
   pinSearchResult: Function;
-  pinnedIds: Id;
   toggleModal: Function;
-  taggedIds: TaggedId;
-  //temp
-  pinHooks: any;
-  searchHooks: any;
-  modalHooks: any;
-  tagHooks: any;
+  pinHooks: PinHooks;
+  searchHooks: SearchHooks;
+  modalHooks: ModalHooks;
+  tagHooks: TagHooks;
 }
 
 function ResultEntry({
   result,
   category,
   id,
-  pinnedIds,
   pinSearchResult,
   toggleModal,
-  taggedIds,
   pinHooks,
   searchHooks,
   modalHooks,
   tagHooks,
 }: Props) {
+  const { pinnedIds } = pinHooks;
+  const { taggedIds } = tagHooks;
+
   const isPinned = pinnedIds[id] ? true : false;
   const isTagged = taggedIds[id] ? true : false;
 

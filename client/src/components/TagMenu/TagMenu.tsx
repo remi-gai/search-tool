@@ -15,13 +15,14 @@ import {
   EmptyListMessage,
 } from "./styles";
 
+import { TagHooks, SearchHooks } from "../../interfaces/interfaces";
+
 interface Props {
   toggleTagMenu: Function;
   displayTaggedResults: Function;
   deleteTag: Function;
-  // temp
-  tagHooks: any;
-  searchHooks: any;
+  tagHooks: TagHooks;
+  searchHooks: SearchHooks;
 }
 
 function TagMenu({

@@ -18,15 +18,21 @@ import {
 
 import ResultList from "../ResultList/ResultList";
 
+import {
+  PinHooks,
+  TagHooks,
+  SearchHooks,
+  ModalHooks,
+} from "../../interfaces/interfaces";
+
 interface Props {
   pinSearchResult: Function;
   toggleModal: Function;
   isLoading: boolean;
-  //temp
-  pinHooks: any;
-  searchHooks: any;
-  modalHooks: any;
-  tagHooks: any;
+  pinHooks: PinHooks;
+  searchHooks: SearchHooks;
+  modalHooks: ModalHooks;
+  tagHooks: TagHooks;
 }
 
 function SearchResult({
@@ -104,9 +110,7 @@ function SearchResult({
                 searchData={searchData}
                 category={category}
                 pinSearchResult={pinSearchResult}
-                pinnedIds={pinnedIds}
                 toggleModal={toggleModal}
-                taggedIds={taggedIds}
                 pinHooks={pinHooks}
                 searchHooks={searchHooks}
                 modalHooks={modalHooks}
@@ -129,9 +133,7 @@ function SearchResult({
             searchData={searchData}
             category={category}
             pinSearchResult={pinSearchResult}
-            pinnedIds={pinnedIds}
             toggleModal={toggleModal}
-            taggedIds={taggedIds}
             pinHooks={pinHooks}
             searchHooks={searchHooks}
             modalHooks={modalHooks}

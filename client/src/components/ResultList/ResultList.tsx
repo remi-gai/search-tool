@@ -4,29 +4,30 @@ import { ResultListWrapper } from "./styles";
 
 import ResultEntry from "../ResultEntry/ResultEntry";
 
-import { SearchData, Id, TaggedId } from "../../interfaces/interfaces";
+import {
+  SearchData,
+  PinHooks,
+  TagHooks,
+  SearchHooks,
+  ModalHooks,
+} from "../../interfaces/interfaces";
 
 interface Props {
   searchData: SearchData;
   category: string;
   pinSearchResult: Function;
-  pinnedIds: Id;
   toggleModal: Function;
-  taggedIds: TaggedId;
-  //temp
-  pinHooks: any;
-  searchHooks: any;
-  modalHooks: any;
-  tagHooks: any;
+  pinHooks: PinHooks;
+  searchHooks: SearchHooks;
+  modalHooks: ModalHooks;
+  tagHooks: TagHooks;
 }
 
 function ResultList({
   searchData,
   category,
   pinSearchResult,
-  pinnedIds,
   toggleModal,
-  taggedIds,
   pinHooks,
   searchHooks,
   modalHooks,
@@ -41,9 +42,7 @@ function ResultList({
             category={category}
             id={result.id}
             pinSearchResult={pinSearchResult}
-            pinnedIds={pinnedIds}
             toggleModal={toggleModal}
-            taggedIds={taggedIds}
             pinHooks={pinHooks}
             searchHooks={searchHooks}
             key={result.id}

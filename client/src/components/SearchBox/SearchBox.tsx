@@ -9,17 +9,18 @@ import {
   ClearButton,
 } from "./styles";
 
+import { PinHooks, TagHooks, SearchHooks } from "../../interfaces/interfaces";
+
 interface Props {
   onSearchWordChange: Function;
   onSearchWordSubmit: Function;
   clearSearchBox: Function;
   onKeyUp: Function;
   searchInputRef: React.Ref<HTMLInputElement>;
-  setIsLoading: any;
-  //temp
-  searchHooks: any;
-  pinHooks: any;
-  tagHooks: any;
+  setIsLoading: Function;
+  searchHooks: SearchHooks;
+  pinHooks: PinHooks;
+  tagHooks: TagHooks;
 }
 
 function SearchBox({

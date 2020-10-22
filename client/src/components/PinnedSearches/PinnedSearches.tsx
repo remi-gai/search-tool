@@ -13,17 +13,23 @@ import {
   PinnedSearchListWrapper,
 } from "./styles";
 
+import {
+  PinHooks,
+  TagHooks,
+  SearchHooks,
+  ModalHooks,
+} from "../../interfaces/interfaces";
+
 import ResultList from "../ResultList/ResultList";
 
 interface Props {
   pinSearchResult: Function;
   toggleModal: Function;
   clearPinBoard: Function;
-  //temp
-  pinHooks: any;
-  searchHooks: any;
-  modalHooks: any;
-  tagHooks: any;
+  pinHooks: PinHooks;
+  searchHooks: SearchHooks;
+  modalHooks: ModalHooks;
+  tagHooks: TagHooks;
 }
 
 function PinnedSearches({
@@ -56,7 +62,7 @@ function PinnedSearches({
           <PinIcon></PinIcon>
           <PinBoardTitle>Pin Board:</PinBoardTitle>
         </PinAndPinBoardTitleWrapper>
-        <ClearPinBoardButton onClick={clearPinBoard}>
+        <ClearPinBoardButton onClick={() => clearPinBoard(pinHooks)}>
           Clear Pinned Results
         </ClearPinBoardButton>
       </ClearPinBoardAndIconWrapper>
@@ -69,9 +75,7 @@ function PinnedSearches({
                   searchData={pinnedSearches}
                   category={category}
                   pinSearchResult={pinSearchResult}
-                  pinnedIds={pinnedIds}
                   toggleModal={toggleModal}
-                  taggedIds={taggedIds}
                   key={shortid.generate()}
                   pinHooks={pinHooks}
                   searchHooks={searchHooks}

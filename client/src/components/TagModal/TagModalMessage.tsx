@@ -15,18 +15,25 @@ import {
   TagAndButtonWrapper,
 } from "./styles";
 
+import {
+  SearchData,
+  PinHooks,
+  TagHooks,
+  SearchHooks,
+  ModalHooks,
+} from "../../interfaces/interfaces";
+
 interface Props {
   toggleModal: Function;
   onTagWordChange: Function;
   onSaveTag: Function;
   deleteElementFromTag: Function;
   onKeyUp: Function;
-  // temp
-  tagHooks: any;
-  pinHooks: any;
-  searchHooks: any;
-  setIsLoading: any;
-  modalHooks: any;
+  setIsLoading: Function;
+  tagHooks: TagHooks;
+  pinHooks: PinHooks;
+  searchHooks: SearchHooks;
+  modalHooks: ModalHooks;
 }
 
 function TagModalMessage({

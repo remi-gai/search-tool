@@ -94,6 +94,44 @@ interface Entry {
   phones: string[];
 }
 
+interface SearchHooks {
+  searchData: SearchData;
+  category: string;
+  searchWord: string;
+  searchedWord: string;
+  setSearchData: Function;
+  setCategory: Function;
+  setSearchWord: Function;
+  setSearchedWord: Function;
+}
+
+interface TagHooks {
+  taggedSearches: TaggedSearches;
+  taggedIds: TaggedId;
+  tagWord: string;
+  tagCategory: string;
+  tagElement: Entry;
+  showTagMenu: Boolean;
+  setTaggedSearches: Function;
+  setTaggedIds: Function;
+  setTagWord: Function;
+  setTagCategory: Function;
+  setTagElement: Function;
+  setTagMenu: Function;
+}
+
+interface PinHooks {
+  pinnedSearches: SearchData;
+  pinnedIds: Id;
+  setPinnedSearches: Function;
+  setPinnedIds: Function;
+}
+
+interface ModalHooks {
+  showModal: boolean;
+  setModal: Function;
+}
+
 export {
   Calendar,
   Contacts,
@@ -107,4 +145,8 @@ export {
   TaggedSearches,
   TaggedId,
   Entry,
+  TagHooks,
+  SearchHooks,
+  PinHooks,
+  ModalHooks,
 };
