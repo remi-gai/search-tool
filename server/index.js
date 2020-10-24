@@ -1,6 +1,5 @@
 const express = require("express");
 const path = require("path");
-const shortid = require("shortid");
 const { getCategoryData, insertUniqueIDs } = require("./serverUtils");
 
 const contactsData = require("./data/contacts");

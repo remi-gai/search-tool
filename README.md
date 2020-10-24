@@ -70,15 +70,15 @@ User interaction with search results (pin, delete, tagging):
 
 ### **The search results are ordered based on categories:**
 
-- **Reason**: Grouping the results by category will allow the user to filter the results at his/her convenience. This feature becomes more handy as the list of search results becomes longer for different categories and doesn't fit into a single page. The reasons for the current order (Contacts > Calendar > Dropbox > Slack > Twitter) is that Contacts and Calendar first are more likely to be searched on a daily basis (sending an email or checking for the schedule), followed by finding documents, then communication tools and lastly social media.
+- **Reason**: Grouping the results by category will allow the user to filter the results at his/her convenience. This feature becomes more handy as the list of search results becomes longer for different categories and doesn't fit into a single page. The reasons for the current order (Contacts > Calendar > Dropbox > Slack > Twitter) is that Contacts and Calendar are more likely to be searched on a daily basis (sending an email or checking for the schedule), followed by finding documents, then communication tools and lastly social media.
 
 ![ReadMe-images/Screen_Shot_2020-10-21_at_6.24.21_PM.png](ReadMe-images/Screen_Shot_2020-10-21_at_6.24.21_PM.png)
 
-- **Trade-off**: Ideally, the results should be ordered based on the likelyhood of usage, similar to the feature on Spotlight Search on Mac, which can be a combination of relevance and frequency of usage.
+- **Trade-off**: Ideally, the results should be ordered based on the likelyhood of usage, similar to the feature on Spotlight Search on Mac, which can be a combination of relevance and frequency of usage, and even include a "Top Hits" section.
 
 ![ReadMe-images/Untitled.png](ReadMe-images/Untitled.png)
 
-- Alternatively, the results can also be ordered by the degree of precision on the matching term (which would get more precise as more words are added into the search box), and use machine learning to better optimize the relevance of the search based on time or location. For example, a user is less likely to be querying for a "John" in San Francisco if he/she is in New York, or be more likely to query an upcoming event rather than a past event.
+- Alternatively, the results can also be ordered by the degree of accuracy on the matching term (which would get more accurate as more words are added into the search box), and use machine learning to better optimize the relevance of the search based on time or location. For example, a user is less likely to be querying for a "John" in San Francisco if he/she is in New York, or is more likely to query an upcoming event rather than a past event.
 
 ### **The result dates are based on relative time:**
 
@@ -91,11 +91,11 @@ User interaction with search results (pin, delete, tagging):
 
 ![ReadMe-images/Screen_Shot_2020-10-21_at_6.35.07_PM.png](ReadMe-images/Screen_Shot_2020-10-21_at_6.35.07_PM.png)
 
-- **Trade-off**: Ordering the results this way might prioritize recency over accuracy on the search, which might not always be the right approach.
+- **Trade-off**: Ordering the results this way might prioritize recency over accuracy on the search, which might not always be the ideal approach.
 
 ### **The pin board allows users to pin search results:**
 
-- **Reason**: I decided to include the pin board on the main page instead of having the pinned results displayed on a separate page (like the "favorite" section on Google Drive). The reason of the decision is that having the pin board on a separate page might be a redundant feature from tags. Instead, users can make a multiple queries (such as looking up for a client's contact information, finding a specific contract, and looking for recent Twitter news for a the specific company) and pin specific results to the pin board, which would serve more like a temporary work station. For long-term storage of queries, users can add tags to specific results and access them at any time in the future. In sum, having a pin board can provide more convenience and productivity value to the user (if used correctly) and avoid redundancy of features.
+- **Reason**: I decided to include the pin board on the main page instead of having the pinned results displayed on a separate page (like the "favorite" section on Google Drive). This is because having the pin board on a separate page might be a redundant feature since we already have tags. Instead, users can make a multiple queries, such as looking up for a client's contact information, finding a specific contract, and looking for recent Twitter news for a the specific company, and pin specific results to the pin board, which would serve more like a temporary work station. For long-term storage of queries, users can add tags to specific results and access them at any time in the future. In sum, having a pin board can provide more convenience and productivity value to the user (if used correctly) and avoid redundancy of features.
 
 ![ReadMe-images/Screen_Shot_2020-10-21_at_6.50.27_PM.png](ReadMe-images/Screen_Shot_2020-10-21_at_6.50.27_PM.png)
 
@@ -123,22 +123,22 @@ User interaction with search results (pin, delete, tagging):
 
 ![ReadMe-images/Screen_Shot_2020-10-21_at_7.01.02_PM.png](ReadMe-images/Screen_Shot_2020-10-21_at_7.01.02_PM.png)
 
-- **Trade-off**: Users will have to click on the "clear" button. Alternatively, we can consider having search results being displayed as the user types in the search box. However, this might add more load on the backend to fetch multiple times as the user is typing. A way to mitigate this issue would be to use a decounver to reduce the amount of unnecessary queries.
+- **Trade-off**: Users will have to click on the "clear" button or manually clear the search box. Alternatively, we can consider having search results being displayed as the user types in the search box. However, this might add more load on the backend to fetch multiple times as the user is typing. A way to mitigate this issue would be to use a debouncer to reduce the amount of unnecessary queries.
 
 ### **Clicking on the submit button or pressing the 'return' key will make the query:**
 
-- **Reason**: Pressing the 'return' key to submit a query is becoming more intuitive. Additionally, if the tag modal is open, pressing the 'return' key will save the tag instead of running a search query.
-- **Trade-off**: Having a submit button might lead the user to believe that he/she can only submit the search through the click of the button instead of pressing the 'return' key.
+- **Reason**: Pressing the 'return' key to submit a query is becoming more intuitive. Additionally, if the tag modal is currently open, pressing the 'return' key will save the tag instead of running a search query.
+- **Trade-off**: Having a submit button might lead the user to believe that he/she can only submit the query through the click of the search button instead of directly pressing the 'return' key.
 
 ### **Tags are sorted by alphabet:**
 
-- **Reason**: Sorting will provide convenience for the user to find a specific tag. Additionally, the tag modal and menu will have a vertical scrolling bar if the list of tags get too long.
+- **Reason**: Sorting will provide convenience for the user to find a specific tag. Additionally, the tag modal and menu will have a vertical scrolling bar if the list of tags gets long.
 
 ![ReadMe-images/Screen_Shot_2020-10-21_at_7.08.25_PM.png](ReadMe-images/Screen_Shot_2020-10-21_at_7.08.25_PM.png)
 
 ![ReadMe-images/Screen_Shot_2020-10-21_at_7.09.35_PM.png](ReadMe-images/Screen_Shot_2020-10-21_at_7.09.35_PM.png)
 
-- **Trade-off**: This feature wouldn't be as useful if users have to scroll through a very long list of tags to find a specific tag. Additionally, users might prefer seeing more recent tags at the top. The alternative would be to have a search/auto complete feature imbedded so that the user can quickly find existing tags. This feature is not part of the demo, but here are some visual representations:
+- **Trade-off**: This feature wouldn't be as useful if users have to scroll through a very long list of tags to find a specific tag. Moreover, users might prefer seeing more recent tags at the top. The alternative would be to have a search/auto complete feature imbedded so that the user can quickly find existing tags. This feature is not part of the demo, but here are some visual representations of the idea:
 
 ![ReadMe-images/Untitled%201.png](ReadMe-images/Untitled%201.png)
 
@@ -146,7 +146,7 @@ User interaction with search results (pin, delete, tagging):
 
 ### **Long result details are trimmed with an ellipsis:**
 
-- **Reason**: The details might be trimmed to make sure that the format of the results are uniform. We often just need a portion of the relevant message to get a general sense of whether the search result is relevant. If the user wants more details, then he/she can directly click on the result to expand the details or be directed to the search result (not part of this MVP).
+- **Reason**: The text within the details section might be trimmed to make sure that the format of all the results is uniform. We often just need a portion of the relevant message to get a general sense of whether the current search result is relevant. If the user wants more details, then he/she can directly click on the result to expand the details or be directed to the search result (not part of this MVP).
 
 ![ReadMe-images/Screen_Shot_2020-10-21_at_7.33.13_PM.png](ReadMe-images/Screen_Shot_2020-10-21_at_7.33.13_PM.png)
 
@@ -158,9 +158,9 @@ User interaction with search results (pin, delete, tagging):
 
 ![ReadMe-images/Screen_Shot_2020-10-21_at_7.40.11_PM.png](ReadMe-images/Screen_Shot_2020-10-21_at_7.40.11_PM.png)
 
-- **Tradeoff**: this behavior might not be as intuitive for many users and require learning (in a tip section).
+- **Tradeoff**: this behavior might not be as intuitive for many users and require learning (through a 'tips' section).
 
-### **Search results from the pin and search boards can be clear with a single click:**
+### **Search results from the pin and search boards can be cleared with a single click:**
 
 - **Reason**: This is to add convenience for the user to declutter the pin and search boards. Specifically, the pin board is meant to be used in a temporary fashion.
 

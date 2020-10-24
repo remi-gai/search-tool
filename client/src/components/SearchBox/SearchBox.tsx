@@ -31,10 +31,16 @@ function SearchBox({
   setIsLoading,
   searchInputRef,
   searchHooks,
-  pinHooks,
   tagHooks,
 }: Props) {
   const { searchWord } = searchHooks;
+  const onChangeUpdateSearchWord = (e) => onSearchWordChange(e, searchHooks);
+  const onKeyUpPress = (e) =>
+    onKeyUp(e, "search", tagHooks, searchHooks, setIsLoading);
+  const onClickClearSearchBox = () =>
+    clearSearchBox(searchHooks, searchInputRef);
+  const onClickSearchWord = () =>
+    onSearchWordSubmit(searchHooks, tagHooks, setIsLoading);
 
   return (
     <SearchBoxWrapper>
@@ -42,25 +48,14 @@ function SearchBox({
       <SearchInput
         placeholder={"Search"}
         value={searchWord}
-        onChange={(e) => onSearchWordChange(e, searchHooks)}
-        onKeyUp={(e) =>
-          onKeyUp(e, "search", tagHooks, searchHooks, setIsLoading)
-        }
+        onChange={onChangeUpdateSearchWord}
+        onKeyUp={onKeyUpPress}
         ref={searchInputRef}
       ></SearchInput>
+
       <ButtonsWrapper>
-        <ClearButton
-          onClick={() => clearSearchBox(searchHooks, searchInputRef)}
-        >
-          Clear
-        </ClearButton>
-        <SubmitButton
-          onClick={() =>
-            onSearchWordSubmit(searchHooks, tagHooks, setIsLoading)
-          }
-        >
-          Search
-        </SubmitButton>
+        <ClearButton onClick={onClickClearSearchBox}>Clear</ClearButton>
+        <SubmitButton onClick={onClickSearchWord}>Search</SubmitButton>
       </ButtonsWrapper>
     </SearchBoxWrapper>
   );

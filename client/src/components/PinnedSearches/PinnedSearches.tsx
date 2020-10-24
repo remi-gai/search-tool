@@ -41,8 +41,7 @@ function PinnedSearches({
   modalHooks,
   tagHooks,
 }: Props) {
-  const { pinnedSearches, pinnedIds } = pinHooks;
-  const { taggedIds } = tagHooks;
+  const { pinnedSearches } = pinHooks;
 
   const emptyMessage = (
     <EmptyMessage>The pin board is currently empty.</EmptyMessage>
@@ -55,6 +54,8 @@ function PinnedSearches({
     pinnedSearches.twitter.length;
   const categories = ["contacts", "calendar", "dropbox", "slack", "twitter"];
 
+  const onClickClearPinBoard = () => clearPinBoard(pinHooks);
+
   return (
     <PinnedWrapper>
       <ClearPinBoardAndIconWrapper>
@@ -62,7 +63,7 @@ function PinnedSearches({
           <PinIcon></PinIcon>
           <PinBoardTitle>Pin Board:</PinBoardTitle>
         </PinAndPinBoardTitleWrapper>
-        <ClearPinBoardButton onClick={() => clearPinBoard(pinHooks)}>
+        <ClearPinBoardButton onClick={onClickClearPinBoard}>
           Clear Pinned Results
         </ClearPinBoardButton>
       </ClearPinBoardAndIconWrapper>

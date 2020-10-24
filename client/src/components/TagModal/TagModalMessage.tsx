@@ -53,38 +53,41 @@ function TagModalMessage({
   if (taggedIds[elementId]) {
     listOfTags = taggedIds[elementId].slice();
   }
-  const sortedListOfTags = listOfTags.sort();
 
+  const onClickToggleModal = () =>
+    toggleModal(null, null, modalHooks, tagHooks);
+  const onClickSaveTag = () => onSaveTag(tagHooks);
+  const onChangeTagWord = (e) => onTagWordChange(e, setTagWord);
+  const onKeyUpPress = (e) =>
+    onKeyUp(e, "tagModal", tagHooks, searchHooks, setIsLoading);
   return (
     <TagModalWrapper>
       <CloseButtonWrapper>
-        <CloseModalButton
-          onClick={() => toggleModal(null, null, modalHooks, tagHooks)}
-        ></CloseModalButton>
+        <CloseModalButton onClick={onClickToggleModal}></CloseModalButton>
       </CloseButtonWrapper>
       <TagModalTitle>Edit Tags</TagModalTitle>
       <TagsListWrapper>
-        {sortedListOfTags.map((tag) => (
-          <TagWrapper key={shortid.generate()}>
-            <TagName>{tag}</TagName>
-            <DeleteTagIcon
-              onClick={() => deleteElementFromTag(tag, tagHooks)}
-            ></DeleteTagIcon>
-          </TagWrapper>
-        ))}
+        {listOfTags.sort().map((tag) => {
+          const onClickDeleteElementFromTag = () =>
+            deleteElementFromTag(tag, tagHooks);
+          return (
+            <TagWrapper key={shortid.generate()}>
+              <TagName>{tag}</TagName>
+              <DeleteTagIcon
+                onClick={onClickDeleteElementFromTag}
+              ></DeleteTagIcon>
+            </TagWrapper>
+          );
+        })}
       </TagsListWrapper>
       <TagAndButtonWrapper>
         <TagModalInputBox
           value={tagWord}
-          onChange={(e) => onTagWordChange(e, setTagWord)}
-          onKeyUp={(e) =>
-            onKeyUp(e, "tagModal", tagHooks, searchHooks, setIsLoading)
-          }
+          onChange={onChangeTagWord}
+          onKeyUp={onKeyUpPress}
           maxLength="20"
         ></TagModalInputBox>
-        <SaveTagsButton onClick={() => onSaveTag(tagHooks)}>
-          Save
-        </SaveTagsButton>
+        <SaveTagsButton onClick={onClickSaveTag}>Save</SaveTagsButton>
       </TagAndButtonWrapper>
     </TagModalWrapper>
   );
